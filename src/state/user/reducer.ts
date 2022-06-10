@@ -21,8 +21,6 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(setTokenBalance, (state, action) => {
       const { grapeTokenBalance, vintageWineTokenBalance } = action.payload;
-      console.log("grapeTokenBalance", grapeTokenBalance);
-      console.log("vintageWineTokenBalance", vintageWineTokenBalance);
       if (grapeTokenBalance) state.grapeTokenBalance = grapeTokenBalance;
       if (vintageWineTokenBalance)
         state.vintageWineTokenBalance = vintageWineTokenBalance;

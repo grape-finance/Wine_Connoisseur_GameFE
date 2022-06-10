@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "routes";
-import { useFetchingBalance } from "state/user/hooks";
+import { useIsFetching } from "state/user/hooks";
 import Navbar from "components/Navbar";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,7 +16,7 @@ import background from "assets/background.jpg";
 const drawerWidth = 240;
 
 function App() {
-  const isLoading = useFetchingBalance();
+  const isLoading = useIsFetching();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {

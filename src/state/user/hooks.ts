@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { AppState } from "store";
 
-export function useFetchingBalance() {
+export function useIsFetching() {
   return useSelector((state: AppState) => state.user.isLoading);
 }
 

@@ -45,7 +45,7 @@ export default function Navbar(props: Props) {
             <ListItemIcon>
               <AccountCircle sx={{ color: "white" }} />
             </ListItemIcon>
-            <ListItemText primary="Account" />
+            <ListItemText primary="Vintner" />
           </ListItemButton>
         </ListItem>
       </List>

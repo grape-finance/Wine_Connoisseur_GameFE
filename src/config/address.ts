@@ -24,7 +24,7 @@ export const CELLAR_ADDRESS: AddressMap = {
 
 export const UPGRADE_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0x791007EF0BE8e786C1577784b46eDb4176f7B073",
+  [SupportedChainId.TESTNET]: "0xD9FB85B711BaEbD3d9395214FB4B75Fa2b7a75Eb",
 };
 
 export const VINTNER_ADDRESS: AddressMap = {
@@ -41,3 +41,10 @@ export const WINERY_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
   [SupportedChainId.TESTNET]: "0x64943ba510c025a93766a65881b3347083a88f20",
 };
+
+export const buyGrapeAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${GRAPE_ADDRESS[43114]}`;
+export const buyVintageWineAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${VINTAGEWINE_ADDRESS[43114]}`;
+export const buyVintnerNFTAddress =
+  "https://nftrade.com/assets/avalanche/0x001e68282d52dcaba3749291bac33a9678073d01";
+export const buyToolsNFTAddress =
+  "https://nftrade.com/assets/avalanche/0x6cc4cc814c7154fb67965c8044cc803b3199ec53";

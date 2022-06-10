@@ -1,7 +1,23 @@
 import { Contract } from "@ethersproject/contracts";
+import {
+  GRAPE_ADDRESS,
+  VINTAGEWINE_ADDRESS,
+  CELLAR_ADDRESS,
+  UPGRADE_ADDRESS,
+  VINTNER_ADDRESS,
+  WINERYPROGRESSION_ADDRESS,
+  WINERY_ADDRESS,
+} from "config/address";
 import { useMemo } from "react";
 import { useWeb3 } from "state/web3";
 import { getContract } from "utils";
+import GRAPE_TOKEN_ABI from "abi/grape.json";
+import VINTAGEWINE_TOKEN_ABI from "abi/vintageWine.json";
+import CELLAR_ABI from "abi/cellar.json";
+import UPGRADE_ABI from "abi/upgrade.json";
+import VINTNER_ABI from "abi/vintner.json";
+import WINERY_ABI from "abi/winery.json";
+import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 
 export function useContract(
   addressOrAddressMap: string | { [chainId: number]: string } | undefined,
@@ -39,4 +55,32 @@ export function useContract(
     withSignerIfPossible,
     account,
   ]);
+}
+
+export function useGrapeContract() {
+  return useContract(GRAPE_ADDRESS, GRAPE_TOKEN_ABI);
+}
+
+export function useVintageWineContract() {
+  return useContract(VINTAGEWINE_ADDRESS, VINTAGEWINE_TOKEN_ABI);
+}
+
+export function useCellarContract() {
+  return useContract(CELLAR_ADDRESS, CELLAR_ABI);
+}
+
+export function useUpgradeContract() {
+  return useContract(UPGRADE_ADDRESS, UPGRADE_ABI);
+}
+
+export function useVintnerContract() {
+  return useContract(VINTNER_ADDRESS, VINTNER_ABI);
+}
+
+export function useWineryContract() {
+  return useContract(WINERY_ADDRESS, WINERY_ABI);
+}
+
+export function useWineryProgressionContract() {
+  return useContract(WINERYPROGRESSION_ADDRESS, WINERYPROGRESSION_ABI);
 }
