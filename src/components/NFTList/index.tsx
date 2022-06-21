@@ -1,4 +1,4 @@
-import { CardMedia, Typography } from "@mui/material";
+import { CardMedia, ImageList, ImageListItem, Typography } from "@mui/material";
 import Loading from "components/Loading";
 import { useQuery, gql } from "@apollo/client";
 import React, { useEffect, useState } from "react";
@@ -16,11 +16,13 @@ const FetchImageComponent = (url: any) => {
     .then((result) => setImage(result.image))
     .catch((error) => console.log("error", error));
   return (
-    <CardMedia
-      component="img"
-      image={imageURL}
-      style={{ width: "50px", height: "50px", display: "inline" }}
-    />
+    <ImageListItem>
+      <CardMedia
+        component="img"
+        image={imageURL}
+        style={{ width: "50px", height: "50px", display: "inline" }}
+      />
+    </ImageListItem>
   );
 };
 
@@ -54,10 +56,13 @@ const NFTList = (account: IProps) => {
   return (
     <div>
       <Typography>Vintner</Typography>
-      {!_.isEmpty(vintnerNFTs) &&
-        vintnerNFTs.map((id: any) => (
-          <FetchImageComponent url={id.contentURI} key={id} />
-        ))}
+      {!_.isEmpty(vintnerNFTs) && (
+        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+          {vintnerNFTs.map((id: any) => (
+            <FetchImageComponent url={id.contentURI} key={id} />
+          ))}
+        </ImageList>
+      )}
       <Typography>Tools</Typography>
       {!_.isEmpty(upgradeNFTs) &&
         upgradeNFTs?.map((id: any) => (

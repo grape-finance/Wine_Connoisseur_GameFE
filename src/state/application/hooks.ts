@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../hooks";
 import { setOpenModal } from "./actions";
 import { ApplicationModal } from "./reducer";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useAppSelector } from "state/hooks";
 import { AppState } from "store";

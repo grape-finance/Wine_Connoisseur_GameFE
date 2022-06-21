@@ -1,14 +1,14 @@
 import "./index.css";
-import { IconButton, Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useModalOpen, useWalletModalToggle } from "state/application/hooks";
 import { ApplicationModal } from "state/application/reducer";
 import WalletLink from "walletlink";
 import { useWeb3 } from "state/web3";
 import Web3Modal from "web3modal";
-import {SupportedChainId} from "config/address";
+import { SupportedChainId } from "config/address";
 
 const INFURA_ID = "e67a2556dede4ff2b521a375a1905f8b";
 
@@ -180,7 +180,6 @@ export default function ConnectWalletButton() {
           },
         ],
       });
-
   };
 
   const swithNetwork = async () => {
@@ -269,45 +268,37 @@ export default function ConnectWalletButton() {
     }
   }, [instance, web3Dispatch]);
 
-  return instance ? (
+  return (
     <Button
       sx={{
-        minWidth: 60,
+        p: 1.3,
+        borderRadius: "1rem",
+        transition: "0.3s",
         textTransform: "none",
-        backgroundColor: "rgba(0, 122, 255, 0.08)",
-        px: 2,
-        py: { lg: 2, md: 1 },
-        border: "none",
-        float: "right",
+        fontSize: "16px",
+        fontWeight: "fontWeightBold",
+        border: "1px solid",
+        borderColor: {
+          xs: "info.light",
+          md: "info.light",
+          lg: "info.main",
+        },
+        color: "info.light",
+        "&:hover": {
+          border: "1px solid",
+          borderColor: {
+            xs: "info.light",
+            md: "info.light",
+            lg: "info.main",
+          },
+          // color: "info.main",
+        },
       }}
+      color="info"
       variant="contained"
-      color="primary"
-      onClick={disconnect}
+      onClick={instance ? disconnect : toggleWalletModal}
     >
-      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-        Disconnect
-      </Typography>
+      {instance ? "Disconnect" : "Connect wallet"}
     </Button>
-  ) : (
-    <>
-      <Button
-        sx={{
-          minWidth: 60,
-          textTransform: "none",
-          backgroundColor: "rgba(0, 122, 255, 0.08)",
-          px: 2,
-          py: { lg: 2, md: 1 },
-          border: "none",
-          float: "right",
-        }}
-        variant="contained"
-        color="primary"
-        onClick={toggleWalletModal}
-      >
-        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-          Connect wallet
-        </Typography>
-      </Button>
-    </>
   );
 }

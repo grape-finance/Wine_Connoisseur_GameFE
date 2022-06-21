@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "Gideon Roman";
+  src: url("assets/fonts/GideonRoman-Regular.otf");
+  font-weight: 325;
+  font-style: normal;
+  font-display: swap;
+}
+html {
+  scroll-behavior: smooth;
+  font-family: "Gideon Roman", ui-sans-serif, system-ui;
+  overflow: overlay;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+.icon-1 {
+  width: 27px;
+  height: 27px;
+  color: #ffedd5;
+  cursor: pointer;
+}
+.icon-1:hover {
+  transform: scale(1.3);
+  color: #a16207;
+}
+.icon-2 {
+  width: 20px;
+  height: 25px;
+  color: #ffedd5;
+  cursor: pointer;
+}
+.icon-2:hover {
+  transform: scale(1.2);
+  color: #a16207;
+}
+.icon-3 {
+  width: 20px;
+  height: 25px;
+  color: #ffedd5;
+  cursor: pointer;
+}
+.icon-3:hover {
+  color: #a16207;
+}
