@@ -1,39 +1,36 @@
-import { setTokenBalance, setLoading } from "./actions";
+import { setUserTokenBalance, setLoading, setNFTInfo } from "./actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useContract } from "hooks/useContract";
-import GRAPE_TOKEN_ABI from "abi/grape.json";
-import VINTAGEWINE_TOKEN_ABI from "abi/vintageWine.json";
-import { useWeb3 } from "state/web3";
 import {
-  GRAPE_ADDRESS,
-  VINTAGEWINE_ADDRESS,
-  SupportedChainId,
-} from "config/address";
-// import Web3 from "web3";
+  useGrapeContract,
+  useUpgradeContract,
+  useVintageWineContract,
+  useVintnerContract,
+  useWineryContract,
+} from "hooks/useContract";
+
+import { useWeb3 } from "state/web3";
+import { SupportedChainId } from "config/address";
 
 export default function Updater(): null {
   const dispatch = useDispatch();
 
   const { account, chainId } = useWeb3();
-  const grapeTokenContract = useContract(
-    GRAPE_ADDRESS[chainId!],
-    GRAPE_TOKEN_ABI
-  );
-  console.log("grapeTokenContract", grapeTokenContract);
-  const vintageWineTokenContract = useContract(
-    VINTAGEWINE_ADDRESS[chainId!],
-    VINTAGEWINE_TOKEN_ABI
-  );
-  console.log("vintageWineTokenContract", vintageWineTokenContract);
+  const grapeTokenContract = useGrapeContract();
+  const vintageWineTokenContract = useVintageWineContract();
+  const vintnerContract = useVintnerContract();
+  const upgradeContract = useUpgradeContract();
+  const wineryContract = useWineryContract();
 
   useEffect(() => {
-    // Get User balance of Grape and VintageWine
-
+    // Get user token balance of Grape and VintageWine
     if (
       account &&
       grapeTokenContract &&
       vintageWineTokenContract &&
+      vintnerContract &&
+      upgradeContract &&
+      wineryContract &&
       (chainId === SupportedChainId.MAINNET ||
         chainId === SupportedChainId.TESTNET)
     ) {
@@ -43,19 +40,32 @@ export default function Updater(): null {
             isLoading: true,
           })
         );
+
+        // get User Info
         const grapeTokenBalance = await grapeTokenContract.balanceOf(account);
         const vintageWineTokenBalance =
           await vintageWineTokenContract.balanceOf(account);
-        console.log("grapeTokenBalance", grapeTokenBalance);
-        console.log("vintageWineTokenBalance", vintageWineTokenBalance);
+        const vintnerBalance = await vintnerContract.balanceOf(account);
+        const upgradeBalance = await upgradeContract.balanceOf(account);
+        const vintnerStakedBalance =
+          await wineryContract.ownedVintnerStakesBalance(account);
+        const upgradeStakedBalance =
+          await wineryContract.ownedUpgradeStakesBalance(account);
+
         if (grapeTokenBalance !== "" && vintageWineTokenBalance !== "")
           dispatch(
-            setTokenBalance({
+            setUserTokenBalance({
               grapeTokenBalance: Number(grapeTokenBalance) / Math.pow(10, 18),
               vintageWineTokenBalance:
                 Number(vintageWineTokenBalance) / Math.pow(10, 18),
+              vintnerBalance: Number(vintnerBalance),
+              upgradeBalance: Number(upgradeBalance),
+              vintnerStakedBalance: Number(vintnerStakedBalance),
+              upgradeStakedBalance: Number(upgradeStakedBalance),
             })
           );
+
+        // Get total staked amount
         dispatch(
           setLoading({
             isLoading: false,
@@ -69,7 +79,10 @@ export default function Updater(): null {
     chainId,
     dispatch,
     grapeTokenContract,
+    vintnerContract,
+    upgradeContract,
     vintageWineTokenContract,
+    wineryContract,
   ]);
 
   return null;

@@ -2,8 +2,8 @@
   {
     "inputs": [
       {
-        "internalType": "contract VintageWine",
-        "name": "_vintageWine",
+        "internalType": "address",
+        "name": "_couponSigner",
         "type": "address"
       },
       {
@@ -11,7 +11,11 @@
         "name": "_vintnerTypeOracleAddress",
         "type": "address"
       },
-      { "internalType": "string", "name": "_BASE_URI", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "_BASE_URI",
+        "type": "string"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -171,77 +175,132 @@
   {
     "inputs": [],
     "name": "BASE_URI",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "MASTER_VINTNER_TYPE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "MASTER_VINTNER_YIELD",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "NUM_GEN0_VINTNERS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "NUM_GEN1_VINTNERS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "NUM_VINTNERS",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "PROMOTIONAL_VINTNERS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "VINTNERS_PER_VINTAGEWINE_MINT_LEVEL",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "VINTNER_PRICE_AVAX",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "VINTNER_TYPE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "VINTNER_YIELD",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "WHITELIST_VINTNERS",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "approve",
     "outputs": [],
@@ -250,33 +309,18 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
     ],
     "name": "balanceOf",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "uint256", "name": "_offset", "type": "uint256" },
-      { "internalType": "uint256", "name": "_maxSize", "type": "uint256" }
-    ],
-    "name": "batchedVintnersOfOwner",
     "outputs": [
       {
-        "components": [
-          { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
-          {
-            "internalType": "uint256",
-            "name": "vintnerType",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct Vintner.VintnerInfo[]",
+        "internalType": "uint256",
         "name": "",
-        "type": "tuple[]"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -284,8 +328,14 @@
   },
   {
     "inputs": [],
-    "name": "currentVINTAGEWINEMintCost",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "couponSigner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -296,8 +346,16 @@
         "name": "_token",
         "type": "address"
       },
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
-      { "internalType": "address", "name": "target", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
     ],
     "name": "forwardERC20s",
     "outputs": [],
@@ -306,46 +364,102 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "getApproved",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_tokenId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "getType",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_tokenId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "getYield",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "address", "name": "_operator", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_operator",
+        "type": "address"
+      }
     ],
     "name": "isApprovedForAll",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "qty", "type": "uint256" },
-      { "internalType": "uint256", "name": "vintnerType", "type": "uint256" },
-      { "internalType": "address", "name": "target", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "qty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vintnerType",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
     ],
     "name": "mintPromotional",
     "outputs": [],
@@ -353,15 +467,54 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "qty", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "qty",
+        "type": "uint256"
+      }
+    ],
     "name": "mintVintnerWithAVAX",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "qty", "type": "uint256" }],
-    "name": "mintVintnerWithVINTAGEWINE",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "qty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "allotted",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Vintner.Coupon",
+        "name": "coupon",
+        "type": "tuple"
+      }
+    ],
+    "name": "mintWhitelist",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -369,44 +522,84 @@
   {
     "inputs": [],
     "name": "mintingStartedAVAX",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "mintingStartedVINTAGEWINE",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "name": "mintingStartedWhitelist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "ownerOf",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "paused",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -419,9 +612,21 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "from", "type": "address" },
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "safeTransferFrom",
     "outputs": [],
@@ -430,10 +635,26 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "from", "type": "address" },
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
-      { "internalType": "bytes", "name": "_data", "type": "bytes" }
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
     "name": "safeTransferFrom",
     "outputs": [],
@@ -442,8 +663,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "operator", "type": "address" },
-      { "internalType": "bool", "name": "approved", "type": "bool" }
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
     ],
     "name": "setApprovalForAll",
     "outputs": [],
@@ -452,7 +681,11 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "_BASE_URI", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "_BASE_URI",
+        "type": "string"
+      }
     ],
     "name": "setBaseURI",
     "outputs": [],
@@ -461,7 +694,24 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_startTime", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "couponSigner_",
+        "type": "address"
+      }
+    ],
+    "name": "setCouponSigner",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      }
     ],
     "name": "setStartTimeAVAX",
     "outputs": [],
@@ -470,26 +720,29 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_startTime", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      }
     ],
-    "name": "setStartTimeVINTAGEWINE",
+    "name": "setStartTimeWhitelist",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_vintageWine", "type": "address" }
-    ],
-    "name": "setVintageWine",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
-      { "internalType": "uint256", "name": "vintnerType", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vintnerType",
+        "type": "uint256"
+      }
     ],
     "name": "setVintnerType",
     "outputs": [],
@@ -498,7 +751,24 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_wineryAddress", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "qty",
+        "type": "uint256"
+      }
+    ],
+    "name": "setWhitelistMintCount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wineryAddress",
+        "type": "address"
+      }
     ],
     "name": "setWineryAddress",
     "outputs": [],
@@ -521,80 +791,116 @@
   {
     "inputs": [],
     "name": "startTimeAVAX",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "startTimeVINTAGEWINE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "startTimeWhitelist",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
     ],
     "name": "supportsInterface",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "symbol",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "index", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    "name": "tokenByIndex",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "owner", "type": "address" },
-      { "internalType": "uint256", "name": "index", "type": "uint256" }
-    ],
-    "name": "tokenOfOwnerByIndex",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "name": "tokenTypes",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "tokenURI",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "from", "type": "address" },
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
     ],
     "name": "transferFrom",
     "outputs": [],
@@ -603,7 +909,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "transferOwnership",
     "outputs": [],
@@ -611,17 +921,20 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "typeYields",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "vintageWine",
     "outputs": [
-      { "internalType": "contract VintageWine", "name": "", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -629,48 +942,107 @@
   {
     "inputs": [],
     "name": "vintnerTypeOracleAddress",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "vintnersMinted",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "vintnersMintedPromotional",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "vintnersMintedWhitelist",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "vintnersMintedWithAVAX",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "vintnersMintedWithVINTAGEWINE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "whitelistClaimed",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "wineryAddress",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
     ],
     "name": "withdrawAVAX",
     "outputs": [],

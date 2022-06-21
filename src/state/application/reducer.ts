@@ -1,4 +1,4 @@
-import { updateBlockNumber, setOpenModal } from "./actions";
+import { updateBlockNumber, setOpenModal, setLoading } from "./actions";
 import { createReducer } from "@reduxjs/toolkit";
 
 export enum ApplicationModal {
@@ -8,11 +8,13 @@ export enum ApplicationModal {
 export interface ApplicationState {
   readonly blockNumber: { readonly [chainId: number]: number };
   readonly openModal: ApplicationModal | null;
+  isLoading: boolean;
 }
 
 const initialState: ApplicationState = {
   blockNumber: {},
   openModal: null,
+  isLoading: false,
 };
 
 export default createReducer(initialState, (builder) =>
@@ -30,5 +32,9 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(setOpenModal, (state, action) => {
       state.openModal = action.payload;
+    })
+    .addCase(setLoading, (state, action) => {
+      const { isLoading } = action.payload;
+      state.isLoading = isLoading;
     })
 );

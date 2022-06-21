@@ -2,9 +2,19 @@ import { createAction } from "@reduxjs/toolkit";
 
 export const setLoading = createAction<{
   isLoading: boolean;
-}>("token/setLoading");
+}>("user/setLoading");
 
-export const setTokenBalance = createAction<{
+export const setNFTInfo = createAction<{
+  vintnerTotalStakedBalance: number;
+  upgradeTotalStakedBalance: number;
+}>("user/setNFTInfo");
+
+
+export const setUserTokenBalance = createAction<{
   grapeTokenBalance: number;
   vintageWineTokenBalance: number;
-}>("token/setTokenBalance");
+  vintnerBalance: number;
+  upgradeBalance: number;
+  vintnerStakedBalance: number;
+  upgradeStakedBalance: number;
+}>("user/setUserTokenBalance");

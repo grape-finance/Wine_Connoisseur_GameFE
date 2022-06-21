@@ -1,7 +1,11 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_grape", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_grape",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -91,92 +95,190 @@
   {
     "inputs": [],
     "name": "BURN_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "CELLAR_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "FATIGUE_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "MASTERVINTNER_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "MAX_SKILL_LEVEL",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "STORAGE_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "UPGRADES_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "VINTNERS_ID",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "baseCostRespect",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "burnSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "cellarSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "burnSkillValue",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "cellarSkillValue",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "checkIfNeedUpdate",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
     ],
     "name": "depositGrape",
     "outputs": [],
@@ -184,15 +286,31 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "fatigueSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_player", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_player",
+        "type": "address"
+      }
     ],
     "name": "fixSkillPoints",
     "outputs": [],
@@ -201,61 +319,125 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getBurnSkillModifier",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getCellarSkillModifier",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getFatigueSkillModifier",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getGrapeDeposited",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getGrapeToNextLevel",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getLevel",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
       {
         "internalType": "uint256",
         "name": "_masterVintnerNumber",
@@ -263,49 +445,113 @@
       }
     ],
     "name": "getMasterVintnerSkillModifier",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getMaxLevelUpgrade",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getMaxNumberVintners",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getSkillPoints",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getSkillsLearned",
     "outputs": [
-      { "internalType": "uint256", "name": "burn", "type": "uint256" },
-      { "internalType": "uint256", "name": "fatigue", "type": "uint256" },
-      { "internalType": "uint256", "name": "cellar", "type": "uint256" },
-      { "internalType": "uint256", "name": "mastervintner", "type": "uint256" },
-      { "internalType": "uint256", "name": "upgrades", "type": "uint256" },
-      { "internalType": "uint256", "name": "vintners", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "burn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "fatigue",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "cellar",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "mastervintner",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "upgrades",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vintners",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "vintageWineStorage",
@@ -317,10 +563,20 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getVintageWineStorage",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -328,50 +584,108 @@
     "inputs": [],
     "name": "grape",
     "outputs": [
-      { "internalType": "contract IGrape", "name": "", "type": "address" }
+      {
+        "internalType": "contract IGrape",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "grapeDeposited",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "grapeLevels",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "levelStarted",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "levelTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "masterVintnerSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "maxGrapeAmount",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -379,7 +693,11 @@
     "inputs": [],
     "name": "oldWinery",
     "outputs": [
-      { "internalType": "contract IWinery", "name": "", "type": "address" }
+      {
+        "internalType": "contract IWinery",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -387,7 +705,13 @@
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -420,7 +744,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_grape", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_grape",
+        "type": "address"
+      }
     ],
     "name": "setGrape",
     "outputs": [],
@@ -429,8 +757,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_newValue", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newValue",
+        "type": "uint256"
+      }
     ],
     "name": "setGrapeLevels",
     "outputs": [],
@@ -439,7 +775,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_startTime", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      }
     ],
     "name": "setLevelStartTime",
     "outputs": [],
@@ -448,7 +788,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_oldWinery", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_oldWinery",
+        "type": "address"
+      }
     ],
     "name": "setOldWinery",
     "outputs": [],
@@ -457,8 +801,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setburnSkillValue",
     "outputs": [],
@@ -467,8 +819,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setcellarSkillValue",
     "outputs": [],
@@ -477,8 +837,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setfatigueSkillValue",
     "outputs": [],
@@ -487,8 +855,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setmasterVintnerSkillValue",
     "outputs": [],
@@ -497,8 +873,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setupgradesSkillValue",
     "outputs": [],
@@ -507,8 +891,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setvintageWineStorageSkillValue",
     "outputs": [],
@@ -517,8 +909,16 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_index", "type": "uint256" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
     "name": "setvintnersSkillValue",
     "outputs": [],
@@ -526,26 +926,60 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "skillPoints",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "skillsLearned",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_skillGroup", "type": "uint256" },
-      { "internalType": "uint256", "name": "_skillLevel", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_skillGroup",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_skillLevel",
+        "type": "uint256"
+      }
     ],
     "name": "spendSkillPoints",
     "outputs": [],
@@ -554,7 +988,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "transferOwnership",
     "outputs": [],
@@ -563,7 +1001,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "updateDataFromOldWinery",
     "outputs": [],
@@ -571,30 +1013,78 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "updateOnce",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "upgradesSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "vintageWineStorageSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "vintnersSkillValue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   }

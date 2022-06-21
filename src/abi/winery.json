@@ -79,48 +79,92 @@
   {
     "inputs": [],
     "name": "CLAIM_VINTAGEWINE_BURN_PERCENTAGE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "DEAD_ADDRESS",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "MAX_FATIGUE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "uint256", "name": "_offset", "type": "uint256" },
-      { "internalType": "uint256", "name": "_maxSize", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxSize",
+        "type": "uint256"
+      }
     ],
     "name": "batchedStakesOfOwner",
     "outputs": [
       {
         "components": [
-          { "internalType": "uint256", "name": "vintnerId", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "vintnerId",
+            "type": "uint256"
+          },
           {
             "internalType": "uint256",
             "name": "vintnerPPM",
             "type": "uint256"
           },
-          { "internalType": "bool", "name": "isResting", "type": "bool" },
+          {
+            "internalType": "bool",
+            "name": "isResting",
+            "type": "bool"
+          },
           {
             "internalType": "uint256",
             "name": "endTimestamp",
@@ -137,16 +181,36 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "uint256", "name": "_offset", "type": "uint256" },
-      { "internalType": "uint256", "name": "_maxSize", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxSize",
+        "type": "uint256"
+      }
     ],
     "name": "batchedToolsOfOwner",
     "outputs": [
       {
         "components": [
-          { "internalType": "uint256", "name": "toolId", "type": "uint256" },
-          { "internalType": "uint256", "name": "toolPPM", "type": "uint256" }
+          {
+            "internalType": "uint256",
+            "name": "toolId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "toolPPM",
+            "type": "uint256"
+          }
         ],
         "internalType": "struct Winery.StakedToolInfo[]",
         "name": "",
@@ -159,7 +223,13 @@
   {
     "inputs": [],
     "name": "cellarAddress",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -171,87 +241,185 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "fatiguePerMinute",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_ppm", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_ppm",
+        "type": "uint256"
+      }
     ],
     "name": "fatiguePerMinuteCalculation",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "pure",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "fatigueTuner",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "gameStarted",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getFatigueAccrued",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getFatiguePerMinuteWithModifier",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_tokenId", "type": "uint256" },
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getRestingTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getTimeUntilFatigued",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getTotalPPM",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "name": "getVintageWineAccrued",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -259,7 +427,11 @@
     "inputs": [],
     "name": "grape",
     "outputs": [
-      { "internalType": "contract IGrape", "name": "", "type": "address" }
+      {
+        "internalType": "contract IGrape",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -267,7 +439,13 @@
   {
     "inputs": [],
     "name": "grapeResetCost",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -288,7 +466,11 @@
         "name": "_vintageWine",
         "type": "address"
       },
-      { "internalType": "address", "name": "_grape", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_grape",
+        "type": "address"
+      },
       {
         "internalType": "address",
         "name": "_cellarAddress",
@@ -307,73 +489,175 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "numberOfStaked",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "ownedUpgradeStakes",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "ownedUpgradeStakesBalance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "ownedUpgradeStakesIndex",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "ownedUpgradeStakesBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownedUpgradeStakesIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "ownedVintnerStakes",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "ownedVintnerStakesBalance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "ownedVintnerStakesIndex",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "proxiableUUID",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -406,29 +690,59 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_vintnerType", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_vintnerType",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_masterVintnerType",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "_fatigue", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_fatigue",
+        "type": "uint256"
+      }
     ],
     "name": "restingTimeCalculation",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "pure",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "restingVintners",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_cellarAddress", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_cellarAddress",
+        "type": "address"
+      }
     ],
     "name": "setCellarAddress",
     "outputs": [],
@@ -437,7 +751,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_fatigueTuner", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_fatigueTuner",
+        "type": "uint256"
+      }
     ],
     "name": "setFatigueTuner",
     "outputs": [],
@@ -446,7 +764,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_grape", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_grape",
+        "type": "address"
+      }
     ],
     "name": "setGrape",
     "outputs": [],
@@ -468,7 +790,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_startTime", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      }
     ],
     "name": "setStartTime",
     "outputs": [],
@@ -542,7 +868,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_yieldPPS", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_yieldPPS",
+        "type": "uint256"
+      }
     ],
     "name": "setYieldPPS",
     "outputs": [],
@@ -568,37 +898,87 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "stakedUpgrades",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "stakedVintners",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "startTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "startTimeStamp",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_startTime", "type": "uint256" },
-      { "internalType": "uint256", "name": "_fatigue", "type": "uint256" },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "startTimeStamp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_fatigue",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_fatiguePerMinute",
@@ -606,20 +986,42 @@
       }
     ],
     "name": "timeUntilFatiguedCalculation",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "pure",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "totalPPM",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "transferOwnership",
     "outputs": [],
@@ -629,7 +1031,13 @@
   {
     "inputs": [],
     "name": "unstakePenalty",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -655,7 +1063,11 @@
     "inputs": [],
     "name": "upgrade",
     "outputs": [
-      { "internalType": "contract Upgrade", "name": "", "type": "address" }
+      {
+        "internalType": "contract Upgrade",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -680,7 +1092,11 @@
         "name": "newImplementation",
         "type": "address"
       },
-      { "internalType": "bytes", "name": "data", "type": "bytes" }
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
     ],
     "name": "upgradeToAndCall",
     "outputs": [],
@@ -691,7 +1107,11 @@
     "inputs": [],
     "name": "vintageWine",
     "outputs": [
-      { "internalType": "contract VintageWine", "name": "", "type": "address" }
+      {
+        "internalType": "contract VintageWine",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -703,19 +1123,45 @@
         "name": "_initialVintageWine",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "_deltaTime", "type": "uint256" },
-      { "internalType": "uint256", "name": "_ppm", "type": "uint256" },
-      { "internalType": "uint256", "name": "_modifier", "type": "uint256" },
-      { "internalType": "uint256", "name": "_fatigue", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_deltaTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ppm",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_modifier",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_fatigue",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_fatiguePerMinute",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "_yieldPPS", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_yieldPPS",
+        "type": "uint256"
+      }
     ],
     "name": "vintageWineAccruedCalculation",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "pure",
     "type": "function"
   },
@@ -723,15 +1169,31 @@
     "inputs": [],
     "name": "vintner",
     "outputs": [
-      { "internalType": "contract Vintner", "name": "", "type": "address" }
+      {
+        "internalType": "contract Vintner",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "wineryFatigue",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -749,9 +1211,21 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "wineryVintageWine",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -771,7 +1245,13 @@
   {
     "inputs": [],
     "name": "yieldPPS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   }

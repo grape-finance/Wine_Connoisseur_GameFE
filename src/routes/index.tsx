@@ -1,7 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-const routes = [{ path: "/", component: lazy(() => import("pages/Account")) }];
+const routes = [
+  { path: "/", component: lazy(() => import("pages/Home")) },
+  { path: "/app", component: lazy(() => import("pages/Application")) },
+  { path: "/chart", component: lazy(() => import("pages/Chart")) },
+];
 
 function ComposeRoutes() {
   return (
