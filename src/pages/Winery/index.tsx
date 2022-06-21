@@ -124,15 +124,18 @@ const Winery = () => {
     if (!checked) setSelectedNFTs([]);
     else if (tabValue === 0 && !_.isEmpty(userStakedList)) {
       // Select all staked NFTs
+      console.log("userStakedList", userStakedList);
       setSelectedNFTs(userStakedList);
     } else if (tabValue === 1 && !_.isEmpty(userUnstakedList)) {
+      console.log("123");
+      console.log("userUnstakedList", userUnstakedList);
       // Select all staked NFTs
       setSelectedNFTs(userUnstakedList);
     }
   }, [checked, tabValue, userStakedList, userUnstakedList]);
 
   // Select NFT
-  const handleClick = (id: Number) => {
+  const handleClick = (id: any) => {
     let items = [...selectedNFTs];
     if (items.includes(id)) {
       items = items.filter((x) => x !== id);
@@ -182,13 +185,13 @@ const Winery = () => {
         >
           {userUnstakedList.map((item: any, index: number) => (
             <Box
-              onClick={() => handleClick(item?.id)}
+              onClick={() => handleClick(item)}
               style={{ padding: "10px" }}
               key={index}
             >
               <NFTItem
                 image={`${NFT_URI}/${item?.id}.png`}
-                selected={selectedNFTs.includes(item?.id)}
+                selected={selectedNFTs.includes(item)}
               />
             </Box>
           ))}

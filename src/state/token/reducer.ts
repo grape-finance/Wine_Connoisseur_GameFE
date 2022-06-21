@@ -14,7 +14,6 @@ const initialState: TokenState = {
 export default createReducer(initialState, (builder) =>
   builder.addCase(setTokenPrice, (state, action) => {
     const { grapePrice, vintageWinePrice } = action.payload;
-    console.log("action.payload", action.payload);
     state.grapePrice = grapePrice;
     state.vintageWinePrice = vintageWinePrice;
   })

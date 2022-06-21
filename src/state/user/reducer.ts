@@ -40,7 +40,6 @@ export default createReducer(initialState, (builder) =>
         vintnerStakedBalance,
         upgradeStakedBalance,
       } = action.payload;
-      console.log("action.payload", action.payload);
       if (grapeTokenBalance) state.grapeTokenBalance = grapeTokenBalance;
       if (vintageWineTokenBalance)
         state.vintageWineTokenBalance = vintageWineTokenBalance;

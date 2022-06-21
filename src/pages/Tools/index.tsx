@@ -136,7 +136,8 @@ const Tools = () => {
   }, [checked, tabValue, userStakedList, userUnstakedList]);
 
   // Select NFT
-  const handleClick = (id: Number) => {
+  const handleClick = (id: any) => {
+    console.log("id", id);
     let items = [...selectedNFTs];
     if (items.includes(id)) {
       items = items.filter((x) => x !== id);
@@ -186,13 +187,13 @@ const Tools = () => {
         >
           {userUnstakedList.map((item: any, index: number) => (
             <Box
-              onClick={() => handleClick(item?.id)}
+              onClick={() => handleClick(item)}
               style={{ padding: "10px" }}
               key={index}
             >
               <NFTItem
                 image={`${TOOL_URI}/${item?.id}.png`}
-                selected={selectedNFTs.includes(item?.id)}
+                selected={selectedNFTs.includes(item)}
               />
             </Box>
           ))}
