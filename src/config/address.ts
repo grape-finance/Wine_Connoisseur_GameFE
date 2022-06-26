@@ -19,7 +19,7 @@ export const VINTAGEWINE_ADDRESS: AddressMap = {
 
 export const VINTNER_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0x5c034F6b00EA1cDf131554feE56063B7f91B3dd4",
+  [SupportedChainId.TESTNET]: "0x54460352BaA4bDCA62280245f39cF522E045A2c0",
 };
 
 export const UPGRADE_ADDRESS: AddressMap = {
@@ -39,7 +39,12 @@ export const WINERYPROGRESSION_ADDRESS: AddressMap = {
 
 export const WINERY_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0x64943ba510c025a93766a65881b3347083a88f20",
+  [SupportedChainId.TESTNET]: "0xb3aa28E9e1b2573f0301d4f23D43dA21d374aA1E",
+};
+
+export const MULTICALL_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "",
+  [SupportedChainId.TESTNET]: "0xAf61f4F9b4461BE61bfc9ad28A5B6d63FC22CFc0",
 };
 
 export const NFT_URI = "https://api.pizza.game/chefs/img";

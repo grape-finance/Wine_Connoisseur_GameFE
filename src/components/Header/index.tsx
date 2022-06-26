@@ -20,7 +20,9 @@ import { useState } from "react";
 import ConnectWalletButton from "components/ConnectWalletButton";
 import headerIcon from "assets/logo.png";
 import { buyGrapeAddress, buyVintageWineAddress } from "config/address";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   scrollDetector.on("scroll:down", () => {
     setScrolled(true);
@@ -37,14 +39,8 @@ const Header = () => {
           width: "100%",
           top: 0,
           height: { xs: 94, md: 94, lg: 84 },
-          backgroundColor: {
-            xs: "rgb(255 237 213)",
-            md: "rgb(255 237 213)",
-            lg: "rgb(64 64 64/.5)",
-            ...(scrolled && {
-              lg: "#262423",
-            }),
-          },
+          background: "transparent",
+          backdropFilter: "blur(10px)",
           border: "none",
           transition: "all 0.3s",
           display: "flex",
@@ -70,26 +66,29 @@ const Header = () => {
                 alignItems: "center",
               }}
             >
-              <Box
+              <CardMedia
                 sx={{
-                  display: { xs: "flex", md: "flex", lg: "none" },
-                  justifyContent: "center",
+                  pl: { lg: "unset" },
+                  display: { lg: "none" },
+                }}
+                component="img"
+                image={headerIcon}
+                style={{ width: "200px", height: "40px", cursor: "pointer" }}
+                onClick={() => navigate("/")}
+              />
+              <Stack
+                direction="row"
+                spacing={2.3}
+                sx={{
+                  display: { xs: "none", md: "none", lg: "flex" },
                 }}
               >
                 <CardMedia
                   component="img"
                   image={headerIcon}
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: "200px", height: "40px", cursor: "pointer" }}
+                  onClick={() => navigate("/")}
                 />
-              </Box>
-              <Stack
-                direction="row"
-                spacing={2.3}
-                sx={{
-                  pl: { xs: "unset", md: "unset", lg: 10 },
-                  display: { xs: "none", md: "none", lg: "flex" },
-                }}
-              >
                 <Link href="#">
                   <FontAwesomeIcon className="icon-1" icon={faTwitter} />
                 </Link>

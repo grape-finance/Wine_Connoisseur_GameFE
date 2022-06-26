@@ -35,11 +35,11 @@ export default function Updater(): null {
         chainId === SupportedChainId.TESTNET)
     ) {
       const getBalance = async () => {
-        dispatch(
-          setLoading({
-            isLoading: true,
-          })
-        );
+        // dispatch(
+        //   setLoading({
+        //     isLoading: true,
+        //   })
+        // );
 
         // get User Info
         const grapeTokenBalance = await grapeTokenContract.balanceOf(account);
@@ -66,11 +66,11 @@ export default function Updater(): null {
           );
 
         // Get total staked amount
-        dispatch(
-          setLoading({
-            isLoading: false,
-          })
-        );
+        // dispatch(
+        //   setLoading({
+        //     isLoading: false,
+        //   })
+        // );
       };
       getBalance();
     }

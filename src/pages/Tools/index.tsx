@@ -18,7 +18,8 @@ import { useWeb3 } from "state/web3";
 import _ from "lodash";
 import Loading from "components/Loading";
 import NFTItem from "components/NFTItem";
-import { TOOL_URI } from "config/address";
+import { TOOL_URI, UPGRADE_ADDRESS, WINERY_ADDRESS } from "config/address";
+import StyledButton from "components/StyledButton";
 
 // interface IStakedVintnerInfo {
 //   vintnerId: number;
@@ -29,42 +30,77 @@ import { TOOL_URI } from "config/address";
 
 const Tools = () => {
   const [isloading, setLoading] = useState(false);
-  const { account } = useWeb3();
+  const { account, chainId } = useWeb3();
   const [tabValue, setTab] = useState(0); // True - show stakedAmount NFT , False - show unstakedAmount NFT
   const [checked, setChecked] = useState(false);
 
   const vintnerContract = useVintnerContract();
-  const updateContract = useUpgradeContract();
+  const upgradeContract = useUpgradeContract();
   const wineryContract = useWineryContract();
 
   const [userStakedList, setUserStakedList] = useState([]);
   const [userUnstakedList, setUserUnstakedList] = useState([]);
   const [selectedNFTs, setSelectedNFTs] = useState<Number[]>([]);
 
+  const [upgradeApproved, setUpgradeApproved] = useState(0);
+
+  useEffect(() => {
+    if (chainId && vintnerContract) {
+      const checkApproved = async () => {
+        const approved = await vintnerContract.isApprovedForAll(
+          account,
+          WINERY_ADDRESS[chainId]
+        );
+        setUpgradeApproved(approved);
+      };
+      checkApproved();
+    }
+  }, [account, chainId, vintnerContract]);
+
+  const approveUpgrade = async () => {
+    if (chainId && upgradeContract) {
+      let tx = await upgradeContract.setApprovalForAll(
+        WINERY_ADDRESS[chainId],
+        true
+      );
+      setLoading(true);
+      let receipt = await tx.wait();
+      setLoading(false);
+    }
+  };
+
   const stakeNFT = async () => {
     if (wineryContract) {
       try {
-        const tx = await wineryContract.stakeMany([], selectedNFTs);
+        const selectedIDs: number[] = [];
+        selectedNFTs.forEach((item: any) => selectedIDs.push(Number(item?.id)));
+        const tx = await wineryContract.stakeMany([], selectedIDs);
         setLoading(true);
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
           window.location.reload();
         }
-      } catch (err) {
+      } catch (err: any) {
         console.log("err", err);
+        alert(err?.data?.message!);
         setLoading(false);
       }
     }
   };
 
   const unStakeNFT = async () => {
-    alert("Unstake");
     if (wineryContract) {
       try {
+        const selectedIDs: number[] = [];
+        console.log("selectedNFTs", selectedNFTs);
+        selectedNFTs.forEach((item: any) =>
+          selectedIDs.push(Number(item?.toolId))
+        );
+        console.log("selectedIDs", selectedIDs);
         const tx = await wineryContract.unstakeVintnersAndUpgrades(
           [],
-          selectedNFTs
+          selectedIDs
         );
         setLoading(true);
         const receipt = await tx.wait();
@@ -72,8 +108,9 @@ const Tools = () => {
           setLoading(false);
           window.location.reload();
         }
-      } catch (err) {
+      } catch (err: any) {
         console.log("err", err);
+        alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -81,7 +118,7 @@ const Tools = () => {
 
   // Get staked NFT
   useEffect(() => {
-    if (account && vintnerContract && updateContract && wineryContract) {
+    if (account && vintnerContract && upgradeContract && wineryContract) {
       const getNFTState = async () => {
         let res;
         res = await wineryContract.batchedToolsOfOwner(account, 0, 10000);
@@ -92,7 +129,7 @@ const Tools = () => {
       };
       getNFTState();
     }
-  }, [account, updateContract, wineryContract, vintnerContract]);
+  }, [account, upgradeContract, wineryContract, vintnerContract]);
 
   // Get unstaked NFT
   const userNFTs = gql`
@@ -311,23 +348,17 @@ const Tools = () => {
             }}
           >
             {tabValue ? (
-              <Button
-                onClick={stakeNFT}
-                color="primary"
-                variant="contained"
-                // className={classes.buttonTab}
-              >
-                &nbsp; Stake &nbsp;
-              </Button>
+              <>
+                {!upgradeApproved ? (
+                  <StyledButton onClick={() => approveUpgrade()}>
+                    Approve
+                  </StyledButton>
+                ) : (
+                  <StyledButton onClick={() => stakeNFT()}>Stake</StyledButton>
+                )}
+              </>
             ) : (
-              <Button
-                onClick={unStakeNFT}
-                color="secondary"
-                variant="contained"
-                // className={classes.buttonTab}
-              >
-                Unstake
-              </Button>
+              <StyledButton onClick={() => unStakeNFT()}>Unstake</StyledButton>
             )}
             <FormControlLabel
               control={<Checkbox checked={checked} onChange={checkAll} />}

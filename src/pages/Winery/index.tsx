@@ -18,19 +18,12 @@ import { useWeb3 } from "state/web3";
 import _ from "lodash";
 import Loading from "components/Loading";
 import NFTItem from "components/NFTItem";
-import { NFT_URI } from "config/address";
-import { useDispatch } from "react-redux";
-
-// interface IStakedVintnerInfo {
-//   vintnerId: number;
-//   vintnerPPM: number;
-//   isResting: boolean;
-//   endTimestamp: number;
-// }
+import { NFT_URI, WINERY_ADDRESS } from "config/address";
+import StyledButton from "components/StyledButton";
 
 const Winery = () => {
   const [isloading, setLoading] = useState(false);
-  const { account } = useWeb3();
+  const { account, chainId } = useWeb3();
   const [tabValue, setTab] = useState(0); // True - show stakedAmount NFT , False - show unstakedAmount NFT
   const [checked, setChecked] = useState(false);
 
@@ -39,60 +32,29 @@ const Winery = () => {
   const wineryContract = useWineryContract();
 
   const [userStakedList, setUserStakedList] = useState([]);
+  const [userRestingList, setUserRestingList] = useState([]);
   const [userUnstakedList, setUserUnstakedList] = useState([]);
   const [selectedNFTs, setSelectedNFTs] = useState<Number[]>([]);
 
-  const stakeNFT = async () => {
-    if (wineryContract) {
-      try {
-        const tx = await wineryContract.stakeMany(selectedNFTs, []);
-        setLoading(true);
-        const receipt = await tx.wait();
-        if (receipt.status) {
-          setLoading(false);
-          window.location.reload();
-        }
-      } catch (err) {
-        console.log("err", err);
-        setLoading(false);
-      }
-    }
-  };
+  const [vintnerApproved, setVintnerApproved] = useState(0);
 
-  const unStakeNFT = async () => {
-    alert("Unstake");
-    if (wineryContract) {
-      try {
-        const tx = await wineryContract.unstakeVintnersAndUpgrades(
-          selectedNFTs,
-          []
-        );
-        setLoading(true);
-        const receipt = await tx.wait();
-        if (receipt.status) {
-          setLoading(false);
-          window.location.reload();
-        }
-      } catch (err) {
-        console.log("err", err);
-        setLoading(false);
-      }
-    }
-  };
-
-  // Get staked NFT
+  // Get staked & resting NFT
   useEffect(() => {
-    if (account && vintnerContract && updateContract && wineryContract) {
+    if (account && wineryContract) {
       const getNFTState = async () => {
         let res;
         res = await wineryContract.batchedStakesOfOwner(account, 0, 10000);
-        setUserStakedList(res);
+        const stakeNFTs = res.filter((item: any) => !item.isResting);
+        const restingNFTs = res.filter((item: any) => item.isResting);
+
+        setUserStakedList(stakeNFTs);
+        setUserRestingList(restingNFTs);
         // res = await vintnerContract.balanceOf(account);
         // setUserUnstakedAmount(Number(res));
       };
       getNFTState();
     }
-  }, [account, updateContract, wineryContract, vintnerContract]);
+  }, [account, wineryContract]);
 
   // Get unstaked NFT
   const userNFTs = gql`
@@ -124,15 +86,15 @@ const Winery = () => {
     if (!checked) setSelectedNFTs([]);
     else if (tabValue === 0 && !_.isEmpty(userStakedList)) {
       // Select all staked NFTs
-      console.log("userStakedList", userStakedList);
       setSelectedNFTs(userStakedList);
-    } else if (tabValue === 1 && !_.isEmpty(userUnstakedList)) {
-      console.log("123");
-      console.log("userUnstakedList", userUnstakedList);
+    } else if (tabValue === 1 && !_.isEmpty(userRestingList)) {
+      // Select all staked NFTs
+      setSelectedNFTs(userRestingList);
+    } else if (tabValue === 2 && !_.isEmpty(userUnstakedList)) {
       // Select all staked NFTs
       setSelectedNFTs(userUnstakedList);
     }
-  }, [checked, tabValue, userStakedList, userUnstakedList]);
+  }, [checked, tabValue, userStakedList, userRestingList, userUnstakedList]);
 
   // Select NFT
   const handleClick = (id: any) => {
@@ -145,10 +107,140 @@ const Winery = () => {
     setSelectedNFTs(items);
   };
 
+  useEffect(() => {
+    if (chainId && vintnerContract) {
+      const checkApproved = async () => {
+        const approved = await vintnerContract.isApprovedForAll(
+          account,
+          WINERY_ADDRESS[chainId]
+        );
+        setVintnerApproved(approved);
+      };
+      checkApproved();
+    }
+  }, [account, chainId, vintnerContract]);
+
+  const approveVintner = async () => {
+    if (chainId && vintnerContract) {
+      let tx = await vintnerContract.setApprovalForAll(
+        WINERY_ADDRESS[chainId],
+        true
+      );
+      setLoading(true);
+      let receipt = await tx.wait();
+      if (receipt.status) {
+        setLoading(false);
+        window.location.reload();
+      }
+      setLoading(false);
+    }
+  };
+
+  const stakeNFT = async () => {
+    if (
+      account &&
+      chainId &&
+      vintnerContract &&
+      wineryContract &&
+      tabValue === 2
+    ) {
+      try {
+        const selectedIDs: number[] = [];
+        selectedNFTs.forEach((item: any) => selectedIDs.push(Number(item?.id)));
+
+        const tx = await wineryContract.stakeMany(selectedIDs, []);
+        setLoading(true);
+        const receipt = await tx.wait();
+        if (receipt.status) {
+          setLoading(false);
+          window.location.reload();
+        }
+      } catch (err: any) {
+        console.log("err", err);
+        alert(err?.data?.message!);
+        setLoading(false);
+      }
+    }
+  };
+
+  const UnstakeNFT = async () => {
+    if (wineryContract && tabValue === 0) {
+      const selectedIDs: number[] = [];
+
+      selectedNFTs.forEach((item: any) =>
+        selectedIDs.push(Number(item?.vintnerId))
+      );
+
+      try {
+        const tx = await wineryContract.unstakeVintnersAndUpgrades(
+          selectedIDs,
+          []
+        );
+        setLoading(true);
+        const receipt = await tx.wait();
+        if (receipt.status) {
+          setLoading(false);
+          window.location.reload();
+        }
+      } catch (err: any) {
+        console.log("err", err);
+        alert(err?.data?.message!);
+        setLoading(false);
+      }
+    }
+  };
+
+  const RestakeNFT = async () => {
+    if (wineryContract && tabValue === 1) {
+      const selectedIDs: number[] = [];
+      selectedNFTs.forEach((item: any) =>
+        selectedIDs.push(Number(item?.vintnerId))
+      );
+      try {
+        const tx = await wineryContract.reStakeRestedVintners(selectedIDs);
+        setLoading(true);
+        const receipt = await tx.wait();
+        if (receipt.status) {
+          setLoading(false);
+          window.location.reload();
+        }
+      } catch (err: any) {
+        console.log("err", err);
+        alert(err?.data?.message!);
+        setLoading(false);
+      }
+    }
+  };
+
+  const withdrawNFT = async () => {
+    if (wineryContract && tabValue === 1) {
+      const selectedIDs: number[] = [];
+
+      selectedNFTs.forEach((item: any) =>
+        selectedIDs.push(Number(item?.vintnerId))
+      );
+      try {
+        setLoading(true);
+        const tx = await wineryContract.withdrawVintners(selectedIDs);
+
+        const receipt = await tx.wait();
+        if (receipt.status) {
+          setLoading(false);
+          window.location.reload();
+        }
+      } catch (err: any) {
+        console.log("err", err);
+        alert(err?.data?.message!);
+        setLoading(false);
+      }
+    }
+  };
+
   // Render NFT list
   const showNFTs = () => {
     if (tabValue === 0 && !_.isEmpty(userStakedList)) {
-      // Show staked Value
+      // Show staked NFTs
+      console.log("userStakedList", userStakedList);
       return (
         <Box
           style={{
@@ -172,8 +264,35 @@ const Winery = () => {
           ))}
         </Box>
       );
-    } else if (tabValue === 1 && !_.isEmpty(userUnstakedList)) {
-      // Show staked Value
+    } else if (tabValue === 1 && !_.isEmpty(userRestingList)) {
+      // Show Resting NFTs
+      return (
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {userRestingList?.map((item: any, index) => (
+            <Box
+              onClick={() => handleClick(item)}
+              style={{ padding: "10px" }}
+              key={index}
+            >
+              <NFTItem
+                isResting
+                endTime={Number(item?.endTimestamp)}
+                image={`${NFT_URI}/${item}.png`}
+                selected={selectedNFTs.includes(item)}
+              />
+            </Box>
+          ))}
+        </Box>
+      );
+    } else if (tabValue === 2 && !_.isEmpty(userUnstakedList)) {
+      // Show unstaked NFTs
       return (
         <Box
           style={{
@@ -228,10 +347,6 @@ const Winery = () => {
               sx={{
                 cursor: "pointer",
                 pb: 1,
-                // "&:hover": {
-                //   borderBottom: "1px solid",
-                //   borderColor: "secondary.main",
-                // },
               }}
             >
               <Box
@@ -265,10 +380,6 @@ const Winery = () => {
               sx={{
                 cursor: "pointer",
                 pb: 1,
-                // "&:hover": {
-                //   borderBottom: "1px solid",
-                //   borderColor: "secondary.main",
-                // },
               }}
             >
               <Box
@@ -276,6 +387,39 @@ const Winery = () => {
                   borderRadius: ".8rem",
                   p: 1.5,
                   ...(tabValue === 1 && {
+                    backgroundColor: "rgb(254 215 170)",
+                  }),
+
+                  "&:hover": {
+                    backgroundColor: "rgb(253 186 116)",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: "fontWeightBold",
+                    textAlign: "center",
+                  }}
+                  color={tabValue === 1 ? "rgb(28 25 23)" : "primary.light"}
+                  variant="h5"
+                  component="h5"
+                >
+                  RESTING
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              onClick={() => setTab(2)}
+              sx={{
+                cursor: "pointer",
+                pb: 1,
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: ".8rem",
+                  p: 1.5,
+                  ...(tabValue === 2 && {
                     backgroundColor: "rgb(254 215 170)",
                   }),
                   "&:hover": {
@@ -288,7 +432,7 @@ const Winery = () => {
                     fontWeight: "fontWeightBold",
                     textAlign: "center",
                   }}
-                  color={tabValue === 1 ? "rgb(28 25 23)" : "primary.light"}
+                  color={tabValue === 2 ? "rgb(28 25 23)" : "primary.light"}
                   variant="h5"
                   component="h5"
                 >
@@ -308,24 +452,28 @@ const Winery = () => {
               justifyContent: "space-between",
             }}
           >
-            {tabValue ? (
-              <Button
-                onClick={stakeNFT}
-                color="primary"
-                variant="contained"
-                // className={classes.buttonTab}
-              >
-                &nbsp; Stake &nbsp;
-              </Button>
+            {tabValue === 2 ? (
+              // Unstaked
+              <>
+                {!vintnerApproved ? (
+                  <StyledButton onClick={() => approveVintner()}>
+                    Approve
+                  </StyledButton>
+                ) : (
+                  <StyledButton onClick={() => stakeNFT()}>Stake</StyledButton>
+                )}
+              </>
+            ) : tabValue === 1 ? (
+              <Stack direction="row" spacing={3}>
+                <StyledButton onClick={() => RestakeNFT()}>
+                  Restake
+                </StyledButton>
+                <StyledButton onClick={() => withdrawNFT()}>
+                  Withdraw
+                </StyledButton>
+              </Stack>
             ) : (
-              <Button
-                onClick={unStakeNFT}
-                color="secondary"
-                variant="contained"
-                // className={classes.buttonTab}
-              >
-                Unstake
-              </Button>
+              <StyledButton onClick={() => UnstakeNFT()}>Unstake</StyledButton>
             )}
             <FormControlLabel
               control={<Checkbox checked={checked} onChange={checkAll} />}

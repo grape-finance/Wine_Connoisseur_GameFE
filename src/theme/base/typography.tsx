@@ -110,13 +110,13 @@ const typography = {
     lineHeight: "22px",
   },
   body2: {
-    fontSize: "30px",
+    fontSize: "25px",
     "@media (min-width:992px)": {
-      fontSize: "30px",
+      fontSize: "25px",
     },
     fontFamily: baseHeadingProperties.fontFamily,
     fontWeight: 300,
-    lineHeight: "22px",
+    lineHeight: "30px",
   },
 
   lineHeight: {
