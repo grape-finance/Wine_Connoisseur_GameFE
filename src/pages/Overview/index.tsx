@@ -1,7 +1,266 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { useGrapeContract, useWineryContract } from "hooks/useContract";
+import React, { useEffect, useState } from "react";
+import { useWeb3 } from "state/web3";
+import multicall from "utils/multicall";
+import { unixToDate } from "utils/unixToDate";
+import WINERY_ABI from "abi/winery.json";
+import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
+import { WINERY_ADDRESS, WINERYPROGRESSION_ADDRESS } from "config/address";
+import { NETWORKS } from "config/network";
+import _ from "lodash";
+import { vintageWineAccruedCalculation } from "utils/winery";
+import { BigNumber, ethers } from "ethers";
+import Loading from "components/Loading";
+import StyledButton from "components/StyledButton";
 
 const Overview = () => {
+  const [isLoading, setLoading] = useState(false);
+  const { account, chainId } = useWeb3();
+  const grapeContract = useGrapeContract();
+  const wineryContract = useWineryContract();
+  const [ppm, setppm] = useState(0);
+  const [vpm, setvpm] = useState(0);
+  const [fatigueAccrued, setFatigueAccrued] = useState(0);
+  const [startTime, setStartTime] = useState(0);
+  const [timeUntilFatigues, setTimeUntilFatigues] = useState(0);
+  const [vintageWineAccrued, setVintageWineAccrued] = useState(0);
+  const currentUnixTime = Math.round(new Date().getTime() / 1000);
+
+  const [userStakedList, setUserStakedList] = useState([]);
+  // Get staked NFT
+  useEffect(() => {
+    if (account && wineryContract) {
+      const getNFTState = async () => {
+        let res;
+        res = await wineryContract.batchedStakesOfOwner(account, 0, 10000);
+        setUserStakedList(res);
+      };
+      getNFTState();
+    }
+  }, [account, wineryContract]);
+
+  useEffect(() => {
+    if (account && chainId && wineryContract && !_.isEmpty(userStakedList)) {
+      const getInfo = async () => {
+        // Multicall
+
+        const web3Provider: string = NETWORKS.filter(
+          (item) => item.chainId === chainId
+        )[0]?.defaultProvider[0];
+
+        const [
+          ppm,
+          _fatigueAccrued,
+          _startTime,
+          _timeUntilFatigues,
+          _vintageWineAccrued,
+          _wineryFatigue,
+          _wineryVintageWine,
+          _masterVintnerNumber,
+          _fatiguePerMinuteWithModifier,
+          _yieldPPS,
+        ] = await multicall(
+          WINERY_ABI,
+          [
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "getTotalPPM",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "getFatigueAccrued",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "startTimeStamp",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "getTimeUntilFatigued",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "getVintageWineAccrued",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "wineryFatigue",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "wineryVintageWine",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "getMasterVintnerNumber",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "getFatiguePerMinuteWithModifier",
+              params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "yieldPPS",
+            },
+          ],
+          web3Provider,
+          chainId
+        );
+        setppm(Number(ppm));
+        setFatigueAccrued(Number(_fatigueAccrued) / Math.pow(10, 12));
+        setStartTime(Number(_startTime));
+        setTimeUntilFatigues(Number(_timeUntilFatigues));
+        setVintageWineAccrued(Number(_vintageWineAccrued) / Math.pow(10, 18));
+
+        await calcualteVintageWinePerMin(
+          Number(ppm),
+          Number(_wineryFatigue),
+          _wineryVintageWine / Math.pow(10, 18),
+          Number(_timeUntilFatigues),
+          Number(_masterVintnerNumber),
+          Number(_startTime),
+          Number(_fatiguePerMinuteWithModifier),
+          Number(_yieldPPS)
+        );
+      };
+      getInfo();
+      const interval = setInterval(getInfo, 10000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [account, chainId, wineryContract, userStakedList]);
+
+  const calcualteVintageWinePerMin = async (
+    ppm: number,
+    wineryFatigue: number,
+    wineryVintageWine: number,
+    timeUntilFatigued: number,
+    masterVintnerNumber: number,
+    startTimeStamp: number,
+    fatiguePerMinuteWithModifier: number,
+    yieldPPS: number
+  ) => {
+    if (chainId && wineryContract && !_.isEmpty(userStakedList)) {
+      console.log("ppm", ppm);
+      console.log("wineryFatigue", wineryFatigue);
+      console.log("wineryVintageWine", wineryVintageWine);
+      console.log("timeUntilFatigue", timeUntilFatigued);
+      console.log("masterVinterNumber", masterVintnerNumber);
+      console.log("startTimeStamp", startTimeStamp);
+      console.log("fatiguePerMinuteWithModifier", fatiguePerMinuteWithModifier);
+      console.log("yieldPPS", yieldPPS);
+      const web3Provider = NETWORKS.filter(
+        (item) => item.chainId === chainId
+      )[0]?.defaultProvider[0];
+      let [masterVintnerSkillModifier, maxVintageWine] = await multicall(
+        WINERYPROGRESSION_ABI,
+        [
+          {
+            address: WINERYPROGRESSION_ADDRESS[chainId],
+            name: "getMasterVintnerSkillModifier",
+            params: [account, masterVintnerNumber],
+          },
+          {
+            address: WINERYPROGRESSION_ADDRESS[chainId],
+            name: "getVintageWineStorage",
+            params: [account],
+          },
+        ],
+        web3Provider,
+        chainId
+      );
+
+      masterVintnerSkillModifier = Number(masterVintnerSkillModifier);
+
+      maxVintageWine = maxVintageWine / Math.pow(10, 18);
+      console.log("maxVintageWine", maxVintageWine);
+
+      const fatigueLastUpdate = wineryFatigue;
+      if (fatigueLastUpdate === 100000000000000) {
+        return 0;
+      }
+
+      let endTimestamp;
+      if (currentUnixTime >= Number(timeUntilFatigued)) {
+        endTimestamp = timeUntilFatigued;
+      } else {
+        endTimestamp = currentUnixTime;
+      }
+
+      // console.log(
+      //   "{unixToDate(timeUntilFatigues - startTime)}",
+      //   unixToDate(timeUntilFatigued - startTimeStamp)
+      // );
+
+      const newVintageWineAmount = vintageWineAccruedCalculation(
+        wineryVintageWine,
+        // endTimestamp - startTimeStamp,
+        60, // delta
+        ppm,
+        masterVintnerSkillModifier,
+        fatigueLastUpdate,
+        fatiguePerMinuteWithModifier,
+        yieldPPS
+      );
+      setvpm(newVintageWineAmount / Math.pow(10, 18));
+      console.log(
+        "newVintageWineAmount / Math.pow(10, 18)",
+        newVintageWineAmount / Math.pow(10, 18)
+      );
+
+      if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
+        return maxVintageWine;
+      }
+      return newVintageWineAmount;
+    }
+  };
+
+  const resetFatigue = async () => {
+    if (account && chainId && grapeContract && wineryContract) {
+      try {
+        let tx = await grapeContract.approve(
+          WINERY_ADDRESS[chainId],
+          ethers.utils.parseEther((0.1 * ppm).toString())
+        );
+        setLoading(true);
+        await tx.wait();
+        tx = await wineryContract.resetFatigue();
+        await tx.wait();
+        setLoading(false);
+        window.location.reload();
+      } catch (err) {
+        console.log("err", err);
+        setLoading(false);
+      }
+    }
+  };
+
+  const claimVintageWine = async () => {
+    if (account && chainId && grapeContract && wineryContract) {
+      try {
+        setLoading(true);
+        let tx = await wineryContract.claimVintageWine();
+        await tx.wait();
+        setLoading(false);
+        window.location.reload();
+      } catch (err) {
+        console.log("err", err);
+        setLoading(false);
+      }
+    }
+  };
+
   return (
     <Container sx={{ my: 3 }}>
       <Stack
@@ -19,22 +278,48 @@ const Overview = () => {
           border: "1px solid rgb(68 64 60)",
         }}
       >
+        <Box
+          style={{
+            display: "flex",
+            flex: "row",
+            marginTop: "20px",
+            marginBottom: "20px",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
+          <StyledButton onClick={() => resetFatigue()}>
+            Reset Fatigue
+          </StyledButton>
+          <StyledButton onClick={() => claimVintageWine()}>Claim</StyledButton>
+        </Box>
         <Typography color="primary.light" variant="body2" component="p">
-          Your Income:
+          VintageWine Per Minute
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          1
+          {vpm.toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          VintageWine Per Day:
+          current fatigue
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          0
+          {fatigueAccrued.toFixed(2)} %
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Max fatigue in: date
+          Max Fatigue in :
+        </Typography>
+        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+          {unixToDate(timeUntilFatigues - startTime)} : {startTime} :{" "}
+          {timeUntilFatigues}
+        </Typography>
+        <Typography color="primary.light" variant="body2" component="p">
+          Earned VintageWine
+        </Typography>
+        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+          {vintageWineAccrued.toFixed(2)}
         </Typography>
       </Stack>
+      <Loading isLoading={isLoading} />
     </Container>
   );
 };

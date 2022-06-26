@@ -6,6 +6,7 @@ const tabsData = [
   { title: "Winery" },
   { title: "Tools" },
   { title: "Skills" },
+  { title: "Cellar" },
 ];
 type IProps = {
   currentTab: string;

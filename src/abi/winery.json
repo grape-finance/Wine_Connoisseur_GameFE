@@ -312,6 +312,25 @@
         "type": "address"
       }
     ],
+    "name": "getCommonVintnerNumber",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
     "name": "getFatigueAccrued",
     "outputs": [
       {
@@ -332,6 +351,25 @@
       }
     ],
     "name": "getFatiguePerMinuteWithModifier",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "name": "getMasterVintnerNumber",
     "outputs": [
       {
         "internalType": "uint256",

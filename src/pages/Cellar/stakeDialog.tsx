@@ -1,0 +1,178 @@
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import { alertTitleClasses, Stack, TextField } from "@mui/material";
+import Loading from "components/Loading";
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
+export interface DialogTitleProps {
+  id: string;
+  children?: React.ReactNode;
+  onClose: () => void;
+}
+
+const BootstrapDialogTitle = (props: DialogTitleProps) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle
+      sx={{
+        m: 0,
+        p: 2,
+        color: "primary.light",
+      }}
+      {...other}
+    >
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  color: "#000",
+  backgroundColor: "rgb(255 237 213)",
+  [theme.breakpoints.down("xs")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("xs")]: {
+    width: "50%",
+  },
+  borderRadius: 8,
+  textAlign: "end",
+  "& .MuiInput-underline:after": {
+    border: "none",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+    "&:hover fieldset": {
+      border: "none",
+    },
+    "&.Mui-focused fieldset": {
+      border: "none",
+    },
+  },
+})) as typeof TextField;
+
+interface IProps {
+  open: boolean;
+  setOpen: (arg: boolean) => void;
+  stakeVintageWine: (arg: number) => void;
+}
+
+export default function StakeDialog({
+  open,
+  setOpen,
+  stakeVintageWine,
+}: IProps) {
+  const [vintageWineInput, setVintageWineInput] = React.useState(0);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVintageWineInput(Number(event.target.value));
+  };
+
+  return (
+    <div>
+      <BootstrapDialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+        PaperProps={{
+          style: {
+            background:
+              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+          },
+        }}
+      >
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
+          <Typography color="primary.light" variant="h3" component="p">
+            Stake
+          </Typography>
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+          <Typography color="primary.light" variant="h4" component="p">
+            Stake your $VintageWine in the New Freezer to earn 10% of all
+            produced VintageWine. However, unstaking from the Freezer will take
+            2 days if you want the smallest penalty, and a great penalty if you
+            want to unstake immediately.
+          </Typography>
+        </DialogContent>
+        <DialogContent>
+          <Stack direction={"row"} spacing={2} justifyContent="space-between">
+            <StyledTextField
+              InputProps={{ style: { textAlign: "end" } }}
+              value={vintageWineInput}
+              id="outlined-basic"
+              variant="outlined"
+              type="number"
+              onChange={handleChange}
+            />
+
+            <Button
+              onClick={() => {
+                stakeVintageWine(vintageWineInput);
+                setOpen(false);
+              }}
+              sx={{
+                width: { xs: "100%", md: "25%" },
+                borderRadius: "1rem",
+                transition: "0.3s",
+                textTransform: "none",
+                fontSize: "16px",
+                fontWeight: "fontWeightBold",
+                border: "1px solid",
+                borderColor: "primary.dark",
+                color: "primary.light",
+
+                "&:hover": {
+                  border: "1px solid",
+                  borderColor: "primary.main",
+                },
+              }}
+              variant="contained"
+            >
+              Stake
+            </Button>
+          </Stack>
+        </DialogContent>
+      </BootstrapDialog>
+    </div>
+  );
+}

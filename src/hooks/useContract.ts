@@ -18,6 +18,8 @@ import UPGRADE_ABI from "abi/upgrade.json";
 import VINTNER_ABI from "abi/vintner.json";
 import WINERY_ABI from "abi/winery.json";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
+import PIZZERIA_ABI from "abi/pizzeria.json";
+import { getProvider } from "utils/provider";
 
 export function useContract(
   addressOrAddressMap: string | { [chainId: number]: string } | undefined,
@@ -83,4 +85,18 @@ export function useWineryContract() {
 
 export function useWineryProgressionContract() {
   return useContract(WINERYPROGRESSION_ADDRESS, WINERYPROGRESSION_ABI);
+}
+
+export function usePizzeriaContract() {
+  return useMemo(() => {
+    const address = "0x28a6204E03c43BD4580c3664f7F0B4d862004C96";
+    const abi = PIZZERIA_ABI;
+    const provider = getProvider(43114);
+    try {
+      return getContract(address, abi, provider);
+    } catch (error) {
+      console.error("Failed to get contract", error);
+      return null;
+    }
+  }, []);
 }
