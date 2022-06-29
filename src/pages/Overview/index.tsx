@@ -1,6 +1,7 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useGrapeContract, useWineryContract } from "hooks/useContract";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useWeb3 } from "state/web3";
 import multicall from "utils/multicall";
 import { unixToDate } from "utils/unixToDate";
@@ -13,18 +14,25 @@ import { vintageWineAccruedCalculation } from "utils/winery";
 import { BigNumber, ethers } from "ethers";
 import Loading from "components/Loading";
 import StyledButton from "components/StyledButton";
+import { setUserNFTState } from "state/user/actions";
+import { useNFTState } from "state/user/hooks";
 
 const Overview = () => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const { account, chainId } = useWeb3();
   const grapeContract = useGrapeContract();
   const wineryContract = useWineryContract();
+
+  const { fatigueAccrued, timeUntilFatigues, vintageWineAccrued } =
+    useNFTState();
+
   const [ppm, setppm] = useState(0);
   const [vpm, setvpm] = useState(0);
-  const [fatigueAccrued, setFatigueAccrued] = useState(0);
+  // const [fatigueAccrued, setFatigueAccrued] = useState(0);
   const [startTime, setStartTime] = useState(0);
-  const [timeUntilFatigues, setTimeUntilFatigues] = useState(0);
-  const [vintageWineAccrued, setVintageWineAccrued] = useState(0);
+  // const [timeUntilFatigues, setTimeUntilFatigues] = useState(0);
+  // const [vintageWineAccrued, setVintageWineAccrued] = useState(0);
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
 
   const [userStakedList, setUserStakedList] = useState([]);
@@ -51,10 +59,9 @@ const Overview = () => {
 
         const [
           ppm,
-          _fatigueAccrued,
+
           _startTime,
           _timeUntilFatigues,
-          _vintageWineAccrued,
           _wineryFatigue,
           _wineryVintageWine,
           _masterVintnerNumber,
@@ -70,22 +77,12 @@ const Overview = () => {
             },
             {
               address: WINERY_ADDRESS[chainId],
-              name: "getFatigueAccrued",
-              params: [account],
-            },
-            {
-              address: WINERY_ADDRESS[chainId],
               name: "startTimeStamp",
               params: [account],
             },
             {
               address: WINERY_ADDRESS[chainId],
               name: "getTimeUntilFatigued",
-              params: [account],
-            },
-            {
-              address: WINERY_ADDRESS[chainId],
-              name: "getVintageWineAccrued",
               params: [account],
             },
             {
@@ -117,10 +114,7 @@ const Overview = () => {
           chainId
         );
         setppm(Number(ppm));
-        setFatigueAccrued(Number(_fatigueAccrued) / Math.pow(10, 12));
         setStartTime(Number(_startTime));
-        setTimeUntilFatigues(Number(_timeUntilFatigues));
-        setVintageWineAccrued(Number(_vintageWineAccrued) / Math.pow(10, 18));
 
         await calcualteVintageWinePerMin(
           Number(ppm),
@@ -214,6 +208,11 @@ const Overview = () => {
         yieldPPS
       );
       setvpm(newVintageWineAmount / Math.pow(10, 18));
+      dispatch(
+        setUserNFTState({
+          vintageWinePerMinute: newVintageWineAmount / Math.pow(10, 18),
+        })
+      );
       console.log(
         "newVintageWineAmount / Math.pow(10, 18)",
         newVintageWineAmount / Math.pow(10, 18)
@@ -278,10 +277,10 @@ const Overview = () => {
           border: "1px solid rgb(68 64 60)",
         }}
       >
-        <Box
-          style={{
-            display: "flex",
-            flex: "row",
+        <Stack
+          direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
+          spacing={3}
+          sx={{
             marginTop: "20px",
             marginBottom: "20px",
             width: "100%",
@@ -292,7 +291,7 @@ const Overview = () => {
             Reset Fatigue
           </StyledButton>
           <StyledButton onClick={() => claimVintageWine()}>Claim</StyledButton>
-        </Box>
+        </Stack>
         <Typography color="primary.light" variant="body2" component="p">
           VintageWine Per Minute
         </Typography>

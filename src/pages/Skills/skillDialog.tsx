@@ -58,53 +58,21 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  color: "#000",
-  backgroundColor: "rgb(255 237 213)",
-  [theme.breakpoints.down("xs")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.up("xs")]: {
-    width: "50%",
-  },
-  borderRadius: 8,
-  textAlign: "end",
-  "& .MuiInput-underline:after": {
-    border: "none",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-    "&:hover fieldset": {
-      border: "none",
-    },
-    "&.Mui-focused fieldset": {
-      border: "none",
-    },
-  },
-})) as typeof TextField;
-
 interface IProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
-  stakeVintageWine: (arg: number) => void;
+  skillDefinition: string;
+  upgradeSkillPoint: () => void;
 }
 
-export default function StakeDialog({
+export default function SkillDialog({
   open,
   setOpen,
-  stakeVintageWine,
+  skillDefinition,
+  upgradeSkillPoint,
 }: IProps) {
-  const [vintageWineInput, setVintageWineInput] = React.useState(0);
-  const { vintageWineBalance } = useTokenBalance();
-
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setVintageWineInput(Number(event.target.value));
   };
 
   return (
@@ -125,58 +93,23 @@ export default function StakeDialog({
           onClose={handleClose}
         >
           <Typography color="primary.light" variant="h3" component="p">
-            Stake
+            Upgrade Skills
           </Typography>
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography color="primary.light" variant="h4" component="p">
-            Stake your $VintageWine in the New Freezer to earn 10% of all
-            produced VintageWine. However, unstaking from the Freezer will take
-            2 days if you want the smallest penalty, and a great penalty if you
-            want to unstake immediately.
+            {skillDefinition}
           </Typography>
         </DialogContent>
-        <DialogContent>
+        <DialogActions>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
-            <StyledTextField
-              InputProps={{ style: { textAlign: "end" } }}
-              value={vintageWineInput}
-              id="outlined-basic"
-              variant="outlined"
-              type="number"
-              onChange={handleChange}
-            />
             <Button
               onClick={() => {
-                setVintageWineInput(Number(vintageWineBalance.toFixed(2)));
-              }}
-              sx={{
-                width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
-                color: "primary.light",
-
-                "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
-                },
-              }}
-              variant="contained"
-            >
-              Max
-            </Button>
-            <Button
-              onClick={() => {
-                stakeVintageWine(vintageWineInput);
+                upgradeSkillPoint();
                 setOpen(false);
               }}
               sx={{
-                width: { xs: "100%", md: "25%" },
+                width: "100%",
                 borderRadius: "1rem",
                 transition: "0.3s",
                 textTransform: "none",
@@ -193,10 +126,10 @@ export default function StakeDialog({
               }}
               variant="contained"
             >
-              Stake
+              Upgrade
             </Button>
           </Stack>
-        </DialogContent>
+        </DialogActions>
       </BootstrapDialog>
     </div>
   );

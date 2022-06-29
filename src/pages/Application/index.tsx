@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
@@ -11,6 +11,8 @@ import Tools from "pages/Tools";
 import Cellar from "pages/Cellar";
 import ReactPlayer from "react-player";
 import heroVideo from "assets/back.mp4";
+import background1 from "assets/image/winery_bg.png";
+import background2 from "assets/image/celler_bg.png";
 
 const useStyles = makeStyles({
   root: {
@@ -31,7 +33,7 @@ const useStyles = makeStyles({
 
 const Application = () => {
   const classes = useStyles();
-  const [currentTab, setCurrentTab] = useState("Overview");
+  const [currentTab, setCurrentTab] = useState("Skills");
 
   return (
     <section
@@ -43,22 +45,57 @@ const Application = () => {
       }}
       className={classes.root}
     >
-      <div
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100vh",
-        }}
-      >
-        <ReactPlayer
-          url={heroVideo}
-          playing
-          loop
-          muted
-          width="100%"
-          height="100%"
-        />
-      </div>
+      {currentTab === "Overview" && (
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "100vh",
+          }}
+        >
+          <ReactPlayer
+            url={heroVideo}
+            playing
+            loop
+            muted
+            width="100%"
+            height="100%"
+          />
+        </div>
+      )}
+
+      {(currentTab === "Winery" || currentTab === "Tools") && (
+        <div
+          style={{
+            // display: "flex",
+            // alignItems: "flex-end",
+            // justifyContent: "center",
+            position: "fixed",
+            width: "100%",
+            height: "100vh",
+            backgroundImage: `url(${background1})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        ></div>
+      )}
+
+      {(currentTab === "Skills" || currentTab === "Cellar") && (
+        <div
+          style={{
+            // display: "flex",
+            // alignItems: "flex-end",
+            // justifyContent: "center",
+            position: "fixed",
+            width: "100%",
+            height: "100vh",
+            backgroundImage: `url(${background2})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        ></div>
+      )}
+
       <div
         style={{
           position: "fixed",
@@ -83,11 +120,11 @@ const Application = () => {
             mx: { xs: "30px", md: "100px" },
           }}
         >
-          <Grid item container spacing={6} sx={{ mt: 10 }}>
-            <Grid item xs={12} md={12} lg={3} sx={{ mt: 6 }}>
+          <Grid item container spacing={6} sx={{ mt: 4 }}>
+            <Grid item xs={12} md={12} lg={3} sx={{ mt: 5 }}>
               <Sidebar />
             </Grid>
-            <Grid item xs={12} md={12} lg={9} sx={{ mt: 1 }}>
+            <Grid item xs={12} md={12} lg={9} sx={{ mt: 5 }}>
               <Tabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
               {currentTab === "Overview" ? <Overview /> : null}
               {currentTab === "Winery" ? <Winery /> : null}

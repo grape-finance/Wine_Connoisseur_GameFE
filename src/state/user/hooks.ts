@@ -33,3 +33,25 @@ export function useTokenBalance() {
     upgradeStakedBalance,
   };
 }
+
+export function useNFTState() {
+  const fatigueAccrued = useSelector(
+    (state: AppState) => state.user.fatigueAccrued
+  );
+  const timeUntilFatigues = useSelector(
+    (state: AppState) => state.user.timeUntilFatigues
+  );
+  const vintageWineAccrued = useSelector(
+    (state: AppState) => state.user.vintageWineAccrued
+  );
+  const vintageWinePerMinute = useSelector(
+    (state: AppState) => state.user.vintageWinePerMinute
+  );
+
+  return {
+    fatigueAccrued,
+    timeUntilFatigues,
+    vintageWineAccrued,
+    vintageWinePerMinute,
+  };
+}

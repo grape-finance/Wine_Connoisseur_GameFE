@@ -1,4 +1,9 @@
-import { setUserTokenBalance, setLoading, setNFTInfo } from "./actions";
+import {
+  setUserTokenBalance,
+  setUserNFTState,
+  setLoading,
+  setNFTInfo,
+} from "./actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -8,9 +13,12 @@ import {
   useVintnerContract,
   useWineryContract,
 } from "hooks/useContract";
-
 import { useWeb3 } from "state/web3";
-import { SupportedChainId } from "config/address";
+import { SupportedChainId, WINERY_ADDRESS } from "config/address";
+import { NETWORKS } from "config/network";
+import _ from "lodash";
+import multicall from "utils/multicall";
+import WINERY_ABI from "abi/winery.json";
 
 export default function Updater(): null {
   const dispatch = useDispatch();
@@ -23,7 +31,6 @@ export default function Updater(): null {
   const wineryContract = useWineryContract();
 
   useEffect(() => {
-    // Get user token balance of Grape and VintageWine
     if (
       account &&
       grapeTokenContract &&
@@ -34,13 +41,8 @@ export default function Updater(): null {
       (chainId === SupportedChainId.MAINNET ||
         chainId === SupportedChainId.TESTNET)
     ) {
+      // Get user token balance of Grape and VintageWine
       const getBalance = async () => {
-        // dispatch(
-        //   setLoading({
-        //     isLoading: true,
-        //   })
-        // );
-
         // get User Info
         const grapeTokenBalance = await grapeTokenContract.balanceOf(account);
         const vintageWineTokenBalance =
@@ -64,15 +66,63 @@ export default function Updater(): null {
               upgradeStakedBalance: Number(upgradeStakedBalance),
             })
           );
-
-        // Get total staked amount
-        // dispatch(
-        //   setLoading({
-        //     isLoading: false,
-        //   })
-        // );
       };
       getBalance();
+      // Get user NFT Info
+      const getUserNFTInfo = async () => {
+        const userStakedWineryNFTList =
+          await wineryContract.batchedStakesOfOwner(account, 0, 10000);
+        if (!_.isEmpty(userStakedWineryNFTList)) {
+          const web3Provider: string = NETWORKS.filter(
+            (item) => item.chainId === chainId
+          )[0]?.defaultProvider[0];
+
+          const [
+            _fatigueAccrued,
+            _timeUntilFatigues,
+            _vintageWineAccrued,
+            _startTime,
+          ] = await multicall(
+            WINERY_ABI,
+            [
+              {
+                address: WINERY_ADDRESS[chainId],
+                name: "getFatigueAccrued",
+                params: [account],
+              },
+
+              {
+                address: WINERY_ADDRESS[chainId],
+                name: "getTimeUntilFatigued",
+                params: [account],
+              },
+              {
+                address: WINERY_ADDRESS[chainId],
+                name: "getVintageWineAccrued",
+                params: [account],
+              },
+              {
+                address: WINERY_ADDRESS[chainId],
+                name: "startTimeStamp",
+                params: [account],
+              },
+            ],
+            web3Provider,
+            chainId
+          );
+          dispatch(
+            setUserNFTState({
+              fatigueAccrued: Number(_fatigueAccrued) / Math.pow(10, 12),
+              timeUntilFatigues:
+                Number(_timeUntilFatigues) - Number(_startTime),
+              vintageWineAccrued:
+                Number(_vintageWineAccrued) / Math.pow(10, 18),
+            })
+          );
+          
+        }
+      };
+      getUserNFTInfo();
     }
   }, [
     account,

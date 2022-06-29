@@ -96,10 +96,11 @@ const Cellar = () => {
         ethers.utils.parseEther(amount.toString())
       );
       try {
+        setLoading(true);
         let tx = await cellarContract.stake(
           ethers.utils.parseEther(amount.toString())
         );
-        setLoading(true);
+
         await tx.wait();
         setLoading(false);
         window.location.reload();
@@ -215,6 +216,12 @@ const Cellar = () => {
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
           {cellarVintageWineBal.toFixed(2)}
+        </Typography>
+        <Typography color="primary.light" variant="body2" component="p">
+          Your Staked Balance
+        </Typography>
+        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+          {userCellarAmounts.toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Your Pending Balance

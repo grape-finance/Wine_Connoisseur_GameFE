@@ -6,10 +6,13 @@ import {
   Button,
   Typography,
   Stack,
+  TextField,
 } from "@mui/material";
+import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
+  useGrapeContract,
   useUpgradeContract,
   useVintnerContract,
   useWineryContract,
@@ -20,29 +23,67 @@ import Loading from "components/Loading";
 import NFTItem from "components/NFTItem";
 import { TOOL_URI, UPGRADE_ADDRESS, WINERY_ADDRESS } from "config/address";
 import StyledButton from "components/StyledButton";
+import toolImg1 from "assets/image/tools/1.png";
+import toolImg2 from "assets/image/tools/2.png";
+import toolImg3 from "assets/image/tools/3.png";
+import toolImg4 from "assets/image/tools/4.png";
+import toolImg5 from "assets/image/tools/5.png";
+import toolImg6 from "assets/image/tools/6.png";
+import { ethers } from "ethers";
 
-// interface IStakedVintnerInfo {
-//   vintnerId: number;
-//   vintnerPPM: number;
-//   isResting: boolean;
-//   endTimestamp: number;
-// }
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  color: "#000",
+  backgroundColor: "rgb(255 237 213)",
+  borderRadius: 8,
+  textAlign: "end",
+  "& .MuiInput-underline:after": {
+    border: "none",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+    "&:hover fieldset": {
+      border: "none",
+    },
+    "&.Mui-focused fieldset": {
+      border: "none",
+    },
+  },
+})) as typeof TextField;
 
 const Tools = () => {
   const [isloading, setLoading] = useState(false);
   const { account, chainId } = useWeb3();
   const [tabValue, setTab] = useState(0); // True - show stakedAmount NFT , False - show unstakedAmount NFT
   const [checked, setChecked] = useState(false);
-
+  // Get Contract
   const vintnerContract = useVintnerContract();
   const upgradeContract = useUpgradeContract();
   const wineryContract = useWineryContract();
-
+  const grapeContract = useGrapeContract();
+  // Approve upgrade contract
+  const [upgradeApproved, setUpgradeApproved] = useState(0);
+  // Stake and Unstake NFT
   const [userStakedList, setUserStakedList] = useState([]);
   const [userUnstakedList, setUserUnstakedList] = useState([]);
   const [selectedNFTs, setSelectedNFTs] = useState<Number[]>([]);
+  // Mint NFT
+  const [selectedNFTForMint, setSelectedNFTForMint] = useState(0);
+  const [mintAmountInput, setMintAmountInput] = useState(0);
 
-  const [upgradeApproved, setUpgradeApproved] = useState(0);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMintAmountInput(Number(event.target.value));
+  };
+
+  const toolImageList = [
+    toolImg1,
+    toolImg2,
+    toolImg3,
+    toolImg4,
+    toolImg5,
+    toolImg6,
+  ];
 
   useEffect(() => {
     if (chainId && vintnerContract) {
@@ -116,6 +157,42 @@ const Tools = () => {
     }
   };
 
+  const mintNFT = async () => {
+    if (account && chainId && grapeContract && upgradeContract) {
+      if (mintAmountInput <= 0) alert("You need to mint at least one");
+      else {
+        try {
+          // Calculate the grape token amount to buy NFT
+          const level: any = await upgradeContract.levels(selectedNFTForMint);
+          console.log("levelCost", level?.priceGrape / Math.pow(10, 18));
+          const grapeCost =
+            (level?.priceGrape / Math.pow(10, 18)) * mintAmountInput;
+          console.log("grapeCost", grapeCost);
+          let tx = await grapeContract.approve(
+            UPGRADE_ADDRESS[chainId],
+            ethers.utils.parseEther(grapeCost.toString())
+          );
+          setLoading(true);
+          await tx.wait();
+          tx = await upgradeContract.mintUpgrade(
+            selectedNFTForMint,
+            mintAmountInput
+          );
+          setLoading(true);
+          const receipt = await tx.wait();
+          if (receipt.status) {
+            setLoading(false);
+            window.location.reload();
+          }
+        } catch (err: any) {
+          console.log("err", err);
+          alert(err?.data?.message!);
+          setLoading(false);
+        }
+      }
+    }
+  };
+
   // Get staked NFT
   useEffect(() => {
     if (account && vintnerContract && upgradeContract && wineryContract) {
@@ -141,7 +218,7 @@ const Tools = () => {
       # }
       upgradeTokens {
         id
-        # contentURI
+        contentURI
       }
       }
     }
@@ -174,14 +251,20 @@ const Tools = () => {
 
   // Select NFT
   const handleClick = (id: any) => {
-    console.log("id", id);
-    let items = [...selectedNFTs];
-    if (items.includes(id)) {
-      items = items.filter((x) => x !== id);
+    if (tabValue === 0 || tabValue === 1) {
+      // Select NFT in Stake and Unstake Tab
+      let items = [...selectedNFTs];
+      if (items.includes(id)) {
+        items = items.filter((x) => x !== id);
+      } else {
+        items.push(id);
+      }
+      setSelectedNFTs(items);
     } else {
-      items.push(id);
+      // Choose NFT in Mint tab
+      console.log("id", id);
+      setSelectedNFTForMint(id as number);
     }
-    setSelectedNFTs(items);
   };
 
   // Render NFT list
@@ -229,9 +312,31 @@ const Tools = () => {
               key={index}
             >
               <NFTItem
-                image={`${TOOL_URI}/${item?.id}.png`}
+                image={`${TOOL_URI}/${item?.contentURI?.slice(30, 31)}.png`}
                 selected={selectedNFTs.includes(item)}
               />
+            </Box>
+          ))}
+        </Box>
+      );
+    } else if (tabValue === 2 && !_.isEmpty(userUnstakedList)) {
+      // Show staked Value
+      return (
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {toolImageList.map((item: string, index: number) => (
+            <Box
+              onClick={() => handleClick(index)}
+              style={{ padding: "10px" }}
+              key={index}
+            >
+              <NFTItem image={item} selected={selectedNFTForMint === index} />
             </Box>
           ))}
         </Box>
@@ -335,19 +440,55 @@ const Tools = () => {
                 </Typography>
               </Box>
             </Box>
+            <Box
+              onClick={() => setTab(2)}
+              sx={{
+                cursor: "pointer",
+                pb: 1,
+                // "&:hover": {
+                //   borderBottom: "1px solid",
+                //   borderColor: "secondary.main",
+                // },
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: ".8rem",
+                  p: 1.5,
+                  ...(tabValue === 2 && {
+                    backgroundColor: "rgb(254 215 170)",
+                  }),
+                  "&:hover": {
+                    backgroundColor: "rgb(253 186 116)",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: "fontWeightBold",
+                    textAlign: "center",
+                  }}
+                  color={tabValue === 2 ? "rgb(28 25 23)" : "primary.light"}
+                  variant="h5"
+                  component="h5"
+                >
+                  MINT NFT
+                </Typography>
+              </Box>
+            </Box>
           </Stack>
           {/* Control NFTs */}
-          <Box
-            style={{
-              display: "flex",
-              flex: "row",
+          <Stack
+            direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
+            spacing={3}
+            sx={{
               marginTop: "20px",
               marginBottom: "20px",
               width: "100%",
               justifyContent: "space-between",
             }}
           >
-            {tabValue ? (
+            {tabValue === 1 ? (
               <>
                 {!upgradeApproved ? (
                   <StyledButton onClick={() => approveUpgrade()}>
@@ -357,14 +498,31 @@ const Tools = () => {
                   <StyledButton onClick={() => stakeNFT()}>Stake</StyledButton>
                 )}
               </>
-            ) : (
+            ) : tabValue === 0 ? (
               <StyledButton onClick={() => unStakeNFT()}>Unstake</StyledButton>
+            ) : (
+              <>
+                <StyledTextField
+                  sx={{ width: { xs: "100%", md: "30%" } }}
+                  InputProps={{ style: { textAlign: "end" } }}
+                  value={mintAmountInput}
+                  id="outlined-basic"
+                  variant="outlined"
+                  type="number"
+                  onChange={handleChange}
+                />
+                <StyledButton onClick={() => mintNFT()}>MINT</StyledButton>
+              </>
             )}
-            <FormControlLabel
-              control={<Checkbox checked={checked} onChange={checkAll} />}
-              label={<Typography color="primary.light">Select All</Typography>}
-            />
-          </Box>
+            {tabValue !== 2 && (
+              <FormControlLabel
+                control={<Checkbox checked={checked} onChange={checkAll} />}
+                label={
+                  <Typography color="primary.light">Select All</Typography>
+                }
+              />
+            )}
+          </Stack>
           {/* Show NFTs */}
           {showNFTs()}
         </Box>

@@ -1,12 +1,4 @@
-import {
-  Box,
-  AppBar,
-  Link,
-  Stack,
-  Container,
-  Button,
-  CardMedia,
-} from "@mui/material";
+import { Box, AppBar, Link, Stack, Button, CardMedia } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDiscord,
@@ -15,21 +7,21 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
-import scrollDetector from "scroll-detector";
-import { useState } from "react";
+// import scrollDetector from "scroll-detector";
+// import { useState } from "react";
 import ConnectWalletButton from "components/ConnectWalletButton";
 import headerIcon from "assets/logo.png";
 import { buyGrapeAddress, buyVintageWineAddress } from "config/address";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
-  const [scrolled, setScrolled] = useState(false);
-  scrollDetector.on("scroll:down", () => {
-    setScrolled(true);
-  });
-  scrollDetector.on("at:top", () => {
-    setScrolled(false);
-  });
+  // const [scrolled, setScrolled] = useState(false);
+  // scrollDetector.on("scroll:down", () => {
+  //   setScrolled(true);
+  // });
+  // scrollDetector.on("at:top", () => {
+  //   setScrolled(false);
+  // });
 
   return (
     <>
@@ -53,7 +45,7 @@ const Header = () => {
             height: "100%",
           }}
         >
-          <Container>
+          <Box sx={{ px: 10 }}>
             <Box
               sx={{
                 display: "flex",
@@ -158,7 +150,7 @@ const Header = () => {
                 <ConnectWalletButton />
               </Stack>
             </Box>
-          </Container>
+          </Box>
         </Box>
       </AppBar>
     </>

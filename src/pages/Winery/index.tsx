@@ -442,10 +442,10 @@ const Winery = () => {
             </Box>
           </Stack>
           {/* Control NFTs */}
-          <Box
-            style={{
-              display: "flex",
-              flex: "row",
+          <Stack
+            direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
+            spacing={3}
+            sx={{
               marginTop: "20px",
               marginBottom: "20px",
               width: "100%",
@@ -464,7 +464,15 @@ const Winery = () => {
                 )}
               </>
             ) : tabValue === 1 ? (
-              <Stack direction="row" spacing={3}>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "column",
+                  md: "column",
+                  lg: "row",
+                }}
+                spacing={3}
+              >
                 <StyledButton onClick={() => RestakeNFT()}>
                   Restake
                 </StyledButton>
@@ -479,7 +487,7 @@ const Winery = () => {
               control={<Checkbox checked={checked} onChange={checkAll} />}
               label={<Typography color="primary.light">Select All</Typography>}
             />
-          </Box>
+          </Stack>
           {/* Show NFTs */}
           {showNFTs()}
         </Box>

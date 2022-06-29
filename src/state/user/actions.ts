@@ -9,7 +9,6 @@ export const setNFTInfo = createAction<{
   upgradeTotalStakedBalance: number;
 }>("user/setNFTInfo");
 
-
 export const setUserTokenBalance = createAction<{
   grapeTokenBalance: number;
   vintageWineTokenBalance: number;
@@ -18,3 +17,10 @@ export const setUserTokenBalance = createAction<{
   vintnerStakedBalance: number;
   upgradeStakedBalance: number;
 }>("user/setUserTokenBalance");
+
+export const setUserNFTState = createAction<{
+  fatigueAccrued?: number;
+  timeUntilFatigues?: number;
+  vintageWineAccrued?: number;
+  vintageWinePerMinute?: number;
+}>("user/setUserNFTState");

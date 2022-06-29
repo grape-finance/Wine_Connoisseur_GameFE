@@ -4,8 +4,8 @@ import React from "react";
 import { unixToDate } from "utils/unixToDate";
 
 interface IProps {
-  image?: string;
-  selected: boolean;
+  image: string;
+  selected?: boolean;
   isResting?: boolean;
   endTime?: number;
 }
@@ -44,8 +44,8 @@ const NFTItem = (props: IProps) => {
           component="img"
           image={image}
           sx={{
-            width: { xs: "100px", md: "150px" },
-            height: { xs: "100px", md: "150px" },
+            width: { xs: "80px", md: "150px" },
+            height: { xs: "80px", md: "150px" },
             padding: { xs: "10px", md: "20px" },
           }}
         />

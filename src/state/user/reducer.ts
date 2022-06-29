@@ -1,5 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { setUserTokenBalance, setLoading, setNFTInfo } from "./actions";
+import {
+  setUserTokenBalance,
+  setLoading,
+  setNFTInfo,
+  setUserNFTState,
+} from "./actions";
 
 export interface TokenState {
   isLoading: boolean;
@@ -11,6 +16,10 @@ export interface TokenState {
   upgradeStakedBalance: number;
   vintnerTotalStakedBalance: number;
   upgradeTotalStakedBalance: number;
+  fatigueAccrued: number;
+  timeUntilFatigues: number;
+  vintageWineAccrued: number;
+  vintageWinePerMinute: number;
 }
 
 const initialState: TokenState = {
@@ -23,6 +32,10 @@ const initialState: TokenState = {
   upgradeStakedBalance: 0,
   vintnerTotalStakedBalance: 0,
   upgradeTotalStakedBalance: 0,
+  fatigueAccrued: 0,
+  timeUntilFatigues: 0,
+  vintageWineAccrued: 0,
+  vintageWinePerMinute: 0,
 };
 
 export default createReducer(initialState, (builder) =>
@@ -53,5 +66,18 @@ export default createReducer(initialState, (builder) =>
         action.payload;
       state.vintnerTotalStakedBalance = vintnerTotalStakedBalance;
       state.upgradeTotalStakedBalance = upgradeTotalStakedBalance;
+    })
+    .addCase(setUserNFTState, (state, action) => {
+      const {
+        fatigueAccrued,
+        timeUntilFatigues,
+        vintageWineAccrued,
+        vintageWinePerMinute,
+      } = action.payload;
+      if (fatigueAccrued) state.fatigueAccrued = fatigueAccrued;
+      if (timeUntilFatigues) state.timeUntilFatigues = timeUntilFatigues;
+      if (vintageWineAccrued) state.vintageWineAccrued = vintageWineAccrued;
+      if (vintageWinePerMinute)
+        state.vintageWinePerMinute = vintageWinePerMinute;
     })
 );
