@@ -27,7 +27,7 @@ interface ISkillLearned {
   burn: BigNumber;
   fatigue: BigNumber;
   cellar: BigNumber;
-  mastervi: BigNumber;
+  mastervintner: BigNumber;
   upgrades: BigNumber;
   vintners: BigNumber;
   vintageWineStorage: BigNumber;
@@ -83,6 +83,7 @@ const Skills = () => {
         response = await wineryProgressionContract.getSkillPoints(account);
         setSkillPoint(Number(response));
         response = await wineryProgressionContract.getSkillsLearned(account);
+        console.log("response", response);
         setSkillLearned(response as ISkillLearned);
         response = await wineryProgressionContract.grapeDeposited(account);
         setGrapeDeposited(Number(ethers.utils.formatEther(response)));
@@ -172,7 +173,17 @@ const Skills = () => {
                 skillLearned[item as keyof ISkillLearned]
               );
               return (
-                <Tooltip title={subItem.definition} key={index}>
+                <Tooltip
+                  title={
+                    <>
+                      <Typography variant="h5">{subItem.name}</Typography>
+                      <Typography variant="subtitle1">
+                        {subItem.definition}
+                      </Typography>
+                    </>
+                  }
+                  key={index}
+                >
                   <Box
                     sx={{ position: "relative", width: "70px", height: "70px" }}
                   >

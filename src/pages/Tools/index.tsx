@@ -3,7 +3,6 @@ import {
   Box,
   FormControlLabel,
   Checkbox,
-  Button,
   Typography,
   Stack,
   TextField,
@@ -134,11 +133,9 @@ const Tools = () => {
     if (wineryContract) {
       try {
         const selectedIDs: number[] = [];
-        console.log("selectedNFTs", selectedNFTs);
         selectedNFTs.forEach((item: any) =>
           selectedIDs.push(Number(item?.toolId))
         );
-        console.log("selectedIDs", selectedIDs);
         const tx = await wineryContract.unstakeVintnersAndUpgrades(
           [],
           selectedIDs
@@ -164,10 +161,8 @@ const Tools = () => {
         try {
           // Calculate the grape token amount to buy NFT
           const level: any = await upgradeContract.levels(selectedNFTForMint);
-          console.log("levelCost", level?.priceGrape / Math.pow(10, 18));
           const grapeCost =
             (level?.priceGrape / Math.pow(10, 18)) * mintAmountInput;
-          console.log("grapeCost", grapeCost);
           let tx = await grapeContract.approve(
             UPGRADE_ADDRESS[chainId],
             ethers.utils.parseEther(grapeCost.toString())
@@ -199,7 +194,6 @@ const Tools = () => {
       const getNFTState = async () => {
         let res;
         res = await wineryContract.batchedToolsOfOwner(account, 0, 10000);
-        console.log("res", res);
         setUserStakedList(res);
         // res = await vintnerContract.balanceOf(account);
         // setUserUnstakedAmount(Number(res));
@@ -226,12 +220,9 @@ const Tools = () => {
   const { loading, error, data: unstakedNFTs } = useQuery(userNFTs);
   useEffect(() => {
     if (!_.isEmpty(unstakedNFTs)) {
-      console.log("unstakedNFTs", unstakedNFTs);
       setUserUnstakedList(unstakedNFTs.users[0]?.upgradeTokens);
     }
   }, [unstakedNFTs]);
-
-  console.log("selectedNFTs", selectedNFTs);
 
   const checkAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -262,7 +253,6 @@ const Tools = () => {
       setSelectedNFTs(items);
     } else {
       // Choose NFT in Mint tab
-      console.log("id", id);
       setSelectedNFTForMint(id as number);
     }
   };
@@ -280,16 +270,18 @@ const Tools = () => {
             justifyContent: "center",
           }}
         >
-          {userStakedList?.map((item, index) => (
+          {userStakedList?.map((item: any, index) => (
             <Box
               onClick={() => handleClick(item)}
               style={{ padding: "10px" }}
               key={index}
             >
-              <NFTItem
-                image={`${TOOL_URI}/${item}.png`}
-                selected={selectedNFTs.includes(item)}
-              />
+              <>
+                <NFTItem
+                  image={`${TOOL_URI}/${(Number(item.toolPPM) + 1) / 2}.png`}
+                  selected={selectedNFTs.includes(item)}
+                />
+              </>
             </Box>
           ))}
         </Box>
@@ -365,7 +357,11 @@ const Tools = () => {
             justifyContent="center"
             alignItems="center"
             spacing={{ xs: 0, md: 5, lg: 10 }}
-            sx={{ mt: 2, borderBottom: "1px solid #fed7aa", flexWrap: "wrap" }}
+            sx={{
+              mt: 2,
+              borderBottom: "1px solid #fed7aa",
+              flexWrap: "wrap",
+            }}
           >
             <Box
               onClick={() => setTab(0)}
@@ -479,7 +475,12 @@ const Tools = () => {
           </Stack>
           {/* Control NFTs */}
           <Stack
-            direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
+            direction={{
+              xs: "column",
+              sm: "column",
+              md: "column",
+              lg: "row",
+            }}
             spacing={3}
             sx={{
               marginTop: "20px",

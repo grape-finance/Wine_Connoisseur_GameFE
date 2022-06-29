@@ -146,14 +146,14 @@ const Overview = () => {
     yieldPPS: number
   ) => {
     if (chainId && wineryContract && !_.isEmpty(userStakedList)) {
-      console.log("ppm", ppm);
-      console.log("wineryFatigue", wineryFatigue);
-      console.log("wineryVintageWine", wineryVintageWine);
-      console.log("timeUntilFatigue", timeUntilFatigued);
-      console.log("masterVinterNumber", masterVintnerNumber);
-      console.log("startTimeStamp", startTimeStamp);
-      console.log("fatiguePerMinuteWithModifier", fatiguePerMinuteWithModifier);
-      console.log("yieldPPS", yieldPPS);
+      // console.log("ppm", ppm);
+      // console.log("wineryFatigue", wineryFatigue);
+      // console.log("wineryVintageWine", wineryVintageWine);
+      // console.log("timeUntilFatigue", timeUntilFatigued);
+      // console.log("masterVinterNumber", masterVintnerNumber);
+      // console.log("startTimeStamp", startTimeStamp);
+      // console.log("fatiguePerMinuteWithModifier", fatiguePerMinuteWithModifier);
+      // console.log("yieldPPS", yieldPPS);
       const web3Provider = NETWORKS.filter(
         (item) => item.chainId === chainId
       )[0]?.defaultProvider[0];
@@ -178,8 +178,7 @@ const Overview = () => {
       masterVintnerSkillModifier = Number(masterVintnerSkillModifier);
 
       maxVintageWine = maxVintageWine / Math.pow(10, 18);
-      console.log("maxVintageWine", maxVintageWine);
-
+      
       const fatigueLastUpdate = wineryFatigue;
       if (fatigueLastUpdate === 100000000000000) {
         return 0;
@@ -191,11 +190,6 @@ const Overview = () => {
       } else {
         endTimestamp = currentUnixTime;
       }
-
-      // console.log(
-      //   "{unixToDate(timeUntilFatigues - startTime)}",
-      //   unixToDate(timeUntilFatigued - startTimeStamp)
-      // );
 
       const newVintageWineAmount = vintageWineAccruedCalculation(
         wineryVintageWine,
@@ -213,11 +207,7 @@ const Overview = () => {
           vintageWinePerMinute: newVintageWineAmount / Math.pow(10, 18),
         })
       );
-      console.log(
-        "newVintageWineAmount / Math.pow(10, 18)",
-        newVintageWineAmount / Math.pow(10, 18)
-      );
-
+      
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
         return maxVintageWine;
       }

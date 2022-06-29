@@ -90,11 +90,6 @@ const Cellar = () => {
 
   const stakeVintageWine = async (amount: number) => {
     if (account && chainId && cellarContract) {
-      console.log("amount", amount);
-      console.log(
-        "ethers.utils.parseEther(amount.toString())",
-        ethers.utils.parseEther(amount.toString())
-      );
       try {
         setLoading(true);
         let tx = await cellarContract.stake(
@@ -113,10 +108,6 @@ const Cellar = () => {
 
   const quickUnstake = async (shareAmount: number) => {
     if (account && chainId && cellarContract) {
-      // console.log(
-      //   "ethers.utils.parseEther(shareAmount.toString())",
-      //   BigNumber.from(10 * Math.pow(10, 18))
-      // );
       try {
         setLoading(true);
         let tx = await cellarContract.quickUnstake(

@@ -7,6 +7,7 @@ import {
   VINTNER_ADDRESS,
   WINERYPROGRESSION_ADDRESS,
   WINERY_ADDRESS,
+  MULTICALL_ADDRESS,
 } from "config/address";
 import { useMemo } from "react";
 import { useWeb3 } from "state/web3";
@@ -19,6 +20,7 @@ import VINTNER_ABI from "abi/vintner.json";
 import WINERY_ABI from "abi/winery.json";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 import PIZZERIA_ABI from "abi/pizzeria.json";
+import MULTICALL_ABI from "abi/multicall.json";
 import { getProvider } from "utils/provider";
 
 export function useContract(
@@ -57,6 +59,10 @@ export function useContract(
     withSignerIfPossible,
     account,
   ]);
+}
+
+export function useMulticall2Contract() {
+  return useContract(MULTICALL_ADDRESS, MULTICALL_ABI, false);
 }
 
 export function useGrapeContract() {
