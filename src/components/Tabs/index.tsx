@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const tabsData = [
   { title: "Overview" },
@@ -9,11 +10,12 @@ const tabsData = [
   { title: "Cellar" },
 ];
 type IProps = {
-  currentTab: string;
-  setCurrentTab: (val: string) => void;
+  tab: string;
+  // settab: (val: string) => void;
 };
 
-const Tabs: React.FC<IProps> = ({ currentTab, setCurrentTab }) => {
+const Tabs: React.FC<IProps> = ({ tab }) => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -40,7 +42,8 @@ const Tabs: React.FC<IProps> = ({ currentTab, setCurrentTab }) => {
         {tabsData?.map((data, i) => (
           <Box
             key={`tabsData${i + 2}`}
-            onClick={() => setCurrentTab(data.title)}
+            // onClick={() => settab(data.title)}
+            onClick={() => navigate("/app/" + data.title)}
             sx={{
               display: "flex",
               alignItems: "center",
@@ -54,7 +57,7 @@ const Tabs: React.FC<IProps> = ({ currentTab, setCurrentTab }) => {
               sx={{
                 display: "flex",
                 gap: 1,
-                ...(data.title === currentTab && {
+                ...(data.title === tab && {
                   borderBottom: "2px solid",
                   borderColor: "primary.main",
                   marginBottom: "-2px",
@@ -68,7 +71,7 @@ const Tabs: React.FC<IProps> = ({ currentTab, setCurrentTab }) => {
             >
               <Typography
                 sx={{
-                  ...(data.title === currentTab && {
+                  ...(data.title === tab && {
                     color: "primary.main",
                   }),
                   fontWeight: "fontWeightMedium",

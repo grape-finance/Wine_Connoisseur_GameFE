@@ -6,9 +6,10 @@ import {
   Typography,
   Stack,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
   useGrapeContract,
@@ -25,10 +26,10 @@ import StyledButton from "components/StyledButton";
 import toolImg1 from "assets/image/tools/1.png";
 import toolImg2 from "assets/image/tools/2.png";
 import toolImg3 from "assets/image/tools/3.png";
-import toolImg4 from "assets/image/tools/4.png";
-import toolImg5 from "assets/image/tools/5.png";
-import toolImg6 from "assets/image/tools/6.png";
-import { ethers } from "ethers";
+import ERC20 from "abi/types/ERC20";
+import useApprove, { ApprovalState } from "hooks/useApprove";
+import { ILevel } from "interface/ILevel";
+import { BigNumber, ethers } from "ethers";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   color: "#000",
@@ -53,7 +54,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 const Tools = () => {
   const [isloading, setLoading] = useState(false);
-  const { account, chainId } = useWeb3();
+  const { account, provider, chainId } = useWeb3();
   const [tabValue, setTab] = useState(0); // True - show stakedAmount NFT , False - show unstakedAmount NFT
   const [checked, setChecked] = useState(false);
   // Get Contract
@@ -61,6 +62,16 @@ const Tools = () => {
   const upgradeContract = useUpgradeContract();
   const wineryContract = useWineryContract();
   const grapeContract = useGrapeContract();
+  const grapeToken = useMemo(() => {
+    if (provider && grapeContract) {
+      const signer = provider.getSigner();
+      return new ERC20(grapeContract.address, signer, "Grape");
+    }
+  }, [provider, grapeContract]);
+  const [approveStatus, approve] = useApprove(
+    grapeToken!,
+    UPGRADE_ADDRESS[chainId!]
+  );
   // Approve upgrade contract
   const [upgradeApproved, setUpgradeApproved] = useState(0);
   // Stake and Unstake NFT
@@ -75,15 +86,64 @@ const Tools = () => {
     setMintAmountInput(Number(event.target.value));
   };
 
-  const toolImageList = [
-    toolImg1,
-    toolImg2,
-    toolImg3,
-    toolImg4,
-    toolImg5,
-    toolImg6,
+  const _toolNFTLists: ILevel[] = [
+    {
+      name: "Tool1",
+      description: "Description1",
+      supply: BigNumber.from(0),
+      maxSupply: BigNumber.from(2500),
+      priceVintageWine: ethers.utils.parseUnits("3000"),
+      priceGrape: ethers.utils.parseUnits("50"),
+      yield: BigNumber.from(1),
+      image: toolImg1,
+    },
+    {
+      name: "Tool2",
+      description: "Description2",
+      supply: BigNumber.from(0),
+      maxSupply: BigNumber.from(2200),
+      priceVintageWine: ethers.utils.parseUnits("3000"),
+      priceGrape: ethers.utils.parseUnits("50"),
+      yield: BigNumber.from(3),
+      image: toolImg2,
+    },
+    {
+      name: "Tool3",
+      description: "Description3",
+      supply: BigNumber.from(0),
+      maxSupply: BigNumber.from(2000),
+      priceVintageWine: ethers.utils.parseUnits("3000"),
+      priceGrape: ethers.utils.parseUnits("50"),
+      yield: BigNumber.from(5),
+      image: toolImg3,
+    },
   ];
 
+  const [toolNFTLists, setToolNFTLists] = useState<ILevel[]>(_toolNFTLists);
+
+  useEffect(() => {
+    if (upgradeContract) {
+      const getLevelInfo = async () => {
+        // const currentLevelindex = await upgradeContract.currentLevelIndex();
+        let _toolNFTLists: ILevel[] = toolNFTLists;
+        for (let i = 0; i <= 2; i++) {
+          const level: ILevel = await upgradeContract.levels(i);
+
+          console.log("level", level);
+
+          _toolNFTLists[i].supply = level.supply;
+          _toolNFTLists[i].maxSupply = level.maxSupply;
+          _toolNFTLists[i].priceVintageWine = level.priceVintageWine;
+          _toolNFTLists[i].priceGrape = level.priceGrape;
+          _toolNFTLists[i].yield = level.yield;
+        }
+        setToolNFTLists(_toolNFTLists);
+      };
+      getLevelInfo();
+    }
+  }, [upgradeContract]);
+
+  // Check is approved
   useEffect(() => {
     if (chainId && vintnerContract) {
       const checkApproved = async () => {
@@ -159,20 +219,11 @@ const Tools = () => {
       if (mintAmountInput <= 0) alert("You need to mint at least one");
       else {
         try {
-          // Calculate the grape token amount to buy NFT
-          const level: any = await upgradeContract.levels(selectedNFTForMint);
-          const grapeCost =
-            (level?.priceGrape / Math.pow(10, 18)) * mintAmountInput;
-          let tx = await grapeContract.approve(
-            UPGRADE_ADDRESS[chainId],
-            ethers.utils.parseEther(grapeCost.toString())
-          );
-          setLoading(true);
-          await tx.wait();
-          tx = await upgradeContract.mintUpgrade(
+          const tx = await upgradeContract.mintUpgrade(
             selectedNFTForMint,
             mintAmountInput
           );
+
           setLoading(true);
           const receipt = await tx.wait();
           if (receipt.status) {
@@ -287,7 +338,7 @@ const Tools = () => {
         </Box>
       );
     } else if (tabValue === 1 && !_.isEmpty(userUnstakedList)) {
-      // Show staked Value
+      // Show unstaked Value
       return (
         <Box
           style={{
@@ -312,7 +363,7 @@ const Tools = () => {
         </Box>
       );
     } else if (tabValue === 2 && !_.isEmpty(userUnstakedList)) {
-      // Show staked Value
+      // Show tools for mint
       return (
         <Box
           style={{
@@ -322,15 +373,52 @@ const Tools = () => {
             justifyContent: "center",
           }}
         >
-          {toolImageList.map((item: string, index: number) => (
-            <Box
-              onClick={() => handleClick(index)}
-              style={{ padding: "10px" }}
-              key={index}
-            >
-              <NFTItem image={item} selected={selectedNFTForMint === index} />
-            </Box>
-          ))}
+          {Object.keys(toolNFTLists).map((i: any, index: number) => {
+            const item = toolNFTLists[i];
+            // supply: 0,
+            // maxSupply: 2500,
+            // priceVintageWine: 3000,
+            // priceGrape: 50,
+            // yield: 1,
+            // image: toolImg1,
+            return (
+              <Tooltip
+                title={
+                  <>
+                    <Typography variant="h3">{item.name}</Typography>
+                    <Typography variant="h4">{item.description}</Typography>
+
+                    <Typography variant="h5">
+                      Total Supply: {Number(item.maxSupply)}
+                    </Typography>
+                    <Typography variant="h5">
+                      Minted Count: {Number(item.supply)}
+                    </Typography>
+                    <Typography variant="h5">
+                      Cost: <br /> Grape :{" "}
+                      {ethers.utils.formatEther(item.priceGrape)} , VintageWine
+                      : {ethers.utils.formatEther(item.priceVintageWine)}{" "}
+                    </Typography>
+                    <Typography variant="h5">
+                      VintageWine Per Minute : {Number(item.yield)}
+                    </Typography>
+                  </>
+                }
+                key={index}
+              >
+                <Box
+                  onClick={() => handleClick(index)}
+                  style={{ padding: "10px" }}
+                  key={index}
+                >
+                  <NFTItem
+                    image={item.image}
+                    selected={selectedNFTForMint === index}
+                  />
+                </Box>
+              </Tooltip>
+            );
+          })}
         </Box>
       );
     }
@@ -512,7 +600,11 @@ const Tools = () => {
                   type="number"
                   onChange={handleChange}
                 />
-                <StyledButton onClick={() => mintNFT()}>MINT</StyledButton>
+                {approveStatus !== ApprovalState.APPROVED ? (
+                  <StyledButton onClick={approve}>APPROVE</StyledButton>
+                ) : (
+                  <StyledButton onClick={() => mintNFT()}>MINT</StyledButton>
+                )}
               </>
             )}
             {tabValue !== 2 && (

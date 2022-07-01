@@ -1,6 +1,6 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useGrapeContract, useWineryContract } from "hooks/useContract";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useWeb3 } from "state/web3";
 import multicall from "utils/multicall";
@@ -16,13 +16,25 @@ import Loading from "components/Loading";
 import StyledButton from "components/StyledButton";
 import { setUserNFTState } from "state/user/actions";
 import { useNFTState } from "state/user/hooks";
+import ERC20 from "abi/types/ERC20";
+import useApprove, { ApprovalState } from "hooks/useApprove";
 
 const Overview = () => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const { account, chainId } = useWeb3();
+  const { account, provider, chainId } = useWeb3();
   const grapeContract = useGrapeContract();
   const wineryContract = useWineryContract();
+  const grapeToken = useMemo(() => {
+    if (provider && grapeContract) {
+      const signer = provider.getSigner();
+      return new ERC20(grapeContract.address, signer, "Grape");
+    }
+  }, [provider, grapeContract]);
+  const [approveStatus, approve] = useApprove(
+    grapeToken!,
+    WINERY_ADDRESS[chainId!]
+  );
 
   const { fatigueAccrued, timeUntilFatigues, vintageWineAccrued } =
     useNFTState();
@@ -178,7 +190,7 @@ const Overview = () => {
       masterVintnerSkillModifier = Number(masterVintnerSkillModifier);
 
       maxVintageWine = maxVintageWine / Math.pow(10, 18);
-      
+
       const fatigueLastUpdate = wineryFatigue;
       if (fatigueLastUpdate === 100000000000000) {
         return 0;
@@ -207,7 +219,7 @@ const Overview = () => {
           vintageWinePerMinute: newVintageWineAmount / Math.pow(10, 18),
         })
       );
-      
+
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
         return maxVintageWine;
       }
@@ -218,13 +230,14 @@ const Overview = () => {
   const resetFatigue = async () => {
     if (account && chainId && grapeContract && wineryContract) {
       try {
-        let tx = await grapeContract.approve(
-          WINERY_ADDRESS[chainId],
-          ethers.utils.parseEther((0.1 * ppm).toString())
-        );
+        // let tx = await grapeContract.approve(
+        //   WINERY_ADDRESS[chainId],
+        //   ethers.utils.parseEther((0.1 * ppm).toString())
+        // );
+        // setLoading(true);
+        // await tx.wait();
+        let tx = await wineryContract.resetFatigue();
         setLoading(true);
-        await tx.wait();
-        tx = await wineryContract.resetFatigue();
         await tx.wait();
         setLoading(false);
         window.location.reload();
@@ -277,9 +290,14 @@ const Overview = () => {
             justifyContent: "space-between",
           }}
         >
-          <StyledButton onClick={() => resetFatigue()}>
-            Reset Fatigue
-          </StyledButton>
+          {approveStatus !== ApprovalState.APPROVED ? (
+            <StyledButton onClick={approve}>Approve</StyledButton>
+          ) : (
+            <StyledButton onClick={() => resetFatigue()}>
+              Reset Fatigue
+            </StyledButton>
+          )}
+
           <StyledButton onClick={() => claimVintageWine()}>Claim</StyledButton>
         </Stack>
         <Typography color="primary.light" variant="body2" component="p">
@@ -298,8 +316,9 @@ const Overview = () => {
           Max Fatigue in :
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {unixToDate(timeUntilFatigues - startTime)} : {startTime} :{" "}
-          {timeUntilFatigues}
+          {unixToDate(timeUntilFatigues - startTime)}
+          {/* : {startTime} :{" "}
+          {timeUntilFatigues} */}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Earned VintageWine

@@ -8,9 +8,10 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { alertTitleClasses, Stack, TextField } from "@mui/material";
+import { alertTitleClasses, Divider, Stack, TextField } from "@mui/material";
 import Loading from "components/Loading";
 import { useTokenBalance } from "state/user/hooks";
+import { trim } from "utils/trim";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -130,6 +131,10 @@ export default function StakeDialog({
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography color="primary.light" variant="h4" component="p">
+            Available VintageWine : {trim(vintageWineBalance, 2)}
+          </Typography>
+          <Divider sx={{ height: "1px", background: "white", my: 1 }} />
+          <Typography color="primary.light" variant="h5" component="p">
             Stake your $VintageWine in the New Freezer to earn 10% of all
             produced VintageWine. However, unstaking from the Freezer will take
             2 days if you want the smallest penalty, and a great penalty if you
@@ -147,9 +152,9 @@ export default function StakeDialog({
               onChange={handleChange}
             />
             <Button
-              onClick={() => {
-                setVintageWineInput(Number(vintageWineBalance.toFixed(2)));
-              }}
+              onClick={() =>
+                setVintageWineInput(Number(trim(vintageWineBalance, 2)))
+              }
               sx={{
                 width: { xs: "100%", md: "25%" },
                 borderRadius: "1rem",

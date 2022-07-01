@@ -7,8 +7,6 @@ function getWindowDimensions() {
     pageYOffset: offsetY,
     outerHeight: outerH,
   } = window;
-  console.log("pageYOffset", offsetY);
-  console.log("outerHeight", outerH);
   return {
     width,
     height,

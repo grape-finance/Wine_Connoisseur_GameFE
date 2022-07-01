@@ -124,7 +124,7 @@ const Home = () => {
               Build Winery, brew Vintner, then relax!
             </Typography>
             <Button
-              onClick={() => navigate("/app")}
+              onClick={() => navigate("/app/Overview")}
               sx={{
                 p: 2,
                 borderRadius: "1rem",

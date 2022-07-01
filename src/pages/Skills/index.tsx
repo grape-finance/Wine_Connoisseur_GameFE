@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
   CardMedia,
@@ -19,19 +19,13 @@ import { useWeb3 } from "state/web3";
 import { BigNumber, ethers } from "ethers";
 import { WINERYPROGRESSION_ADDRESS } from "config/address";
 import StyledButton from "components/StyledButton";
-import { ISkills, skills } from "config/skills";
+import { skills } from "config/skills";
 import LockImg from "assets/image/skills/lock.svg";
 import SkillDialog from "./skillDialog";
-
-interface ISkillLearned {
-  burn: BigNumber;
-  fatigue: BigNumber;
-  cellar: BigNumber;
-  mastervintner: BigNumber;
-  upgrades: BigNumber;
-  vintners: BigNumber;
-  vintageWineStorage: BigNumber;
-}
+import ERC20 from "abi/types/ERC20";
+import useApprove, { ApprovalState } from "hooks/useApprove";
+import { useTokenBalance } from "state/user/hooks";
+import { ISkillLearned, ISkills } from "interface/ISkill";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   color: "#000",
@@ -55,10 +49,24 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 })) as typeof TextField;
 
 const Skills = () => {
-  const { account, chainId } = useWeb3();
+  const { account, provider, chainId } = useWeb3();
   const [isLoading, setLoading] = useState(false);
+  // Get user info
+  const { grapeBalance } = useTokenBalance();
+  // Getcontract
   const wineryProgressionContract = useWineryProgressionContract();
   const grapeContract = useGrapeContract();
+  const grapeToken = useMemo(() => {
+    if (provider && grapeContract) {
+      const signer = provider.getSigner();
+      return new ERC20(grapeContract.address, signer, "Grape");
+    }
+  }, [provider, grapeContract]);
+  const [approveStatus, approve] = useApprove(
+    grapeToken!,
+    WINERYPROGRESSION_ADDRESS[chainId!]
+  );
+  // Get Skills variables
   const [grapeInput, setGrapeInput] = useState(0);
   const [level, setLevel] = useState(0);
   const [skillPoint, setSkillPoint] = useState(0);
@@ -83,7 +91,6 @@ const Skills = () => {
         response = await wineryProgressionContract.getSkillPoints(account);
         setSkillPoint(Number(response));
         response = await wineryProgressionContract.getSkillsLearned(account);
-        console.log("response", response);
         setSkillLearned(response as ISkillLearned);
         response = await wineryProgressionContract.grapeDeposited(account);
         setGrapeDeposited(Number(ethers.utils.formatEther(response)));
@@ -110,16 +117,16 @@ const Skills = () => {
       alert("You reached out the Max amount");
     else if (account && chainId && grapeContract && wineryProgressionContract) {
       try {
-        let tx = await grapeContract.approve(
-          WINERYPROGRESSION_ADDRESS[chainId],
+        // let tx = await grapeContract.approve(
+        //   WINERYPROGRESSION_ADDRESS[chainId],
+        //   BigNumber.from(grapeInput).mul(BigNumber.from(10).pow(18))
+        // );
+
+        // await tx.wait();
+        const tx = await wineryProgressionContract.depositGrape(
           BigNumber.from(grapeInput).mul(BigNumber.from(10).pow(18))
         );
         setLoading(true);
-        await tx.wait();
-        tx = await wineryProgressionContract.depositGrape(
-          BigNumber.from(grapeInput).mul(BigNumber.from(10).pow(18))
-        );
-
         await tx.wait();
         setLoading(false);
         window.location.reload();
@@ -132,14 +139,32 @@ const Skills = () => {
   };
 
   const upgradeSkill = async () => {
-    alert(upgradeSkillType);
-    alert(upgradeSkillPoint);
+    // alert(upgradeSkillType);
+    // alert(upgradeSkillPoint);
     if (wineryProgressionContract) {
       try {
         let tx = await wineryProgressionContract.spendSkillPoints(
           upgradeSkillType,
           upgradeSkillPoint
         );
+        setLoading(true);
+        await tx.wait();
+        setLoading(false);
+        window.location.reload();
+      } catch (err: any) {
+        console.log("err?data.message", err);
+        alert(err?.data?.message!);
+        setLoading(false);
+      }
+    }
+  };
+
+  const resetSkill = async () => {
+    // alert(upgradeSkillType);
+    // alert(upgradeSkillPoint);
+    if (wineryProgressionContract) {
+      try {
+        let tx = await wineryProgressionContract.resetSkills();
         setLoading(true);
         await tx.wait();
         setLoading(false);
@@ -255,7 +280,8 @@ const Skills = () => {
             component="h6"
             variant="h6"
           >
-            {grapeDeposited} Grape Deposited
+            Your Grape Amount : {grapeBalance}, Deposited Amount :{" "}
+            {grapeDeposited}
           </Typography>
           <Stack
             direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
@@ -285,8 +311,16 @@ const Skills = () => {
             >
               Max
             </StyledButton>
-            <StyledButton onClick={() => deposit()}>Deposit</StyledButton>
-            <StyledButton onClick={() => deposit()}>Reset Skill</StyledButton>
+            {approveStatus !== ApprovalState.APPROVED ? (
+              <StyledButton onClick={approve}>Approve</StyledButton>
+            ) : (
+              <>
+                <StyledButton onClick={() => deposit()}>Deposit</StyledButton>
+                <StyledButton onClick={() => resetSkill()}>
+                  Reset Skill
+                </StyledButton>
+              </>
+            )}
           </Stack>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
             <Typography

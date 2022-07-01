@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { alertTitleClasses, Box, Stack, TextField } from "@mui/material";
 import Loading from "components/Loading";
+import { trim } from "utils/trim";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -237,6 +238,14 @@ export default function UnstakeDialog({
             component="p"
             marginTop={"10px"}
           >
+            Available Amount : {trim(userCellarAmounts, 2)} VintageWine
+          </Typography>
+          <Typography
+            color="primary.light"
+            variant="h5"
+            component="p"
+            marginTop={"10px"}
+          >
             {tabValue === 0
               ? "When you unstake quickly, you get your $RONI back instantly. However, you lose half of it (25% spoiled, and 25% stays in)"
               : "Delayed unstaking takes 2 days to defrost your $RONI fully and 10% of it will spill."}
@@ -253,7 +262,9 @@ export default function UnstakeDialog({
               onChange={handleChange}
             />
             <Button
-              onClick={() => setVintageWineInput(userCellarAmounts)}
+              onClick={() =>
+                setVintageWineInput(Number(trim(userCellarAmounts, 2)))
+              }
               sx={{
                 width: { xs: "100%", md: "25%" },
                 borderRadius: "1rem",

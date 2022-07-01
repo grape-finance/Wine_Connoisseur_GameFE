@@ -9,7 +9,3 @@ export const updateBlockNumber = createAction<{
 export const setOpenModal = createAction<ApplicationModal | null>(
   "application/setOpenModal"
 );
-
-export const setLoading = createAction<{
-  isLoading: boolean;
-}>("application/setLoading");

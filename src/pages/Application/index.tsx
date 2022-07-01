@@ -13,6 +13,7 @@ import ReactPlayer from "react-player";
 import heroVideo from "assets/back.mp4";
 import background1 from "assets/image/winery_bg.png";
 import background2 from "assets/image/celler_bg.png";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -33,19 +34,18 @@ const useStyles = makeStyles({
 
 const Application = () => {
   const classes = useStyles();
-  const [currentTab, setCurrentTab] = useState("Skills");
+  const { tab } = useParams();
 
   return (
     <section
       style={{
         width: "100%",
-        // height: height,
         position: "relative",
         objectFit: "cover",
       }}
       className={classes.root}
     >
-      {currentTab === "Overview" && (
+      {tab === "Overview" && (
         <div
           style={{
             position: "fixed",
@@ -64,12 +64,9 @@ const Application = () => {
         </div>
       )}
 
-      {(currentTab === "Winery" || currentTab === "Tools") && (
+      {(tab === "Winery" || tab === "Tools") && (
         <div
           style={{
-            // display: "flex",
-            // alignItems: "flex-end",
-            // justifyContent: "center",
             position: "fixed",
             width: "100%",
             height: "100vh",
@@ -80,12 +77,9 @@ const Application = () => {
         ></div>
       )}
 
-      {(currentTab === "Skills" || currentTab === "Cellar") && (
+      {(tab === "Skills" || tab === "Cellar") && (
         <div
           style={{
-            // display: "flex",
-            // alignItems: "flex-end",
-            // justifyContent: "center",
             position: "fixed",
             width: "100%",
             height: "100vh",
@@ -125,12 +119,12 @@ const Application = () => {
               <Sidebar />
             </Grid>
             <Grid item xs={12} md={12} lg={9} sx={{ mt: 5 }}>
-              <Tabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
-              {currentTab === "Overview" ? <Overview /> : null}
-              {currentTab === "Winery" ? <Winery /> : null}
-              {currentTab === "Tools" ? <Tools /> : null}
-              {currentTab === "Skills" ? <Skills /> : null}
-              {currentTab === "Cellar" ? <Cellar /> : null}
+              <Tabs tab={tab!} />
+              {tab === "Overview" ? <Overview /> : null}
+              {tab === "Winery" ? <Winery /> : null}
+              {tab === "Tools" ? <Tools /> : null}
+              {tab === "Skills" ? <Skills /> : null}
+              {tab === "Cellar" ? <Cellar /> : null}
             </Grid>
           </Grid>
         </Box>

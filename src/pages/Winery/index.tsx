@@ -3,7 +3,6 @@ import {
   Box,
   FormControlLabel,
   Checkbox,
-  Button,
   Typography,
   Stack,
 } from "@mui/material";
@@ -28,7 +27,6 @@ const Winery = () => {
   const [checked, setChecked] = useState(false);
 
   const vintnerContract = useVintnerContract();
-  const updateContract = useUpgradeContract();
   const wineryContract = useWineryContract();
 
   const [userStakedList, setUserStakedList] = useState([]);

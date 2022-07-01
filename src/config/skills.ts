@@ -1,221 +1,226 @@
-import priceOven from "assets/image/skills/1_precise_oven.svg";
-import qualityControl from "assets/image/skills/2_quality_control.svg";
-import unburnMechanism from "assets/image/skills/3_unburn_mechanism.svg";
+// Fagiue Reduce
+import cut_with_water from "assets/image/skills/Reduce_Distributor_Cut/01-cut-with-water.jpg";
+import sole_distributorship from "assets/image/skills/Reduce_Distributor_Cut/02-sole-distributorship.jpg";
+import onsite_distribution_manager from "assets/image/skills/Reduce_Distributor_Cut/03-onsite-distribution-manager.jpg";
 
-export interface ISkills {
-  burn: any;
-  cellar: any;
-  fatigue: any;
-}
+// Cellar Reducer
+import blending from "assets/image/skills/Decrease_Loss_When_Unstaking/01-blending.jpg";
+import deal_with_devil from "assets/image/skills/Decrease_Loss_When_Unstaking/02-deal-with-devil.jpg";
 
-export const skills = {
+// Burn Reducer
+import partners_in_wine from "assets/image/skills/Multiple_Wine_Master_Staked_Boost/01-partners-in-wine.jpg";
+import wine_mixer from "assets/image/skills/Multiple_Wine_Master_Staked_Boost/02-wine-mixer.jpg";
+
+// Burn Reducer
+import Premium_Corks from "assets/image/skills/Decrease_Vintage_Spoiled/01-Premium-Corks.jpg";
+import temperature_control from "assets/image/skills/Decrease_Vintage_Spoiled/02-temperature-control.jpg";
+import solera_aging from "assets/image/skills/Decrease_Vintage_Spoiled/03-solera-aging.jpg";
+
+// Increase VintageWine Amount
+import backyard_farm from "assets/image/skills/Increase_Staked_Vintner_Slots/01-backyard-farm.jpg";
+import expanded_tasting_room from "assets/image/skills/Increase_Staked_Vintner_Slots/02-expanded-tasting-room.jpg";
+import vineyard_acquisition from "assets/image/skills/Increase_Staked_Vintner_Slots/03-vineyard-acquisition.jpg";
+import overseas_expanstion from "assets/image/skills/Increase_Staked_Vintner_Slots/04-overseas-expanstion.jpg";
+import megacorp_formation from "assets/image/skills/Increase_Staked_Vintner_Slots/05-megacorp-formation.jpg";
+
+// Increase Tools Amount
+import napa_valley_fieldtrip from "assets/image/skills/Stake_Higher_Tier_Tools/01-napa-valley-fieldtrip.jpg";
+import winemaking_convention from "assets/image/skills/Stake_Higher_Tier_Tools/02-winemaking-convention.jpg";
+import Wine_Summit from "assets/image/skills/Stake_Higher_Tier_Tools/03-Wine-Summit.jpg";
+import onsite_engineer from "assets/image/skills/Stake_Higher_Tier_Tools/04-onsite-engineer.jpg";
+import ancient_goon_bag from "assets/image/skills/Stake_Higher_Tier_Tools/05-ancient-goon-bag.jpg";
+
+// Increase VintageWine Storaage Amount
+import farm_hands from "assets/image/skills/Vintage_Storage_Increase/01-farm-hands.jpg";
+import storage_shed from "assets/image/skills/Vintage_Storage_Increase/02-storage-shed.jpg";
+import hardy_varaities from "assets/image/skills/Vintage_Storage_Increase/03-hardy-varaities.jpg";
+import vine_mastery from "assets/image/skills/Vintage_Storage_Increase/04-vine-mastery.jpg";
+import underground_farming from "assets/image/skills/Vintage_Storage_Increase/05-underground-farming.jpg";
+import { ISkills } from "interface/ISkill";
+
+export const skills: ISkills = {
   burn: [
     {
-      name: "Price Ovens",
-
+      name: "Premium Corks",
       skillPoint: 1,
       definition: "Decrease the amount of pepperoni burned when claimed by 3%",
-      image: priceOven,
+      image: Premium_Corks,
     },
     {
-      name: "Quality Control",
-
+      name: "Temperature Control",
       skillPoint: 2,
       definition:
         "Decrease the amount of pepperoni burned when claimed by 3% (6% total)",
-      image: qualityControl,
+      image: temperature_control,
     },
     {
-      name: "Unburn Mechanism",
-
+      name: "Solera Aging",
       skillPoint: 3,
       definition:
         "Decrease the amount of pepperoni burned when claimed by 2% (8% total)",
-      image: unburnMechanism,
+      image: solera_aging,
     },
   ],
   fatigue: [
     {
-      name: "Chef's Endurance",
-
+      name: "Cut With Water",
       skillPoint: 1,
       definition: "Decrease the effects of fatigue by 8%",
-      image: priceOven,
+      image: cut_with_water,
     },
     {
-      name: "Chef's Assistant",
-
+      name: "Sole Distributorship",
       skillPoint: 2,
       definition: "Decrease the effects of fatigue by 7% (15% total)",
-      image: qualityControl,
+      image: sole_distributorship,
     },
     {
-      name: "Fair Working Conditions",
-
+      name: "Onsite Distribution Manager",
       skillPoint: 3,
       definition: "Decrease the effects of fatigue by 5% (20% total)",
-      image: unburnMechanism,
+      image: onsite_distribution_manager,
     },
-    {
-      name: "Survival Instincts",
+    // {
+    //   name: "Survival Instincts",
 
-      skillPoint: 4,
-      definition: "Decrease the effects of fatigue by 10% (total 30%)",
-      image: priceOven,
-    },
-    {
-      name: "Ultimate Chef",
+    //   skillPoint: 4,
+    //   definition: "Decrease the effects of fatigue by 10% (total 30%)",
+    //   image: farm_hands,
+    // },
+    // {
+    //   name: "Ultimate Chef",
 
-      skillPoint: 5,
-      definition: "Decrease the effects of fatigue by 20% (total 50%)",
-      image: qualityControl,
-    },
+    //   skillPoint: 5,
+    //   definition: "Decrease the effects of fatigue by 20% (total 50%)",
+    //   image: storage_shed,
+    // },
   ],
   cellar: [
     {
-      name: "Pizza Delivery",
-
+      name: "Blending",
       skillPoint: 1,
       definition: "Decrease the amount lost to the Freezer when claiming by 4%",
-      image: priceOven,
+      image: blending,
     },
     {
-      name: "Selfishness",
-
+      name: "Deal With Devil",
       skillPoint: 2,
       definition:
         "Decrease the amount lost to the Freezer when claiming by 5% (9% total)",
-      image: qualityControl,
+      image: deal_with_devil,
     },
   ],
   mastervintner: [
     {
-      name: "Master Conspiracy",
-
+      name: "Partners In Wine",
       skillPoint: 1,
       definition:
-        "Increases by 3% the RPD of the Pizzeria if 2 or more Master Chefs are staked",
-      image: priceOven,
+        "Increases by 3% the RPD of the Vintner if 2 or more Master Chefs are staked",
+      image: partners_in_wine,
     },
     {
-      name: "Pizzagate",
-
+      name: "Wine Mixer",
       skillPoint: 2,
       definition:
-        "Increases by 7% the RPD of the Pizzeria if 5 or more Master Chefs are staked",
-      image: qualityControl,
+        "Increases by 7% the RPD of the Vintner if 5 or more Master Chefs are staked",
+      image: wine_mixer,
     },
   ],
   upgrades: [
     {
-      name: "Pizzaioli Training",
-
+      name: "Napa Valley Fieldtrip",
       skillPoint: 1,
       definition: "Allows to stake tools from tiers 3 to 5",
-      image: priceOven,
+      image: napa_valley_fieldtrip,
     },
     {
-      name: "Traditional Italian Cuisine",
-
+      name: "Winemaking Convention",
       skillPoint: 2,
       definition: "Allows to stake tools from tiers 6 and 7",
-      image: qualityControl,
+      image: winemaking_convention,
     },
     {
-      name: "Bleeding Edge Technology",
-
+      name: "Wine Summit",
       skillPoint: 3,
       definition: "Allows to stake tools from tiers 8 and 9",
-      image: unburnMechanism,
+      image: Wine_Summit,
     },
     {
-      name: "Fringe Science",
-
+      name: "Onsite Engineer",
       skillPoint: 4,
       definition: "Allows to stake tools from tiers 10 to 12",
-      image: qualityControl,
+      image: onsite_engineer,
     },
     {
-      name: "Interdimensional Cooking",
-
+      name: "Ancient Goon Bag",
       skillPoint: 5,
       definition: "Allows to stake tools from tiers 13 and above",
-      image: unburnMechanism,
+      image: ancient_goon_bag,
     },
   ],
   vintners: [
     {
-      name: "Humble Beginnings",
-
+      name: "Backyard Farm",
       skillPoint: 1,
       definition:
         "You can now stake up to 15 chefs you don't have enough skill points",
-      image: priceOven,
+      image: backyard_farm,
     },
     {
-      name: "Best Place in Town",
-
+      name: "Expanded Tasting Room",
       skillPoint: 2,
       definition: "You can now stake up to 20 chefs",
-      image: qualityControl,
+      image: expanded_tasting_room,
     },
     {
-      name: "Pizza Chains",
-
+      name: "Vineyard Acquisition",
       skillPoint: 3,
       definition: "You can now stake up to 30 chefs",
-      image: unburnMechanism,
+      image: vineyard_acquisition,
     },
     {
-      name: "Pizza Industry",
-
+      name: "Overseas Expanstion",
       skillPoint: 4,
       definition: "You can now stake up to 50 chefs",
-      image: qualityControl,
+      image: overseas_expanstion,
     },
     {
-      name: "Chef's Army",
-
+      name: "Megacorp Formation",
       skillPoint: 5,
       definition: "You can now stake unlimited chefs",
-      image: unburnMechanism,
+      image: megacorp_formation,
     },
   ],
   vintageWineStorage: [
     {
-      name: "Pizza Delivery",
-
+      name: "Farm Hands",
       skillPoint: 1,
       definition: "Increase VintageWine store 15000",
-      image: priceOven,
+      image: farm_hands,
     },
     {
-      name: "Selfishness",
-
+      name: "Storage Shed",
       skillPoint: 2,
       definition: "Increase VintageWine store 50000",
-      image: qualityControl,
+      image: storage_shed,
     },
     {
-      name: "Selfishness",
-
+      name: "Hardy Varaities",
       skillPoint: 3,
       definition: "Increase VintageWine store 100000",
-      image: unburnMechanism,
+      image: hardy_varaities,
     },
     {
-      name: "Selfishness",
-
+      name: "Vine Mastery",
       skillPoint: 4,
       definition: "Increase VintageWine store 300000",
-      image: qualityControl,
+      image: vine_mastery,
     },
     {
-      name: "Selfishness",
-
+      name: "Underground Farming",
       skillPoint: 5,
       definition: "Increase VintageWine store 500000",
-      image: unburnMechanism,
+      image: underground_farming,
     },
   ],
 };
