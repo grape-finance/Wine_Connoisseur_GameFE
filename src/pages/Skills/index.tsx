@@ -26,6 +26,7 @@ import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
 import { useTokenBalance } from "state/user/hooks";
 import { ISkillLearned, ISkills } from "interface/ISkill";
+import { trim } from "utils/trim";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   color: "#000",
@@ -280,7 +281,7 @@ const Skills = () => {
             component="h6"
             variant="h6"
           >
-            Your Grape Amount : {grapeBalance}, Deposited Amount :{" "}
+            Your Grape Amount : {trim(grapeBalance, 2)}, Deposited Amount :{" "}
             {grapeDeposited}
           </Typography>
           <Stack
