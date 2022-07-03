@@ -10,6 +10,7 @@ export interface TokenState {
   isLoading: boolean;
   grapeTokenBalance: number;
   vintageWineTokenBalance: number;
+  USDCVintageWineLPBalance: number;
   vintnerBalance: number;
   upgradeBalance: number;
   vintnerStakedBalance: number;
@@ -26,6 +27,7 @@ const initialState: TokenState = {
   isLoading: false,
   grapeTokenBalance: 0,
   vintageWineTokenBalance: 0,
+  USDCVintageWineLPBalance: 0,
   vintnerBalance: 0,
   upgradeBalance: 0,
   vintnerStakedBalance: 0,
@@ -48,6 +50,7 @@ export default createReducer(initialState, (builder) =>
       const {
         grapeTokenBalance,
         vintageWineTokenBalance,
+        USDCVintageWineLPBalance,
         vintnerBalance,
         upgradeBalance,
         vintnerStakedBalance,
@@ -56,6 +59,8 @@ export default createReducer(initialState, (builder) =>
       if (grapeTokenBalance) state.grapeTokenBalance = grapeTokenBalance;
       if (vintageWineTokenBalance)
         state.vintageWineTokenBalance = vintageWineTokenBalance;
+      if (USDCVintageWineLPBalance)
+        state.USDCVintageWineLPBalance = USDCVintageWineLPBalance;
       state.vintnerBalance = vintnerBalance;
       state.upgradeBalance = upgradeBalance;
       state.vintnerStakedBalance = vintnerStakedBalance;

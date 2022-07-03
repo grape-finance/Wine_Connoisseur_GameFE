@@ -12,6 +12,9 @@ export function useTokenBalance() {
   const vintageWineBalance = useSelector(
     (state: AppState) => state.user.vintageWineTokenBalance
   );
+  const USDCVintageWineLPBalance = useSelector(
+    (state: AppState) => state.user.USDCVintageWineLPBalance
+  );
   const vintnerBalance = useSelector(
     (state: AppState) => state.user.vintnerBalance
   );
@@ -27,6 +30,7 @@ export function useTokenBalance() {
   return {
     grapeBalance,
     vintageWineBalance,
+    USDCVintageWineLPBalance,
     vintnerBalance,
     upgradeBalance,
     vintnerStakedBalance,

@@ -14,6 +14,7 @@ import heroVideo from "assets/back.mp4";
 import background1 from "assets/image/winery_bg.png";
 import background2 from "assets/image/celler_bg.png";
 import { useParams } from "react-router-dom";
+import Fountain from "pages/Fountain";
 
 const useStyles = makeStyles({
   root: {
@@ -77,7 +78,7 @@ const Application = () => {
         ></div>
       )}
 
-      {(tab === "Skills" || tab === "Cellar") && (
+      {(tab === "Skills" || tab === "Cellar" || tab === "Fountain") && (
         <div
           style={{
             position: "fixed",
@@ -125,6 +126,7 @@ const Application = () => {
               {tab === "Tools" ? <Tools /> : null}
               {tab === "Skills" ? <Skills /> : null}
               {tab === "Cellar" ? <Cellar /> : null}
+              {tab === "Fountain" ? <Fountain /> : null}
             </Grid>
           </Grid>
         </Box>

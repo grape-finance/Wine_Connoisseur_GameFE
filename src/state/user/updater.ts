@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   useGrapeContract,
   useUpgradeContract,
+  useUSDCVintageWineLPContract,
   useVintageWineContract,
   useVintnerContract,
   useWineryContract,
@@ -26,6 +27,7 @@ export default function Updater(): null {
   const { account, chainId } = useWeb3();
   const grapeTokenContract = useGrapeContract();
   const vintageWineTokenContract = useVintageWineContract();
+  const USDCVintageWineLPContract = useUSDCVintageWineLPContract();
   const vintnerContract = useVintnerContract();
   const upgradeContract = useUpgradeContract();
   const wineryContract = useWineryContract();
@@ -35,18 +37,21 @@ export default function Updater(): null {
       account &&
       grapeTokenContract &&
       vintageWineTokenContract &&
+      USDCVintageWineLPContract &&
       vintnerContract &&
       upgradeContract &&
       wineryContract &&
       (chainId === SupportedChainId.MAINNET ||
         chainId === SupportedChainId.TESTNET)
     ) {
-      // Get user token balance of Grape and VintageWine
+      // Get user token balance of Grape and VintageWine and USDC-VintageWine LP
       const getBalance = async () => {
         // get User Info
         const grapeTokenBalance = await grapeTokenContract.balanceOf(account);
         const vintageWineTokenBalance =
           await vintageWineTokenContract.balanceOf(account);
+        const USDCVintageWineLPBalance =
+          await USDCVintageWineLPContract.balanceOf(account);
         const vintnerBalance = await vintnerContract.balanceOf(account);
         const upgradeBalance = await upgradeContract.balanceOf(account);
         const vintnerStakedBalance =
@@ -60,6 +65,8 @@ export default function Updater(): null {
               grapeTokenBalance: Number(grapeTokenBalance) / Math.pow(10, 18),
               vintageWineTokenBalance:
                 Number(vintageWineTokenBalance) / Math.pow(10, 18),
+              USDCVintageWineLPBalance:
+                Number(USDCVintageWineLPBalance) / Math.pow(10, 18),
               vintnerBalance: Number(vintnerBalance),
               upgradeBalance: Number(upgradeBalance),
               vintnerStakedBalance: Number(vintnerStakedBalance),
@@ -119,7 +126,6 @@ export default function Updater(): null {
                 Number(_vintageWineAccrued) / Math.pow(10, 18),
             })
           );
-          
         }
       };
       getUserNFTInfo();
@@ -129,9 +135,10 @@ export default function Updater(): null {
     chainId,
     dispatch,
     grapeTokenContract,
+    vintageWineTokenContract,
+    USDCVintageWineLPContract,
     vintnerContract,
     upgradeContract,
-    vintageWineTokenContract,
     wineryContract,
   ]);
 

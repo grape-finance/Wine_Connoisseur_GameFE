@@ -8,17 +8,21 @@ import {
   WINERYPROGRESSION_ADDRESS,
   WINERY_ADDRESS,
   MULTICALL_ADDRESS,
+  VINTAGEWINE_FOUNTAIN_ADDRESS,
+  USDC_VINTAGEWINE_LP_ADDRESS,
 } from "config/address";
 import { useMemo } from "react";
 import { useWeb3 } from "state/web3";
 import { getContract } from "utils";
 import GRAPE_TOKEN_ABI from "abi/grape.json";
 import VINTAGEWINE_TOKEN_ABI from "abi/vintageWine.json";
+import USDC_VINTAGEWINE_LP_ABI from "abi/USDCVintageWineLP.json";
 import CELLAR_ABI from "abi/cellar.json";
 import UPGRADE_ABI from "abi/upgrade.json";
 import VINTNER_ABI from "abi/vintner.json";
 import WINERY_ABI from "abi/winery.json";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
+import VINTAGEWINE_FOUNTAIN_ABI from "abi/vintageWineFountain.json";
 import MULTICALL_ABI from "abi/multicall.json";
 // import { getProvider } from "utils/provider";
 
@@ -72,6 +76,10 @@ export function useVintageWineContract() {
   return useContract(VINTAGEWINE_ADDRESS, VINTAGEWINE_TOKEN_ABI);
 }
 
+export function useUSDCVintageWineLPContract() {
+  return useContract(USDC_VINTAGEWINE_LP_ADDRESS, USDC_VINTAGEWINE_LP_ABI);
+}
+
 export function useCellarContract() {
   return useContract(CELLAR_ADDRESS, CELLAR_ABI);
 }
@@ -90,6 +98,10 @@ export function useWineryContract() {
 
 export function useWineryProgressionContract() {
   return useContract(WINERYPROGRESSION_ADDRESS, WINERYPROGRESSION_ABI);
+}
+
+export function useVintageWineFountainContract() {
+  return useContract(VINTAGEWINE_FOUNTAIN_ADDRESS, VINTAGEWINE_FOUNTAIN_ABI);
 }
 
 // export function usePizzeriaContract() {
