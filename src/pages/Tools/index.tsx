@@ -310,7 +310,32 @@ const Tools = () => {
 
   // Render NFT list
   const showNFTs = () => {
-    if (tabValue === 0 && !_.isEmpty(userStakedList)) {
+    if (tabValue === 0) {
+      if (_.isEmpty(userStakedList)) {
+        return (
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "fontWeightBold",
+                textAlign: "center",
+              }}
+              color="primary.light"
+              variant="h4"
+              component="h4"
+            >
+              No items Staked
+            </Typography>
+            ;
+          </Box>
+        );
+      }
       // Show staked Value
       return (
         <Box
@@ -321,23 +346,88 @@ const Tools = () => {
             justifyContent: "center",
           }}
         >
-          {userStakedList?.map((item: any, index) => (
-            <Box
-              onClick={() => handleClick(item)}
-              style={{ padding: "10px" }}
-              key={index}
-            >
-              <>
-                <NFTItem
-                  image={`${TOOL_URI}/${(Number(item.toolPPM) + 1) / 2}.png`}
-                  selected={selectedNFTs.includes(item)}
-                />
-              </>
-            </Box>
-          ))}
+          {userStakedList.map((item: any, index) => {
+            const tokenURI = (Number(item.toolPPM) + 1) / 2;
+            return (
+              <Tooltip
+                title={
+                  <>
+                    <Typography variant="h3">
+                      {toolNFTLists[tokenURI].name}
+                    </Typography>
+                    <Typography variant="h4">
+                      {toolNFTLists[tokenURI].description}
+                    </Typography>
+
+                    <Typography variant="h5">
+                      Total Supply: {Number(toolNFTLists[tokenURI].maxSupply)}
+                    </Typography>
+                    <Typography variant="h5">
+                      Minted Count: {Number(toolNFTLists[tokenURI].supply)}
+                    </Typography>
+                    <Typography variant="h5">
+                      Cost: <br /> Grape :{" "}
+                      {ethers.utils.formatEther(
+                        toolNFTLists[tokenURI].priceGrape
+                      )}{" "}
+                      , VintageWine :{" "}
+                      {ethers.utils.formatEther(
+                        toolNFTLists[tokenURI].priceVintageWine
+                      )}{" "}
+                    </Typography>
+                    <Typography variant="h5">
+                      VintageWine Per Minute :{" "}
+                      {Number(toolNFTLists[tokenURI].yield)}
+                    </Typography>
+                  </>
+                }
+                key={index}
+              >
+                <Box
+                  onClick={() => handleClick(item)}
+                  style={{ padding: "10px" }}
+                  key={index}
+                >
+                  <>
+                    <NFTItem
+                      image={`${TOOL_URI}/${
+                        (Number(item.toolPPM) + 1) / 2
+                      }.png`}
+                      selected={selectedNFTs.includes(item)}
+                    />
+                  </>
+                </Box>
+              </Tooltip>
+            );
+          })}
         </Box>
       );
-    } else if (tabValue === 1 && !_.isEmpty(userUnstakedList)) {
+    } else if (tabValue === 1) {
+      if (_.isEmpty(userUnstakedList)) {
+        return (
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "fontWeightBold",
+                textAlign: "center",
+              }}
+              color="primary.light"
+              variant="h4"
+              component="h4"
+            >
+              No items Unstaked
+            </Typography>
+            ;
+          </Box>
+        );
+      }
       // Show unstaked Value
       return (
         <Box
@@ -348,21 +438,59 @@ const Tools = () => {
             justifyContent: "center",
           }}
         >
-          {userUnstakedList.map((item: any, index: number) => (
-            <Box
-              onClick={() => handleClick(item)}
-              style={{ padding: "10px" }}
-              key={index}
-            >
-              <NFTItem
-                image={`${TOOL_URI}/${item?.contentURI?.slice(30, 31)}.png`}
-                selected={selectedNFTs.includes(item)}
-              />
-            </Box>
-          ))}
+          {userUnstakedList.map((item: any, index: number) => {
+            const tokenURI = Number(item.contentURI.slice(30, 31)) - 1;
+            return (
+              <Tooltip
+                title={
+                  <>
+                    <Typography variant="h3">
+                      {toolNFTLists[tokenURI].name}
+                    </Typography>
+                    <Typography variant="h4">
+                      {toolNFTLists[tokenURI].description}
+                    </Typography>
+
+                    <Typography variant="h5">
+                      Total Supply: {Number(toolNFTLists[tokenURI].maxSupply)}
+                    </Typography>
+                    <Typography variant="h5">
+                      Minted Count: {Number(toolNFTLists[tokenURI].supply)}
+                    </Typography>
+                    <Typography variant="h5">
+                      Cost: <br /> Grape :{" "}
+                      {ethers.utils.formatEther(
+                        toolNFTLists[tokenURI].priceGrape
+                      )}{" "}
+                      , VintageWine :{" "}
+                      {ethers.utils.formatEther(
+                        toolNFTLists[tokenURI].priceVintageWine
+                      )}{" "}
+                    </Typography>
+                    <Typography variant="h5">
+                      VintageWine Per Minute :{" "}
+                      {Number(toolNFTLists[tokenURI].yield)}
+                    </Typography>
+                  </>
+                }
+                key={index}
+              >
+                <Box
+                  onClick={() => handleClick(item)}
+                  style={{ padding: "10px" }}
+                  key={index}
+                >
+                  <NFTItem
+                    image={`${TOOL_URI}/${item?.contentURI?.slice(30, 31)}.png`}
+                    selected={selectedNFTs.includes(item)}
+                  />
+                </Box>
+              </Tooltip>
+            );
+          })}
         </Box>
       );
-    } else if (tabValue === 2 && !_.isEmpty(userUnstakedList)) {
+    } else if (tabValue === 2) {
       // Show tools for mint
       return (
         <Box

@@ -52,6 +52,7 @@ export default function Updater(): null {
           await vintageWineTokenContract.balanceOf(account);
         const USDCVintageWineLPBalance =
           await USDCVintageWineLPContract.balanceOf(account);
+
         const vintnerBalance = await vintnerContract.balanceOf(account);
         const upgradeBalance = await upgradeContract.balanceOf(account);
         const vintnerStakedBalance =

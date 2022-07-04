@@ -2,7 +2,7 @@ import { Container, Stack, Typography } from "@mui/material";
 import ERC20 from "abi/types/ERC20";
 import Loading from "components/Loading";
 import StyledButton from "components/StyledButton";
-import { USDC_VINTAGEWINE_LP_ADDRESS } from "config/address";
+import { VINTAGEWINE_FOUNTAIN_ADDRESS } from "config/address";
 import { BigNumber, ethers } from "ethers";
 import useApprove, { ApprovalState } from "hooks/useApprove";
 import {
@@ -31,7 +31,7 @@ const Fountain = () => {
   }, [provider, LPContract]);
   const [approveStatus, approve] = useApprove(
     LPToken!,
-    USDC_VINTAGEWINE_LP_ADDRESS[chainId!]
+    VINTAGEWINE_FOUNTAIN_ADDRESS[chainId!]
   );
 
   // get User Info
@@ -55,17 +55,18 @@ const Fountain = () => {
           await fountainContract.accRewardTokenPerShare();
 
         let _LPSupply: BigNumber = await fountainContract.depositedBalance();
-        _LPSupply = _LPSupply._hex === "0x00" ? BigNumber.from(1) : _LPSupply; // // To prevent to devied by zerio
+        _LPSupply = _LPSupply._hex === "0x00" ? BigNumber.from(1) : _LPSupply; // To prevent to devied by zero
 
         const _tokenReward = BigNumber.from(3600 * 24).mul(_getRewardPerSecond);
-        const _accRewardToken =
-          // _accRewardTokenPerShare.add(
-          _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply);
-        // );
+        const _accRewardToken = _accRewardTokenPerShare.add(
+          _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
+        );
+        console.log("_userInfo", _userInfo);
         const _rewardPerDay = _userInfo.amount
           .mul(_accRewardToken)
           .div(BigNumber.from(10).pow(12))
           .sub(_userInfo.rewardDebt);
+        console.log("_rewardPerDay", _rewardPerDay);
         console.log(_accRewardTokenPerShare, _getRewardPerSecond, _LPSupply);
         setRewardPerDay(Number(ethers.utils.formatEther(_rewardPerDay)));
       };
@@ -80,11 +81,10 @@ const Fountain = () => {
   const stakeLP = async (amount: number) => {
     if (account && chainId && fountainContract) {
       try {
-        setLoading(true);
         let tx = await fountainContract.deposit(
           ethers.utils.parseEther(amount.toString())
         );
-
+        setLoading(true);
         await tx.wait();
         setLoading(false);
         window.location.reload();
@@ -99,11 +99,10 @@ const Fountain = () => {
   const unstakeLP = async (amount: number) => {
     if (account && chainId && fountainContract) {
       try {
-        setLoading(true);
         let tx = await fountainContract.withdraw(
           ethers.utils.parseEther(amount.toString())
         );
-
+        setLoading(true);
         await tx.wait();
         setLoading(false);
         window.location.reload();
@@ -118,9 +117,8 @@ const Fountain = () => {
   const claimLP = async () => {
     if (account && chainId && fountainContract) {
       try {
-        setLoading(true);
         let tx = await fountainContract.withdraw(BigNumber.from(1));
-
+        setLoading(true);
         await tx.wait();
         setLoading(false);
         window.location.reload();

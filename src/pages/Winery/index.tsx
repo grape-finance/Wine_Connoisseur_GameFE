@@ -236,9 +236,32 @@ const Winery = () => {
 
   // Render NFT list
   const showNFTs = () => {
-    if (tabValue === 0 && !_.isEmpty(userStakedList)) {
+    if (tabValue === 0) {
+      if (_.isEmpty(userStakedList))
+        return (
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "fontWeightBold",
+                textAlign: "center",
+              }}
+              color="primary.light"
+              variant="h4"
+              component="h4"
+            >
+              No items Staked
+            </Typography>
+            ;
+          </Box>
+        );
       // Show staked NFTs
-      console.log("userStakedList", userStakedList);
       return (
         <Box
           style={{
@@ -262,7 +285,31 @@ const Winery = () => {
           ))}
         </Box>
       );
-    } else if (tabValue === 1 && !_.isEmpty(userRestingList)) {
+    } else if (tabValue === 1) {
+      if (_.isEmpty(userRestingList))
+        return (
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "fontWeightBold",
+                textAlign: "center",
+              }}
+              color="primary.light"
+              variant="h4"
+              component="h4"
+            >
+              No items Resting
+            </Typography>
+            ;
+          </Box>
+        );
       // Show Resting NFTs
       return (
         <Box
@@ -289,7 +336,31 @@ const Winery = () => {
           ))}
         </Box>
       );
-    } else if (tabValue === 2 && !_.isEmpty(userUnstakedList)) {
+    } else if (tabValue === 2) {
+      if (_.isEmpty(userUnstakedList))
+        return (
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "fontWeightBold",
+                textAlign: "center",
+              }}
+              color="primary.light"
+              variant="h4"
+              component="h4"
+            >
+              No items Unstaked
+            </Typography>
+            ;
+          </Box>
+        );
       // Show unstaked NFTs
       return (
         <Box
