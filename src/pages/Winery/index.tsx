@@ -9,7 +9,6 @@ import {
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
-  useUpgradeContract,
   useVintnerContract,
   useWineryContract,
 } from "hooks/useContract";
@@ -68,7 +67,7 @@ const Winery = () => {
       }
     }
   `;
-  const { loading, error, data: unstakedNFTs } = useQuery(userNFTs);
+  const { loading, data: unstakedNFTs } = useQuery(userNFTs);
   useEffect(() => {
     if (!_.isEmpty(unstakedNFTs)) {
       setUserUnstakedList(unstakedNFTs.users[0]?.vintnerTokens);

@@ -4,14 +4,13 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { alertTitleClasses, Divider, Stack, TextField } from "@mui/material";
-import Loading from "components/Loading";
+import { Divider, Stack, TextField } from "@mui/material";
 import { useTokenBalance } from "state/user/hooks";
 import { trim } from "utils/trim";
+import NumberInput from "components/NuberInput";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -59,33 +58,6 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  color: "#000",
-  backgroundColor: "rgb(255 237 213)",
-  [theme.breakpoints.down("xs")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.up("xs")]: {
-    width: "50%",
-  },
-  borderRadius: 8,
-  textAlign: "end",
-  "& .MuiInput-underline:after": {
-    border: "none",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-    "&:hover fieldset": {
-      border: "none",
-    },
-    "&.Mui-focused fieldset": {
-      border: "none",
-    },
-  },
-})) as typeof TextField;
-
 interface IProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
@@ -93,15 +65,11 @@ interface IProps {
 }
 
 export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
-  const [LPInput, setLPInput] = React.useState(0);
+  const [LPInput, setLPInput] = React.useState("");
   const { USDCVintageWineLPBalance } = useTokenBalance();
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLPInput(Number(event.target.value));
   };
 
   return (
@@ -139,41 +107,10 @@ export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
         </DialogContent>
         <DialogContent>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
-            <StyledTextField
-              InputProps={{ style: { textAlign: "end" } }}
-              value={LPInput}
-              id="outlined-basic"
-              variant="outlined"
-              type="number"
-              onChange={handleChange}
-            />
-            <Button
-              onClick={() =>
-                setLPInput(Number(trim(USDCVintageWineLPBalance, 2)))
-              }
-              sx={{
-                width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
-                color: "primary.light",
-
-                "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
-                },
-              }}
-              variant="contained"
-            >
-              Max
-            </Button>
+            <NumberInput value={LPInput} setValue={setLPInput} max={USDCVintageWineLPBalance} />
             <Button
               onClick={() => {
-                stakeLP(LPInput);
+                stakeLP(+LPInput);
                 setOpen(false);
               }}
               sx={{

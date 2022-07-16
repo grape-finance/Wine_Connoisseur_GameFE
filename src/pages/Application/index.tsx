@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
 import Winery from "pages/Winery";
-import React, { useState } from "react";
+import React from "react";
 import Tabs from "components/Tabs";
 import Overview from "pages/Overview";
 import Skills from "pages/Skills";
@@ -11,8 +11,10 @@ import Tools from "pages/Tools";
 import Cellar from "pages/Cellar";
 import ReactPlayer from "react-player";
 import heroVideo from "assets/back.mp4";
-import background1 from "assets/image/winery_bg.png";
-import background2 from "assets/image/celler_bg.png";
+import winery_bg from "assets/image/winery_bg.png";
+import celler_bg from "assets/image/celler_bg.png";
+import fountain_bg from "assets/image/fountain_bg.png";
+import tool_bg from "assets/image/tool_bg.png";
 import { useParams } from "react-router-dom";
 import Fountain from "pages/Fountain";
 
@@ -37,6 +39,21 @@ const Application = () => {
   const classes = useStyles();
   const { tab } = useParams();
 
+  const background = () => {
+    switch (tab) {
+      case "Winery":
+        return winery_bg;
+      case "Tools":
+        return tool_bg;
+      case "Skills":
+        return winery_bg;
+      case "Cellar":
+        return celler_bg;
+      case "Fountain":
+        return fountain_bg;
+    }
+  };
+
   return (
     <section
       style={{
@@ -46,6 +63,7 @@ const Application = () => {
       }}
       className={classes.root}
     >
+      {/* Background  Start */}
       {tab === "Overview" && (
         <div
           style={{
@@ -64,32 +82,17 @@ const Application = () => {
           />
         </div>
       )}
-
-      {(tab === "Winery" || tab === "Tools") && (
-        <div
-          style={{
-            position: "fixed",
-            width: "100%",
-            height: "100vh",
-            backgroundImage: `url(${background1})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        ></div>
-      )}
-
-      {(tab === "Skills" || tab === "Cellar" || tab === "Fountain") && (
-        <div
-          style={{
-            position: "fixed",
-            width: "100%",
-            height: "100vh",
-            backgroundImage: `url(${background2})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        ></div>
-      )}
+      
+      <div
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100vh",
+          backgroundImage: `url(${background()})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      />
 
       <div
         style={{
@@ -99,6 +102,7 @@ const Application = () => {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         }}
       ></div>
+      {/* Background End */}
       <Header />
       <div
         style={{

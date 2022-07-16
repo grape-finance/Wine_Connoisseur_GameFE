@@ -3,7 +3,7 @@ import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, AppState } from "store";
-import { addTransaction, clearAllTransactions } from "./actions";
+import { addTransaction } from "./actions";
 import { TransactionDetails } from "./reducer";
 import { useWeb3 } from "state/web3";
 

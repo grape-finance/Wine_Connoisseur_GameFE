@@ -63,6 +63,7 @@ function useApprove(
     });
     // }
     dispatch(setLoading({ isLoading: false }));
+    window.location.reload();
   }, [approvalState, token, spender, addTransaction, dispatch]);
 
   return [approvalState, approve];

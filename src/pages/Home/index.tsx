@@ -10,7 +10,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import background from "assets/background.png";
 import heroVideo from "assets/back.mp4";
 
 const useStyles = makeStyles({

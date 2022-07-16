@@ -4,13 +4,14 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
+
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { alertTitleClasses, Box, Stack, TextField } from "@mui/material";
-import Loading from "components/Loading";
+import { Box, Stack } from "@mui/material";
 import { trim } from "utils/trim";
+import NumberInput from "components/NuberInput";
+import { BigNumber, ethers } from "ethers";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -58,39 +59,12 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  color: "#000",
-  backgroundColor: "rgb(255 237 213)",
-  [theme.breakpoints.down("xs")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.up("xs")]: {
-    width: "50%",
-  },
-  borderRadius: 8,
-  textAlign: "end",
-  "& .MuiInput-underline:after": {
-    border: "none",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-    "&:hover fieldset": {
-      border: "none",
-    },
-    "&.Mui-focused fieldset": {
-      border: "none",
-    },
-  },
-})) as typeof TextField;
-
 interface IProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
-  userCellarAmounts: number;
-  quickUnstake: (arg: number) => void;
-  prepareDelayedUnstake: (arg: number) => void;
+  userCellarAmounts: BigNumber;
+  quickUnstake: (arg: string) => void;
+  prepareDelayedUnstake: (arg: string) => void;
 }
 
 export default function UnstakeDialog({
@@ -101,30 +75,23 @@ export default function UnstakeDialog({
   prepareDelayedUnstake,
 }: IProps) {
   const [tabValue, setTab] = React.useState(0);
-  const [vintageWineInput, setVintageWineInput] = React.useState(0);
+  const [vintageWineInput, setVintageWineInput] = React.useState("");
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setVintageWineInput(Number(event.target.value));
-  };
-
   const unstake = () => {
-    if (userCellarAmounts < vintageWineInput)
+    if (+ethers.utils.formatEther(userCellarAmounts) < +vintageWineInput)
       alert("You don't have enough token to unstake");
     else {
       if (tabValue === 0) {
         // Quick unstake
-        console.log(
-          "Number(vintageWineInput.toFixed(10))",
-          Number(vintageWineInput.toFixed(10))
-        );
-        quickUnstake(Number(vintageWineInput.toFixed(10)));
+
+        quickUnstake(vintageWineInput);
       }
       // Delayed unstake
-      else prepareDelayedUnstake(Number(vintageWineInput.toFixed(10)));
+      else prepareDelayedUnstake(vintageWineInput);
       setOpen(false);
     }
   };
@@ -238,7 +205,8 @@ export default function UnstakeDialog({
             component="p"
             marginTop={"10px"}
           >
-            Available Amount : {trim(userCellarAmounts, 2)} VintageWine
+            Available Amount :{" "}
+            {trim(+ethers.utils.formatEther(userCellarAmounts), 2)} VintageWine
           </Typography>
           <Typography
             color="primary.light"
@@ -253,38 +221,11 @@ export default function UnstakeDialog({
         </DialogContent>
         <DialogContent>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
-            <StyledTextField
-              InputProps={{ style: { textAlign: "end" } }}
+            <NumberInput
               value={vintageWineInput}
-              id="outlined-basic"
-              variant="outlined"
-              type="number"
-              onChange={handleChange}
+              setValue={setVintageWineInput}
+              max={+ethers.utils.formatEther(userCellarAmounts)}
             />
-            <Button
-              onClick={() =>
-                setVintageWineInput(Number(trim(userCellarAmounts, 2)))
-              }
-              sx={{
-                width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
-                color: "primary.light",
-
-                "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
-                },
-              }}
-              variant="contained"
-            >
-              Max
-            </Button>
             <Button
               onClick={() => unstake()}
               sx={{

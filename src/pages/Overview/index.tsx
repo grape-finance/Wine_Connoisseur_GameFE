@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { useGrapeContract, useWineryContract } from "hooks/useContract";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,6 @@ import { WINERY_ADDRESS, WINERYPROGRESSION_ADDRESS } from "config/address";
 import { NETWORKS } from "config/network";
 import _ from "lodash";
 import { vintageWineAccruedCalculation } from "utils/winery";
-import { BigNumber, ethers } from "ethers";
 import Loading from "components/Loading";
 import StyledButton from "components/StyledButton";
 import { setUserNFTState } from "state/user/actions";
@@ -23,6 +22,7 @@ const Overview = () => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const { account, provider, chainId } = useWeb3();
+  // Get Contract
   const grapeContract = useGrapeContract();
   const wineryContract = useWineryContract();
   const grapeToken = useMemo(() => {
@@ -39,12 +39,9 @@ const Overview = () => {
   const { fatigueAccrued, timeUntilFatigues, vintageWineAccrued } =
     useNFTState();
 
-  const [ppm, setppm] = useState(0);
   const [vpm, setvpm] = useState(0);
-  // const [fatigueAccrued, setFatigueAccrued] = useState(0);
-  const [startTime, setStartTime] = useState(0);
-  // const [timeUntilFatigues, setTimeUntilFatigues] = useState(0);
-  // const [vintageWineAccrued, setVintageWineAccrued] = useState(0);
+  const [fatiguePerMinuteWithModifier, setFatiguePerMinuteWithModifier] =
+    useState(0);
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
 
   const [userStakedList, setUserStakedList] = useState([]);
@@ -71,7 +68,6 @@ const Overview = () => {
 
         const [
           ppm,
-
           _startTime,
           _timeUntilFatigues,
           _wineryFatigue,
@@ -125,8 +121,8 @@ const Overview = () => {
           web3Provider,
           chainId
         );
-        setppm(Number(ppm));
-        setStartTime(Number(_startTime));
+        // setppm(Number(ppm));
+        setFatiguePerMinuteWithModifier(_fatiguePerMinuteWithModifier);
 
         await calcualteVintageWinePerMin(
           Number(ppm),
@@ -316,9 +312,9 @@ const Overview = () => {
           Max Fatigue in :
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {unixToDate(timeUntilFatigues - startTime)}
-          {/* : {startTime} :{" "}
-          {timeUntilFatigues} */}
+          {fatiguePerMinuteWithModifier === 0
+            ? "0m"
+            : unixToDate(timeUntilFatigues)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Earned VintageWine

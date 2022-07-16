@@ -42,35 +42,43 @@ const Fountain = () => {
 
   useEffect(() => {
     if (account && fountainContract) {
-      const getUserInfo = async () => {
-        const _userInfo: IUserInfoLP = await fountainContract.userInfo(account);
-        const stakedBalance = Number(
-          ethers.utils.formatEther(_userInfo.amount)
-        );
-        setLPStakedBalance(stakedBalance);
-        const _pendingReward = await fountainContract.pendingRewards(account);
-        setPendingReward(Number(ethers.utils.formatEther(_pendingReward)));
-        const _getRewardPerSecond = await fountainContract.getRewardPerSecond();
-        const _accRewardTokenPerShare =
-          await fountainContract.accRewardTokenPerShare();
+      try {
+        const getUserInfo = async () => {
+          const _userInfo: IUserInfoLP = await fountainContract.userInfo(
+            account
+          );
+          const stakedBalance = +ethers.utils.formatEther(_userInfo.amount);
 
-        let _LPSupply: BigNumber = await fountainContract.depositedBalance();
-        _LPSupply = _LPSupply._hex === "0x00" ? BigNumber.from(1) : _LPSupply; // To prevent to devied by zero
+          setLPStakedBalance(stakedBalance);
+          const _pendingReward = await fountainContract.pendingRewards(account);
+          setPendingReward(+ethers.utils.formatEther(_pendingReward));
+          const _getRewardPerSecond =
+            await fountainContract.getRewardPerSecond();
+          const _accRewardTokenPerShare =
+            await fountainContract.accRewardTokenPerShare();
 
-        const _tokenReward = BigNumber.from(3600 * 24).mul(_getRewardPerSecond);
-        const _accRewardToken = _accRewardTokenPerShare.add(
-          _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
-        );
-        console.log("_userInfo", _userInfo);
-        const _rewardPerDay = _userInfo.amount
-          .mul(_accRewardToken)
-          .div(BigNumber.from(10).pow(12))
-          .sub(_userInfo.rewardDebt);
-        console.log("_rewardPerDay", _rewardPerDay);
-        console.log(_accRewardTokenPerShare, _getRewardPerSecond, _LPSupply);
-        setRewardPerDay(Number(ethers.utils.formatEther(_rewardPerDay)));
-      };
-      getUserInfo();
+          let _LPSupply: BigNumber = await fountainContract.depositedBalance();
+          _LPSupply = _LPSupply._hex === "0x00" ? BigNumber.from(1) : _LPSupply; // To prevent to devied by zero
+
+          const _tokenReward = BigNumber.from(3600 * 24).mul(
+            _getRewardPerSecond
+          );
+          const _accRewardToken = _accRewardTokenPerShare.add(
+            _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
+          );
+          console.log("_userInfo", _userInfo);
+          const _rewardPerDay = _userInfo.amount
+            .mul(_accRewardToken)
+            .div(BigNumber.from(10).pow(12))
+            .sub(_userInfo.rewardDebt);
+          console.log("_rewardPerDay", _rewardPerDay);
+          console.log(_accRewardTokenPerShare, _getRewardPerSecond, _LPSupply);
+          setRewardPerDay(+ethers.utils.formatEther(_rewardPerDay));
+        };
+        getUserInfo();
+      } catch (err) {
+        console.log("err", err);
+      }
     }
   }, [account, fountainContract, setLPStakedBalance]);
 

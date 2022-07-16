@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { useCellarContract } from "hooks/useContract";
 import React, { useEffect, useState } from "react";
 import { BigNumber, ethers } from "ethers";
@@ -9,7 +9,6 @@ import { CELLAR_ADDRESS } from "config/address";
 import multicall from "utils/multicall";
 import { unixToDate } from "utils/unixToDate";
 import CELLAR_ABI from "abi/cellar.json";
-import { useTokenBalance } from "state/user/hooks";
 import StakeDialog from "./stakeDialog";
 import UnstakeDialog from "./unstakeDialog";
 import StyledButton from "components/StyledButton";
@@ -18,23 +17,24 @@ const Cellar = () => {
   const [isLoading, setLoading] = useState(false);
   const { account, chainId } = useWeb3();
   const cellarContract = useCellarContract();
-  const [cellarVintageWineBal, setCellarVintageWineBal] = useState(0);
+  const currentUnixTime = Math.round(new Date().getTime() / 1000);
+
   // const [frozenVintageWine, setFrozenVintageWine] = useState(0);
-  const [userUnlockAmounts, setUserUnlockAmounts] = useState(0);
-  const [userUnlockTimestamps, setUserUnlockTimestamps] = useState(0);
-  const { vintageWineBalance } = useTokenBalance();
-  const [userCellarAmounts, setUserCellarAmounts] = useState(0);
+  const [userUnlockAmounts, setUserUnlockAmounts] = useState(BigNumber.from(0));
+  const [cellarVintageWineBal, setCellarVintageWineBal] = useState(
+    BigNumber.from(0)
+  );
+  const [userUnlockTimestamps, setUserUnlockTimestamps] = useState(
+    BigNumber.from(0)
+  );
+  const [userCellarAmounts, setUserCellarAmounts] = useState(BigNumber.from(0));
 
   const [openStakeModal, setOpenStakeModal] = React.useState(false);
   const [openUnstakeModal, setOpenUnstakeModal] = React.useState(false);
 
-  const currentUnixTime = Math.round(new Date().getTime() / 1000);
-
   useEffect(() => {
     if (account && chainId && cellarContract) {
       const getInfo = async () => {
-        // Multicall
-
         const web3Provider: string = NETWORKS.filter(
           (item) => item.chainId === chainId
         )[0]?.defaultProvider[0];
@@ -74,11 +74,12 @@ const Cellar = () => {
           web3Provider,
           chainId
         );
-        setUserCellarAmounts(Number(_userCellarBalance) / Math.pow(10, 18));
-        setCellarVintageWineBal(Number(_vintageWineBal) / Math.pow(10, 18));
+
+        setUserCellarAmounts(_userCellarBalance[0]);
+        setCellarVintageWineBal(_vintageWineBal[0]);
         // setFrozenVintageWine(_frozenVintageWine);
-        setUserUnlockAmounts(Number(_userUnlockAmounts) / Math.pow(10, 18));
-        setUserUnlockTimestamps(Number(_userUnlockTimestamps));
+        setUserUnlockAmounts(_userUnlockAmounts[0]);
+        setUserUnlockTimestamps(_userUnlockTimestamps[0]);
       };
       getInfo();
       const interval = setInterval(getInfo, 10000);
@@ -106,12 +107,13 @@ const Cellar = () => {
     }
   };
 
-  const quickUnstake = async (shareAmount: number) => {
+  const quickUnstake = async (shareAmount: string) => {
     if (account && chainId && cellarContract) {
       try {
+        console.log("shareAmount", shareAmount);
         setLoading(true);
         let tx = await cellarContract.quickUnstake(
-          ethers.utils.parseEther(shareAmount.toString())
+          ethers.utils.parseEther(shareAmount)
         );
         await tx.wait();
         setLoading(false);
@@ -123,12 +125,12 @@ const Cellar = () => {
     }
   };
 
-  const prepareDelayedUnstake = async (share: number) => {
+  const prepareDelayedUnstake = async (share: string) => {
     if (account && chainId && cellarContract) {
       try {
         setLoading(true);
         let tx = await cellarContract.prepareDelayedUnstake(
-          ethers.utils.parseEther(share.toString())
+          ethers.utils.parseEther(share)
         );
         await tx.wait();
         setLoading(false);
@@ -142,19 +144,21 @@ const Cellar = () => {
 
   const claimDelayedUnstake = async () => {
     if (account && chainId && cellarContract) {
-      if (currentUnixTime > userUnlockTimestamps)
+      if (currentUnixTime > +userUnlockTimestamps)
         alert("VINTAGEWINE not yet unlocked");
-      try {
-        setLoading(true);
-        let tx = await cellarContract.claimDelayedUnstake(
-          ethers.utils.parseEther(userUnlockAmounts.toFixed(10))
-        );
-        await tx.wait();
-        setLoading(false);
-        window.location.reload();
-      } catch (err) {
-        console.log("err", err);
-        setLoading(false);
+      else {
+        try {
+          setLoading(true);
+          let tx = await cellarContract.claimDelayedUnstake(
+            ethers.utils.parseUnits(userUnlockAmounts.toString())
+          );
+          await tx.wait();
+          setLoading(false);
+          window.location.reload();
+        } catch (err) {
+          console.log("err", err);
+          setLoading(false);
+        }
       }
     }
   };
@@ -191,7 +195,7 @@ const Cellar = () => {
             direction={{ xs: "column", sm: "column", md: "row" }}
             spacing={3}
           >
-            {userUnlockTimestamps - currentUnixTime <= 0 && (
+            {+userUnlockTimestamps - currentUnixTime <= 0 && (
               <StyledButton onClick={() => claimDelayedUnstake()}>
                 Withdraw Delay
               </StyledButton>
@@ -203,28 +207,30 @@ const Cellar = () => {
         </Stack>
 
         <Typography color="primary.light" variant="body2" component="p">
-          Staked Vintage Wine
+          Cellar Staked Vintage Wine
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {cellarVintageWineBal.toFixed(2)}
+          {(+ethers.utils.formatEther(cellarVintageWineBal)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Your Staked Balance
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {userCellarAmounts.toFixed(2)}
+          {(+ethers.utils.formatEther(userCellarAmounts)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Your Pending Balance
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {userUnlockAmounts.toFixed(2)}
+          {(+ethers.utils.formatEther(userUnlockAmounts)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Withdrawable in
+          Delay Withdrawable in
         </Typography>
         <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {unixToDate(userUnlockTimestamps - currentUnixTime)}
+          {+userUnlockTimestamps === 0
+            ? "0m"
+            : unixToDate(+userUnlockTimestamps - currentUnixTime)}
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />

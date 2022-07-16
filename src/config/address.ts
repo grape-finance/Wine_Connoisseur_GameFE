@@ -24,17 +24,17 @@ export const USDC_VINTAGEWINE_LP_ADDRESS: AddressMap = {
 
 export const VINTNER_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0x54460352BaA4bDCA62280245f39cF522E045A2c0",
+  [SupportedChainId.TESTNET]: "0x1DC322CB392F608139Cd52088Aa8C167f826aE17",
 };
 
 export const UPGRADE_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0xeC0c8C862ABCbCB10BF6E6254306960c7cdCfaBD",
+  [SupportedChainId.TESTNET]: "0xBC2C298C2F55f7a6CEFA448460ab3Ca3d38Ca4C4",
 };
 
 export const CELLAR_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0x244Fe7B271757D43DE730b980A0216a2C98D4883",
+  [SupportedChainId.TESTNET]: "0x52339089664AA68d3a924c9E2a9b3aDa0E3eE3Fd",
 };
 
 export const WINERYPROGRESSION_ADDRESS: AddressMap = {
@@ -44,7 +44,7 @@ export const WINERYPROGRESSION_ADDRESS: AddressMap = {
 
 export const WINERY_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "",
-  [SupportedChainId.TESTNET]: "0xb3aa28E9e1b2573f0301d4f23D43dA21d374aA1E",
+  [SupportedChainId.TESTNET]: "0x145EC35A42EF05753569Cf6C3Ca42AE01432A149",
 };
 
 export const VINTAGEWINE_FOUNTAIN_ADDRESS: AddressMap = {

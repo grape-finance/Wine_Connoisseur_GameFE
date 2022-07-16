@@ -5,10 +5,9 @@ import {
   Checkbox,
   Typography,
   Stack,
-  TextField,
   Tooltip,
 } from "@mui/material";
-import { styled } from "@mui/system";
+
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
@@ -30,27 +29,7 @@ import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
 import { ILevel } from "interface/ILevel";
 import { BigNumber, ethers } from "ethers";
-
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  color: "#000",
-  backgroundColor: "rgb(255 237 213)",
-  borderRadius: 8,
-  textAlign: "end",
-  "& .MuiInput-underline:after": {
-    border: "none",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-    "&:hover fieldset": {
-      border: "none",
-    },
-    "&.Mui-focused fieldset": {
-      border: "none",
-    },
-  },
-})) as typeof TextField;
+import NumberInput from "components/NuberInput";
 
 const Tools = () => {
   const [isloading, setLoading] = useState(false);
@@ -80,11 +59,7 @@ const Tools = () => {
   const [selectedNFTs, setSelectedNFTs] = useState<Number[]>([]);
   // Mint NFT
   const [selectedNFTForMint, setSelectedNFTForMint] = useState(0);
-  const [mintAmountInput, setMintAmountInput] = useState(0);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMintAmountInput(Number(event.target.value));
-  };
+  const [mintAmountInput, setMintAmountInput] = useState("1");
 
   const _toolNFTLists: ILevel[] = [
     {
@@ -129,8 +104,6 @@ const Tools = () => {
         for (let i = 0; i <= 2; i++) {
           const level: ILevel = await upgradeContract.levels(i);
 
-          console.log("level", level);
-
           _toolNFTLists[i].supply = level.supply;
           _toolNFTLists[i].maxSupply = level.maxSupply;
           _toolNFTLists[i].priceVintageWine = level.priceVintageWine;
@@ -145,9 +118,9 @@ const Tools = () => {
 
   // Check is approved
   useEffect(() => {
-    if (chainId && vintnerContract) {
+    if (chainId && upgradeContract) {
       const checkApproved = async () => {
-        const approved = await vintnerContract.isApprovedForAll(
+        const approved = await upgradeContract.isApprovedForAll(
           account,
           WINERY_ADDRESS[chainId]
         );
@@ -155,7 +128,7 @@ const Tools = () => {
       };
       checkApproved();
     }
-  }, [account, chainId, vintnerContract]);
+  }, [account, chainId, upgradeContract]);
 
   const approveUpgrade = async () => {
     if (chainId && upgradeContract) {
@@ -164,7 +137,7 @@ const Tools = () => {
         true
       );
       setLoading(true);
-      let receipt = await tx.wait();
+      await tx.wait();
       setLoading(false);
     }
   };
@@ -216,12 +189,12 @@ const Tools = () => {
 
   const mintNFT = async () => {
     if (account && chainId && grapeContract && upgradeContract) {
-      if (mintAmountInput <= 0) alert("You need to mint at least one");
+      if (+mintAmountInput <= 0) alert("You need to mint at least one");
       else {
         try {
           const tx = await upgradeContract.mintUpgrade(
             selectedNFTForMint,
-            mintAmountInput
+            +mintAmountInput
           );
 
           setLoading(true);
@@ -268,7 +241,7 @@ const Tools = () => {
       }
     }
   `;
-  const { loading, error, data: unstakedNFTs } = useQuery(userNFTs);
+  const { loading, data: unstakedNFTs } = useQuery(userNFTs);
   useEffect(() => {
     if (!_.isEmpty(unstakedNFTs)) {
       setUserUnstakedList(unstakedNFTs.users[0]?.upgradeTokens);
@@ -347,7 +320,8 @@ const Tools = () => {
           }}
         >
           {userStakedList.map((item: any, index) => {
-            const tokenURI = (Number(item.toolPPM) + 1) / 2;
+            const tokenURI = (Number(item.toolPPM) + 1) / 2 - 1;
+
             return (
               <Tooltip
                 title={
@@ -719,14 +693,9 @@ const Tools = () => {
               <StyledButton onClick={() => unStakeNFT()}>Unstake</StyledButton>
             ) : (
               <>
-                <StyledTextField
-                  sx={{ width: { xs: "100%", md: "30%" } }}
-                  InputProps={{ style: { textAlign: "end" } }}
+                <NumberInput
                   value={mintAmountInput}
-                  id="outlined-basic"
-                  variant="outlined"
-                  type="number"
-                  onChange={handleChange}
+                  setValue={setMintAmountInput}
                 />
                 {approveStatus !== ApprovalState.APPROVED ? (
                   <StyledButton onClick={approve}>APPROVE</StyledButton>

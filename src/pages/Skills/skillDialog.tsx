@@ -8,9 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { alertTitleClasses, Stack, TextField } from "@mui/material";
-import Loading from "components/Loading";
-import { useTokenBalance } from "state/user/hooks";
+import { Stack } from "@mui/material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
