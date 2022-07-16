@@ -60,15 +60,18 @@ export default function Updater(): null {
           if (grapeTokenBalance !== "" && vintageWineTokenBalance !== "")
             dispatch(
               setUserTokenBalance({
-                grapeTokenBalance: Number(grapeTokenBalance) / Math.pow(10, 18),
-                vintageWineTokenBalance:
-                  Number(vintageWineTokenBalance) / Math.pow(10, 18),
-                USDCVintageWineLPBalance:
-                  Number(USDCVintageWineLPBalance) / Math.pow(10, 18),
-                vintnerBalance: Number(vintnerBalance),
-                upgradeBalance: Number(upgradeBalance),
-                vintnerStakedBalance: Number(vintnerStakedBalance),
-                upgradeStakedBalance: Number(upgradeStakedBalance),
+                grapeTokenBalance: +ethers.utils.formatEther(grapeTokenBalance),
+                vintageWineTokenBalance: +ethers.utils.formatEther(
+                  vintageWineTokenBalance
+                ),
+                USDCVintageWineLPBalance: +ethers.utils.formatEther(
+                  USDCVintageWineLPBalance
+                ),
+
+                vintnerBalance: +vintnerBalance,
+                upgradeBalance: +upgradeBalance,
+                vintnerStakedBalance: +vintnerStakedBalance,
+                upgradeStakedBalance: +upgradeStakedBalance,
               })
             );
         };
