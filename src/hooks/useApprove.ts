@@ -53,6 +53,7 @@ function useApprove(
 
     // if (token) {
     const response = await token.approve(spender, APPROVE_AMOUNT);
+    await response.wait();
 
     await addTransaction(response, {
       summary: `Approve ${token.symbol}`,
