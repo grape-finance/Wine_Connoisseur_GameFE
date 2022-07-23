@@ -105,7 +105,7 @@ export default function UnstakeDialog({
         PaperProps={{
           style: {
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
           },
         }}
       >
@@ -206,7 +206,7 @@ export default function UnstakeDialog({
             marginTop={"10px"}
           >
             Available Amount :{" "}
-            {trim(+ethers.utils.formatEther(userCellarAmounts), 2)} VintageWine
+            {trim(+ethers.utils.formatEther(userCellarAmounts), 2)} Vintage
           </Typography>
           <Typography
             color="primary.light"
@@ -215,8 +215,8 @@ export default function UnstakeDialog({
             marginTop={"10px"}
           >
             {tabValue === 0
-              ? "When you unstake quickly, you get your $RONI back instantly. However, you lose half of it (25% spoiled, and 25% stays in)"
-              : "Delayed unstaking takes 2 days to defrost your $RONI fully and 10% of it will spill."}
+              ? "When you unstake quickly, you get your VINTAGE back instantly. However, you lose half of it (25% spoiled, and 25% stays in)"
+              : "Delayed unstaking takes 2 days to defrost your VINTAGE fully and 10% of it will spill."}
           </Typography>
         </DialogContent>
         <DialogContent>

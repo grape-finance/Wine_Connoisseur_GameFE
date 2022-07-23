@@ -81,7 +81,7 @@ export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
         PaperProps={{
           style: {
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
           },
         }}
       >
@@ -99,8 +99,8 @@ export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
           </Typography>
           <Divider sx={{ height: "1px", background: "white", my: 1 }} />
           <Typography color="primary.light" variant="h5" component="p">
-            Stake your LP token in the New Freezer to earn 10% of all produced
-            LP. However, unstaking from the Freezer will take 2 days if you want
+            Stake your LP token in the Cellar to earn 10% of all produced
+            LP. However, unstaking from the Cellar will take 2 days if you want
             the smallest penalty, and a great penalty if you want to unstake
             immediately.
           </Typography>

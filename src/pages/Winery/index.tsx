@@ -396,11 +396,12 @@ const Winery = () => {
             width: "100%",
             height: "auto",
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
             p: 3,
-            borderRadius: "1.5rem",
+            borderRadius: "1px",
             boxShadow: 2,
-            border: "1px solid rgb(68 64 60)",
+            border: "1px solid rgb(33 33 33)",
+            WebkitBoxShadow: '5px 5px 5px #000'
           }}
         >
           <Stack

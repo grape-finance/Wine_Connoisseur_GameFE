@@ -14,7 +14,7 @@ import heroVideo from "assets/back.mp4";
 import winery_bg from "assets/image/winery_bg.png";
 import celler_bg from "assets/image/celler_bg.png";
 import fountain_bg from "assets/image/fountain_bg.png";
-import tool_bg from "assets/image/tool_bg.png";
+import tool_bg from "assets/image/tool-bg.png";
 import { useParams } from "react-router-dom";
 import Fountain from "pages/Fountain";
 

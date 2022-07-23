@@ -22,9 +22,9 @@ import Loading from "components/Loading";
 import NFTItem from "components/NFTItem";
 import { TOOL_URI, UPGRADE_ADDRESS, WINERY_ADDRESS } from "config/address";
 import StyledButton from "components/StyledButton";
-import toolImg1 from "assets/image/tools/1.png";
-import toolImg2 from "assets/image/tools/2.png";
-import toolImg3 from "assets/image/tools/3.png";
+import toolImg1 from "assets/image/tools/1.jpg";
+import toolImg2 from "assets/image/tools/2.jpg";
+import toolImg3 from "assets/image/tools/3.jpg";
 import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
 import { ILevel } from "interface/ILevel";
@@ -344,13 +344,13 @@ const Tools = () => {
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceGrape
                       )}{" "}
-                      , VintageWine :{" "}
+                      , Vintage :{" "}
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceVintageWine
                       )}{" "}
                     </Typography>
                     <Typography variant="h5">
-                      VintageWine Per Minute :{" "}
+                      Vintage Per Minute :{" "}
                       {Number(toolNFTLists[tokenURI].yield)}
                     </Typography>
                   </>
@@ -436,13 +436,13 @@ const Tools = () => {
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceGrape
                       )}{" "}
-                      , VintageWine :{" "}
+                      , Vintage :{" "}
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceVintageWine
                       )}{" "}
                     </Typography>
                     <Typography variant="h5">
-                      VintageWine Per Minute :{" "}
+                      Vintage Per Minute :{" "}
                       {Number(toolNFTLists[tokenURI].yield)}
                     </Typography>
                   </>
@@ -498,11 +498,11 @@ const Tools = () => {
                     </Typography>
                     <Typography variant="h5">
                       Cost: <br /> Grape :{" "}
-                      {ethers.utils.formatEther(item.priceGrape)} , VintageWine
+                      {ethers.utils.formatEther(item.priceGrape)} , Vintage
                       : {ethers.utils.formatEther(item.priceVintageWine)}{" "}
                     </Typography>
                     <Typography variant="h5">
-                      VintageWine Per Minute : {Number(item.yield)}
+                      Vintage Per Minute : {Number(item.yield)}
                     </Typography>
                   </>
                 }
@@ -535,11 +535,12 @@ const Tools = () => {
             width: "100%",
             height: "auto",
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
             p: 3,
-            borderRadius: "1.5rem",
+            borderRadius: "1px",
             boxShadow: 2,
-            border: "1px solid rgb(68 64 60)",
+            border: "1px solid rgb(33 33 33)",
+            WebkitBoxShadow: '5px 5px 5px #000'
           }}
         >
           <Stack

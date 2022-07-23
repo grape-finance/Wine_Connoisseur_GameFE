@@ -65,12 +65,12 @@ const Header = () => {
                 }}
                 component="img"
                 image={headerIcon}
-                style={{ width: "200px", height: "40px", cursor: "pointer" }}
+                style={{ width: "150px", height: "40px", cursor: "pointer" }}
                 onClick={() => navigate("/")}
               />
               <Stack
                 direction="row"
-                spacing={2.3}
+                spacing={2}
                 sx={{
                   display: { xs: "none", md: "none", lg: "flex" },
                 }}
@@ -78,21 +78,18 @@ const Header = () => {
                 <CardMedia
                   component="img"
                   image={headerIcon}
-                  style={{ width: "200px", height: "40px", cursor: "pointer" }}
+                  style={{ width: "100%", height: "60px", cursor: "pointer" }}
                   onClick={() => navigate("/")}
                 />
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-1" icon={faTwitter} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-1" icon={faDiscord} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-1" icon={faMedium} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-2" icon={faBook} />
-                </Link>
+            <Link href="https://twitter.com/grape_finance">
+              <FontAwesomeIcon className="icon-1" icon={faTwitter} />
+            </Link>
+            <Link href="https://discord.gg/grapefinance">
+              <FontAwesomeIcon className="icon-1" icon={faDiscord} />
+            </Link>
+            <Link href="https://vinium-finance.gitbook.io/winemaker-game/">
+              <FontAwesomeIcon className="icon-2" icon={faBook} />
+            </Link>
               </Stack>
               <Stack
                 direction="row"
@@ -121,7 +118,7 @@ const Header = () => {
                   target="_blank"
                   href={buyGrapeAddress}
                 >
-                  Buy $Grape
+                  Buy GRAPE
                 </Button>
                 <Button
                   sx={{
@@ -145,7 +142,7 @@ const Header = () => {
                   target="_blank"
                   href={buyVintageWineAddress}
                 >
-                  Buy $VintageWine
+                  Buy VINTAGE
                 </Button>
                 <ConnectWalletButton />
               </Stack>
