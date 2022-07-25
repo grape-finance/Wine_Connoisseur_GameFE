@@ -95,14 +95,11 @@ export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography color="primary.light" variant="h4" component="p">
-            Available LP Token : {trim(USDCVintageWineLPBalance, 2)}
+            Available LP Token: {trim(USDCVintageWineLPBalance, 2)}
           </Typography>
           <Divider sx={{ height: "1px", background: "white", my: 1 }} />
           <Typography color="primary.light" variant="h5" component="p">
-            Stake your LP token in the Cellar to earn 10% of all produced
-            LP. However, unstaking from the Cellar will take 2 days if you want
-            the smallest penalty, and a great penalty if you want to unstake
-            immediately.
+            Stake your LP tokens to earn Vintage emissions daily.
           </Typography>
         </DialogContent>
         <DialogContent>
@@ -115,18 +112,17 @@ export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
               }}
               sx={{
                 width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "3px solid #000",
                 color: "primary.light",
-
+                boxShadow: '5px 5px 5px #000',
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "3px solid #000",
+                  background: '#006636'
                 },
               }}
               variant="contained"

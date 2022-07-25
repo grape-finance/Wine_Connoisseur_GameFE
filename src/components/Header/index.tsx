@@ -32,7 +32,7 @@ const Header = () => {
           top: 0,
           height: { xs: 94, md: 94, lg: 84 },
           background: "transparent",
-          backdropFilter: "blur(10px)",
+          backdropFilter: "blur(5px)",
           border: "none",
           transition: "all 0.3s",
           display: "flex",
@@ -99,21 +99,22 @@ const Header = () => {
                 <Button
                   sx={{
                     p: 1.3,
-                    borderRadius: "1rem",
+                    borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
                     fontSize: "16px",
                     fontWeight: "fontWeightBold",
-                    border: "1px solid",
-                    borderColor: "secondary.dark",
+                    border: "3px solid #000",
+                    boxShadow: '5px 5px 5px #000',
                     // color: "white",
                     display: { xs: "none", md: "none", lg: "block" },
                     "&:hover": {
-                      border: "1px solid",
-                      borderColor: "secondary.main",
+                      border: "3px solid",
+                      background: '#006636',
+                      borderColor: "#000",
                     },
                   }}
-                  color="secondary"
+                  color="primary"
                   variant="contained"
                   target="_blank"
                   href={buyGrapeAddress}
@@ -123,21 +124,22 @@ const Header = () => {
                 <Button
                   sx={{
                     p: 1.3,
-                    borderRadius: "1rem",
+                    borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
                     fontSize: "16px",
                     fontWeight: "fontWeightBold",
-                    border: "1px solid",
-                    borderColor: "secondary.dark",
+                    border: "3px solid #000",
+                    boxShadow: '5px 5px 5px #000',
                     // color: "white",
                     display: { xs: "none", md: "none", lg: "block" },
                     "&:hover": {
-                      border: "1px solid",
-                      borderColor: "secondary.main",
+                      border: "3px solid",
+                      background: '#006636',
+                      borderColor: "#000",
                     },
                   }}
-                  color="secondary"
+                  color="primary"
                   variant="contained"
                   target="_blank"
                   href={buyVintageWineAddress}

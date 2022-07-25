@@ -22,11 +22,11 @@ const TokenInfo = () => {
           width: "100%",
           height: "auto",
           background:
-          "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+          "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           p: 3,
           borderRadius: "1px",
           boxShadow: 2,
-          border: "1px solid rgb(33 33 33)",
+          border: "1px solid rgb(00 00 00)",
           WebkitBoxShadow: '5px 5px 5px #000'
         }}
       >

@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import sideImage1 from "assets/side/image-1.png";
 import sideImage2 from "assets/side/image-2.png";
-import sideImage3 from "assets/side/image-3.png";
-import sideImage4 from "assets/side/image-4.png";
+import sideImage3 from "assets/side/1.jpg";
+import sideImage4 from "assets/side/41.png";
 import {
   buyGrapeAddress,
   buyVintageWineAddress,
@@ -64,13 +64,14 @@ const MyWallet = () => {
               width: "100%",
               height: "auto",
               display: "flex",
+    
               background:
-              "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
               p: 2,
               borderRadius: "1px",
               boxShadow: 2,
               justifyContent: "flex-start",
-              border: "1px solid rgb(33 33 33)",
+              border: "1px solid rgb(0 0 0)",
               WebkitBoxShadow: '5px 5px 5px #000'
             }}
           >

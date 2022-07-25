@@ -82,7 +82,7 @@ export default function SkillDialog({
         PaperProps={{
           style: {
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -108,7 +108,7 @@ export default function SkillDialog({
               }}
               sx={{
                 width: "100%",
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",

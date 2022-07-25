@@ -272,25 +272,17 @@ export default function ConnectWalletButton() {
     <Button
       sx={{
         p: 1.3,
-        borderRadius: "1rem",
+        borderRadius: "1px",
         transition: "0.3s",
         textTransform: "none",
         fontSize: "16px",
         fontWeight: "fontWeightBold",
-        border: "1px solid",
-        borderColor: {
-          xs: "info.light",
-          md: "info.light",
-          lg: "info.main",
-        },
+        border: "3px solid #000",
         color: "info.light",
+        boxShadow: '5px 5px 5px #000',
         "&:hover": {
-          border: "1px solid",
-          borderColor: {
-            xs: "info.light",
-            md: "info.light",
-            lg: "info.main",
-          },
+          border: "3px solid #000",
+          background:'rgb(253 186 116)',
           // color: "info.main",
         },
       }}

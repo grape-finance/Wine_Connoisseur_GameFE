@@ -10,11 +10,12 @@ import Skills from "pages/Skills";
 import Tools from "pages/Tools";
 import Cellar from "pages/Cellar";
 import ReactPlayer from "react-player";
-import heroVideo from "assets/back.mp4";
+import heroVideo from "assets/home.mp4";
 import winery_bg from "assets/image/winery_bg.png";
+import skills_bg from "assets/image/wine.png";
 import celler_bg from "assets/image/celler_bg.png";
 import fountain_bg from "assets/image/fountain_bg.png";
-import tool_bg from "assets/image/tool-bg.png";
+import tool_bg from "assets/home2.mp4";
 import { useParams } from "react-router-dom";
 import Fountain from "pages/Fountain";
 
@@ -46,10 +47,10 @@ const Application = () => {
       case "Tools":
         return tool_bg;
       case "Skills":
-        return winery_bg;
+        return skills_bg;
       case "Cellar":
         return celler_bg;
-      case "Fountain":
+      case "Enoteca":
         return fountain_bg;
     }
   };
@@ -74,6 +75,24 @@ const Application = () => {
         >
           <ReactPlayer
             url={heroVideo}
+            playing
+            loop
+            muted
+            width="100%"
+            height="100%"
+          />
+        </div>
+      )}
+      {tab === "Tools" && (
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "100vh",
+          }}
+        >
+          <ReactPlayer
+            url={tool_bg}
             playing
             loop
             muted
@@ -130,7 +149,7 @@ const Application = () => {
               {tab === "Tools" ? <Tools /> : null}
               {tab === "Skills" ? <Skills /> : null}
               {tab === "Cellar" ? <Cellar /> : null}
-              {tab === "Fountain" ? <Fountain /> : null}
+              {tab === "Enoteca" ? <Fountain /> : null}
             </Grid>
           </Grid>
         </Box>

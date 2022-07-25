@@ -52,12 +52,12 @@ const MyNFT = () => {
               height: "auto",
               display: "flex",
               background:
-              "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
               p: 2,
               borderRadius: "1px",
               boxShadow: 2,
               justifyContent: "flex-start",
-              border: "1px solid rgb(33 33 33)",
+              border: "1px solid rgb(00 00 00)",
               WebkitBoxShadow: '5px 5px 5px #000'
             }}
           >
@@ -77,7 +77,7 @@ const MyNFT = () => {
                 variant="h5"
                 component="h5"
               >
-                {data.name} : {data.value}
+                {data.name}: {data.value}
               </Typography>
             </Box>
           </Box>

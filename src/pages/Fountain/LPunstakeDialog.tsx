@@ -86,7 +86,7 @@ export default function LPUnstakeDialog({
         PaperProps={{
           style: {
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -100,7 +100,7 @@ export default function LPUnstakeDialog({
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography color="primary.light" variant="h4" component="p">
-            Available LP Token : {trim(LPStakedBalance, 2)}
+            Available LP Token: {trim(LPStakedBalance, 2)}
           </Typography>
           <Divider sx={{ height: "1px", background: "white", my: 1 }} />
           {/* <Typography color="primary.light" variant="h5" component="p">
@@ -125,18 +125,17 @@ export default function LPUnstakeDialog({
               }}
               sx={{
                 width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "3px solid #000",
                 color: "primary.light",
-
+                boxShadow: '5px 5px 5px #000',
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "3px solid #000",
+                  background: '#006636'
                 },
               }}
               variant="contained"

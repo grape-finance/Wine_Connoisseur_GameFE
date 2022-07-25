@@ -107,9 +107,9 @@ const Home = () => {
               component="h1"
             >
               
-              <Typography color="primary.main" variant="h1" component="span">
+              <Typography color="#fff" variant="h1" component="span">
                 {" "}
-                The Winemaker
+                Winemaker
               </Typography>
             </Typography>
             <Typography
@@ -124,19 +124,21 @@ const Home = () => {
               onClick={() => navigate("/app/Overview")}
               sx={{
                 p: 2,
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "5px solid",
+                boxShadow: '5px 5px 5px #000',
+                borderColor: "#000",
                 color: "primary.light",
                 mb: 16,
-                width: { xs: "100%", md: "50%" },
+                width: { xs: "80%", md: "30%" },
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "5px solid",
+                  borderColor: "#000",
+                  background: '#006636',
                 },
               }}
               variant="contained"

@@ -63,8 +63,8 @@ const Tools = () => {
 
   const _toolNFTLists: ILevel[] = [
     {
-      name: "Tool1",
-      description: "Description1",
+      name: "Wine Mag 93",
+      description: "It may be old but winemaking doesnt change much",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(2500),
       priceVintageWine: ethers.utils.parseUnits("3000"),
@@ -73,8 +73,8 @@ const Tools = () => {
       image: toolImg1,
     },
     {
-      name: "Tool2",
-      description: "Description2",
+      name: "Pruning Shears",
+      description: "Prune those vines for maximum yield",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(2200),
       priceVintageWine: ethers.utils.parseUnits("3000"),
@@ -83,8 +83,8 @@ const Tools = () => {
       image: toolImg2,
     },
     {
-      name: "Tool3",
-      description: "Description3",
+      name: "Hydrometer",
+      description: "Ensure optimum density for the finest vintage",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(2000),
       priceVintageWine: ethers.utils.parseUnits("3000"),
@@ -303,7 +303,7 @@ const Tools = () => {
               variant="h4"
               component="h4"
             >
-              No items Staked
+              No Tools Staked
             </Typography>
             ;
           </Box>
@@ -326,31 +326,26 @@ const Tools = () => {
               <Tooltip
                 title={
                   <>
-                    <Typography variant="h3">
+                    <Typography variant="h6">
                       {toolNFTLists[tokenURI].name}
-                    </Typography>
-                    <Typography variant="h4">
+                    </Typography><br />
+                    <Typography variant="body1">
                       {toolNFTLists[tokenURI].description}
-                    </Typography>
+                    </Typography><br />
 
-                    <Typography variant="h5">
+                    <Typography variant="body1">
                       Total Supply: {Number(toolNFTLists[tokenURI].maxSupply)}
-                    </Typography>
-                    <Typography variant="h5">
+                    </Typography><br />
+                    <Typography variant="body1">
                       Minted Count: {Number(toolNFTLists[tokenURI].supply)}
-                    </Typography>
-                    <Typography variant="h5">
-                      Cost: <br /> Grape :{" "}
-                      {ethers.utils.formatEther(
-                        toolNFTLists[tokenURI].priceGrape
-                      )}{" "}
-                      , Vintage :{" "}
-                      {ethers.utils.formatEther(
-                        toolNFTLists[tokenURI].priceVintageWine
-                      )}{" "}
-                    </Typography>
-                    <Typography variant="h5">
-                      Vintage Per Minute :{" "}
+                    </Typography><br />
+                    <Typography variant="body1">
+                      Cost: <br />{" "}
+                      {ethers.utils.formatEther(item.priceGrape)} Grape <br />
+                       {ethers.utils.formatEther(item.priceVintageWine)} {" "}Vintage
+                    </Typography><br />
+                    <Typography variant="body1">
+                      Vintage multi:{" "}
                       {Number(toolNFTLists[tokenURI].yield)}
                     </Typography>
                   </>
@@ -396,7 +391,7 @@ const Tools = () => {
               variant="h4"
               component="h4"
             >
-              No items Unstaked
+              No Tools Unstaked
             </Typography>
             ;
           </Box>
@@ -418,31 +413,26 @@ const Tools = () => {
               <Tooltip
                 title={
                   <>
-                    <Typography variant="h3">
+                    <Typography variant="h6">
                       {toolNFTLists[tokenURI].name}
-                    </Typography>
-                    <Typography variant="h4">
+                    </Typography><br />
+                    <Typography variant="body1">
                       {toolNFTLists[tokenURI].description}
-                    </Typography>
+                    </Typography><br />
 
-                    <Typography variant="h5">
+                    <Typography variant="body1">
                       Total Supply: {Number(toolNFTLists[tokenURI].maxSupply)}
-                    </Typography>
-                    <Typography variant="h5">
+                    </Typography><br />
+                    <Typography variant="body1">
                       Minted Count: {Number(toolNFTLists[tokenURI].supply)}
-                    </Typography>
-                    <Typography variant="h5">
-                      Cost: <br /> Grape :{" "}
-                      {ethers.utils.formatEther(
-                        toolNFTLists[tokenURI].priceGrape
-                      )}{" "}
-                      , Vintage :{" "}
-                      {ethers.utils.formatEther(
-                        toolNFTLists[tokenURI].priceVintageWine
-                      )}{" "}
-                    </Typography>
-                    <Typography variant="h5">
-                      Vintage Per Minute :{" "}
+                    </Typography><br />
+                    <Typography variant="body1">
+                      Cost: <br />{" "}
+                      {ethers.utils.formatEther(item.priceGrape)} Grape <br />
+                       {ethers.utils.formatEther(item.priceVintageWine)} {" "}Vintage
+                    </Typography><br />
+                    <Typography variant="body1">
+                      Vintage multi:{" "}
                       {Number(toolNFTLists[tokenURI].yield)}
                     </Typography>
                   </>
@@ -487,22 +477,22 @@ const Tools = () => {
               <Tooltip
                 title={
                   <>
-                    <Typography variant="h3">{item.name}</Typography>
-                    <Typography variant="h4">{item.description}</Typography>
+                    <Typography variant="h6">{item.name}</Typography><br />
+                    <Typography variant="body1">{item.description}</Typography><br />
 
-                    <Typography variant="h5">
+                    <Typography variant="body1">
                       Total Supply: {Number(item.maxSupply)}
-                    </Typography>
-                    <Typography variant="h5">
+                    </Typography><br />
+                    <Typography variant="body1">
                       Minted Count: {Number(item.supply)}
-                    </Typography>
-                    <Typography variant="h5">
-                      Cost: <br /> Grape :{" "}
-                      {ethers.utils.formatEther(item.priceGrape)} , Vintage
-                      : {ethers.utils.formatEther(item.priceVintageWine)}{" "}
-                    </Typography>
-                    <Typography variant="h5">
-                      Vintage Per Minute : {Number(item.yield)}
+                    </Typography><br />
+                    <Typography variant="body1">
+                      Cost: <br />{" "}
+                      {ethers.utils.formatEther(item.priceGrape)} Grape <br />
+                       {ethers.utils.formatEther(item.priceVintageWine)} {" "}Vintage
+                    </Typography><br />
+                    <Typography variant="body1">
+                      Vintage Multi: {Number(item.yield)}
                     </Typography>
                   </>
                 }
@@ -535,11 +525,11 @@ const Tools = () => {
             width: "100%",
             height: "auto",
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
             p: 3,
             borderRadius: "1px",
             boxShadow: 2,
-            border: "1px solid rgb(33 33 33)",
+            border: "1px solid rgb(0 0 0)",
             WebkitBoxShadow: '5px 5px 5px #000'
           }}
         >
@@ -567,7 +557,7 @@ const Tools = () => {
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 0 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -604,7 +594,7 @@ const Tools = () => {
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 1 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -640,7 +630,7 @@ const Tools = () => {
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 2 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -659,7 +649,7 @@ const Tools = () => {
                   variant="h5"
                   component="h5"
                 >
-                  MINT NFT
+                  MINT TOOLS
                 </Typography>
               </Box>
             </Box>
@@ -699,9 +689,9 @@ const Tools = () => {
                   setValue={setMintAmountInput}
                 />
                 {approveStatus !== ApprovalState.APPROVED ? (
-                  <StyledButton onClick={approve}>APPROVE</StyledButton>
+                  <StyledButton onClick={approve}>MINT</StyledButton>
                 ) : (
-                  <StyledButton onClick={() => mintNFT()}>MINT</StyledButton>
+                  <StyledButton onClick={() => mintNFT()}>MINT {mintAmountInput}</StyledButton>
                 )}
               </>
             )}
