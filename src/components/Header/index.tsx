@@ -87,7 +87,7 @@ const Header = () => {
             <Link href="https://discord.gg/grapefinance">
               <FontAwesomeIcon className="icon-1" icon={faDiscord} />
             </Link>
-            <Link href="https://vinium-finance.gitbook.io/winemaker-game/">
+            <Link href="https://winemaker-docs.grapefinance.app">
               <FontAwesomeIcon className="icon-2" icon={faBook} />
             </Link>
               </Stack>
