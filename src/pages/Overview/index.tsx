@@ -304,7 +304,7 @@ const Overview = () => {
           {vpm.toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Current fatigue
+          Current Fatigue
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {fatigueAccrued.toFixed(2)}%

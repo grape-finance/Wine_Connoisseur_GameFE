@@ -57,11 +57,11 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.TESTNET]: "0xAf61f4F9b4461BE61bfc9ad28A5B6d63FC22CFc0",
 };
 
-export const NFT_URI = "https://api.pizza.game/chefs/img";
-export const TOOL_URI = "https://api.pizza.game/static/img";
+export const NFT_URI = "https://gateway.pinata.cloud/ipfs/QmcdXuXda9f8PzFs9zdwUJqJpo7NfzTomQQBHnkNj2ZRCg";
+export const TOOL_URI = "https://gateway.pinata.cloud/ipfs/QmSuSATfSD3DoxJAznHxwgebQE7petmM655VFnQzyNad6B";
 export const buyGrapeAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${GRAPE_ADDRESS[43114]}`;
 export const buyVintageWineAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${VINTAGEWINE_ADDRESS[43114]}`;
 export const buyVintnerNFTAddress =
-  "https://nftrade.com/assets/avalanche/0x001e68282d52dcaba3749291bac33a9678073d01";
+  "#";
 export const buyToolsNFTAddress =
-  "https://nftrade.com/assets/avalanche/0x6cc4cc814c7154fb67965c8044cc803b3199ec53";
+  "#";

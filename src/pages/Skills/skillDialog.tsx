@@ -113,13 +113,13 @@ export default function SkillDialog({
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "3px solid #000",
                 color: "primary.light",
+                boxShadow: '5px 5px 5px #000',
 
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "3px solid #000",
+                  background: '#006636',
                 },
               }}
               variant="contained"

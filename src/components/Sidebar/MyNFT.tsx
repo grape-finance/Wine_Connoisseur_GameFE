@@ -19,7 +19,7 @@ const MyNFT = () => {
       value: unixToDate(timeUntilFatigues),
     },
     {
-      name: "Current Fatiue",
+      name: "Current Fatigue",
       value: fatigueAccrued.toFixed(2) + "%",
     },
     {

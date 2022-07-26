@@ -48,6 +48,7 @@ const Skills = () => {
     grapeToken!,
     WINERYPROGRESSION_ADDRESS[chainId!]
   );
+  let a = '0';
   // Get Skills variables
   const [grapeInput, setGrapeInput] = useState("");
   const [level, setLevel] = useState(0);
@@ -200,7 +201,17 @@ const Skills = () => {
   const showSkills = () => {
     if (skillLearned) {
       return Object.keys(skills as ISkills).map((item, i) => {
+        if(item == 'burn'){
+          a = 'quality'
+        }else if(item == 'mastervintner'){
+          a = 'mastery'
+        }else if(item == 'vintageWineStorage'){
+          a = 'storage'
+        }else{
+          a = item;
+        }
         const subSkills = skills[item as keyof ISkills];
+
         return (
           <Stack
             key={i}
@@ -212,7 +223,7 @@ const Skills = () => {
           >
             <Typography variant="h6" color="primary.light">
               
-              {item} skill:
+              {a} skill:
             </Typography>
             {subSkills.map((subItem, index) => {
               const skillPoint = Number(
