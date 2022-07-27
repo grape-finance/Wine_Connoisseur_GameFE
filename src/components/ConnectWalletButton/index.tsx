@@ -139,7 +139,7 @@ export default function ConnectWalletButton() {
       return window.ethereum.request({
         method: "wallet_switchEthereumChain",
         // params: [{ chainId: SupportedChainId.HEX_MAINNET }],
-        params: [{ chainId: SupportedChainId.HEX_TESTNET }],
+        params: [{ chainId: SupportedChainId.HEX_MAINNET }],
       });
   };
 
@@ -163,15 +163,15 @@ export default function ConnectWalletButton() {
       //   ],
       // });
 
-      // Switch to Testnet
+      // Switch to Mainnet
       return window.ethereum.request({
         method: "wallet_addEthereumChain",
         params: [
           {
-            chainId: SupportedChainId.HEX_TESTNET,
-            chainName: "Avalanche Testnet",
-            rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
-            blockExplorerUrls: ["https://testnet.snowtrace.io"],
+            chainId: SupportedChainId.HEX_MAINNET,
+            chainName: "Avalanche Mainnet",
+            rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+            blockExplorerUrls: ["https://snowtrace.io"],
             nativeCurrency: {
               name: "AVAX",
               symbol: "AVAX",
