@@ -145,7 +145,7 @@ const Cellar = () => {
   const claimDelayedUnstake = async () => {
     if (account && chainId && cellarContract) {
       if (currentUnixTime > +userUnlockTimestamps)
-        alert("VINTAGEWINE not yet unlocked");
+        alert("VINTAGE not yet unlocked");
       else {
         try {
           setLoading(true);
@@ -172,12 +172,13 @@ const Cellar = () => {
           width: "100%",
           height: "auto",
           background:
-            "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           p: 3,
-          borderRadius: "1.5rem",
+          borderRadius: "1px",
           boxShadow: 2,
           textAlign: "center",
-          border: "1px solid rgb(68 64 60)",
+          border: "1px solid rgb(0 0 0)",
+          WebkitBoxShadow: '5px 5px 5px #000'   
         }}
       >
         <Stack
@@ -197,7 +198,7 @@ const Cellar = () => {
           >
             {+userUnlockTimestamps - currentUnixTime <= 0 && (
               <StyledButton onClick={() => claimDelayedUnstake()}>
-                Withdraw Delay
+                Claim
               </StyledButton>
             )}
             <StyledButton onClick={() => setOpenUnstakeModal(true)}>
@@ -207,27 +208,27 @@ const Cellar = () => {
         </Stack>
 
         <Typography color="primary.light" variant="body2" component="p">
-          Cellar Staked Vintage Wine
+          Total Staked Vintage
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(cellarVintageWineBal)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Your Staked Balance
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(userCellarAmounts)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Your Pending Balance
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(userUnlockAmounts)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Delay Withdrawable in
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {+userUnlockTimestamps === 0
             ? "0m"
             : unixToDate(+userUnlockTimestamps - currentUnixTime)}

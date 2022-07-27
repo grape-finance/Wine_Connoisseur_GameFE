@@ -268,12 +268,13 @@ const Overview = () => {
           width: "100%",
           height: "auto",
           background:
-            "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+          "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
           p: 3,
-          borderRadius: "1.5rem",
+          borderRadius: "1px",
           boxShadow: 2,
           textAlign: "center",
-          border: "1px solid rgb(68 64 60)",
+          border: "1px solid rgb(0 0 0)",
+          WebkitBoxShadow: '5px 5px 5px #000'
         }}
       >
         <Stack
@@ -287,39 +288,39 @@ const Overview = () => {
           }}
         >
           {approveStatus !== ApprovalState.APPROVED ? (
-            <StyledButton onClick={approve}>Approve</StyledButton>
+            <StyledButton onClick={approve}>Rest</StyledButton>
           ) : (
             <StyledButton onClick={() => resetFatigue()}>
-              Reset Fatigue
+              Rest
             </StyledButton>
           )}
 
           <StyledButton onClick={() => claimVintageWine()}>Claim</StyledButton>
         </Stack>
         <Typography color="primary.light" variant="body2" component="p">
-          VintageWine Per Minute
+          Vintage Per Minute
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {vpm.toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          current fatigue
+          Current Fatigue
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
-          {fatigueAccrued.toFixed(2)} %
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
+          {fatigueAccrued.toFixed(2)}%
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Max Fatigue in :
+          Max Fatigue in
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {fatiguePerMinuteWithModifier === 0
             ? "0m"
             : unixToDate(timeUntilFatigues)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Earned VintageWine
+          Earned Vintage
         </Typography>
-        <Typography color="rgb(249 115 22)" variant="body2" component="p">
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {vintageWineAccrued.toFixed(2)}
         </Typography>
       </Stack>

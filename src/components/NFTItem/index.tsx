@@ -12,7 +12,7 @@ interface IProps {
 
 const useStyles = makeStyles({
   box: {
-    "&:hover": { borderColor: "#A16207" },
+    "&:hover": { borderColor: "rgb(251 146 60)" },
   },
 });
 
@@ -26,7 +26,7 @@ const NFTItem = (props: IProps) => {
       className={classes.box}
       style={{
         border: "5px solid",
-        borderColor: selected ? "#A16207" : "grey",
+        borderColor: selected ? "rgb(251 146 60)" : "grey",
         borderRadius: "20px",
       }}
     >

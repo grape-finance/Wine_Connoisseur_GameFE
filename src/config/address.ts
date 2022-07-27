@@ -64,6 +64,6 @@ export const TOOL_URI = "https://tools-json.s3.us-west-1.amazonaws.com/json";
 export const buyGrapeAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${GRAPE_ADDRESS[43114]}`;
 export const buyVintageWineAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${VINTAGEWINE_ADDRESS[43114]}`;
 export const buyVintnerNFTAddress =
-  "https://nftrade.com/assets/avalanche/0x001e68282d52dcaba3749291bac33a9678073d01";
+  "#";
 export const buyToolsNFTAddress =
-  "https://nftrade.com/assets/avalanche/0x6cc4cc814c7154fb67965c8044cc803b3199ec53";
+  "#";

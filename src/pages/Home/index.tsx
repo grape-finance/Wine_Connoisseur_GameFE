@@ -10,12 +10,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import heroVideo from "assets/back.mp4";
+import heroVideo from "assets/home3.mp4";
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    height: "99.2vh",
+    height: "100vh",
+    overflow: 'hidden',
     position: "relative",
     "& video": {
       objectFit: "cover",
@@ -74,16 +75,13 @@ const Home = () => {
             spacing={2.3}
             sx={{ pl: { xs: "unset", md: "unset", lg: 10 } }}
           >
-            <Link href="#">
+            <Link href="https://twitter.com/grape_finance">
               <FontAwesomeIcon className="icon-1" icon={faTwitter} />
             </Link>
-            <Link href="#">
+            <Link href="https://discord.gg/grapefinance">
               <FontAwesomeIcon className="icon-1" icon={faDiscord} />
             </Link>
-            <Link href="#">
-              <FontAwesomeIcon className="icon-1" icon={faMedium} />
-            </Link>
-            <Link href="#">
+            <Link href="https://vinium-finance.gitbook.io/winemaker-game/">
               <FontAwesomeIcon className="icon-2" icon={faBook} />
             </Link>
           </Stack>
@@ -108,10 +106,10 @@ const Home = () => {
               variant="h1"
               component="h1"
             >
-              welcome to
-              <Typography color="primary.main" variant="h1" component="span">
+              
+              <Typography color="#fff" variant="h1" component="span">
                 {" "}
-                The Winery
+                Winemaker
               </Typography>
             </Typography>
             <Typography
@@ -120,30 +118,32 @@ const Home = () => {
               variant="h5"
               component="h5"
             >
-              Build Winery, brew Vintner, then relax!
+              Stake Vintners, earn $Vintage & become a master winemaker!
             </Typography>
             <Button
               onClick={() => navigate("/app/Overview")}
               sx={{
                 p: 2,
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "5px solid",
+                boxShadow: '5px 5px 5px #000',
+                borderColor: "#000",
                 color: "primary.light",
                 mb: 16,
-                width: { xs: "100%", md: "50%" },
+                width: { xs: "80%", md: "30%" },
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "5px solid",
+                  borderColor: "#000",
+                  background: '#006636',
                 },
               }}
               variant="contained"
             >
-              Click here to Open Winery
+              Start Game
             </Button>
           </Stack>
         </Box>

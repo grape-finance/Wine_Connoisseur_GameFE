@@ -17,7 +17,7 @@ interface IProps {
 const StyledTextField = styled(TextField)(({ theme }) => ({
   color: "#000",
   backgroundColor: "rgb(255 237 213)",
-  borderRadius: 8,
+  borderRadius: 1,
   textAlign: "end",
   "& .MuiInput-underline:after": {
     border: "none",

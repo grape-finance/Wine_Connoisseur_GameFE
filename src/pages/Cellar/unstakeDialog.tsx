@@ -105,7 +105,7 @@ export default function UnstakeDialog({
         PaperProps={{
           style: {
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -138,7 +138,7 @@ export default function UnstakeDialog({
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 0 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -175,7 +175,7 @@ export default function UnstakeDialog({
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 1 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -205,8 +205,8 @@ export default function UnstakeDialog({
             component="p"
             marginTop={"10px"}
           >
-            Available Amount :{" "}
-            {trim(+ethers.utils.formatEther(userCellarAmounts), 2)} VintageWine
+            Available Amount:{" "}
+            {trim(+ethers.utils.formatEther(userCellarAmounts), 2)} Vintage
           </Typography>
           <Typography
             color="primary.light"
@@ -215,8 +215,8 @@ export default function UnstakeDialog({
             marginTop={"10px"}
           >
             {tabValue === 0
-              ? "When you unstake quickly, you get your $RONI back instantly. However, you lose half of it (25% spoiled, and 25% stays in)"
-              : "Delayed unstaking takes 2 days to defrost your $RONI fully and 10% of it will spill."}
+              ? "When you unstake quickly, you get your VINTAGE back instantly. However, you lose half of it (25% spoiled, and 25% stays in)"
+              : "Delayed unstaking takes 2 days to age your VINTAGE fully and 10% of it will spill."}
           </Typography>
         </DialogContent>
         <DialogContent>
@@ -230,18 +230,18 @@ export default function UnstakeDialog({
               onClick={() => unstake()}
               sx={{
                 width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "3px solid #000",
                 color: "primary.light",
+                boxShadow: '5px 5px 5px #000',
 
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "3px solid #000",
+                  background: '#006636'
                 },
               }}
               variant="contained"

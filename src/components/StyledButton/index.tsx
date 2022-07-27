@@ -14,18 +14,18 @@ const StyledButton = ({ children, ...rest }: IProps) => {
       sx={{
         width: { xs: "100%", sm: "100%", md: "100%", lg: "200px" },
         height: "50px",
-        borderRadius: "1rem",
+        borderRadius: "1px",
         transition: "0.3s",
         textTransform: "none",
         fontSize: "20px",
         fontWeight: "fontWeightBold",
-        border: "1px solid",
-        borderColor: "primary.dark",
+        border: "3px solid #000",
         color: "primary.light",
+        boxShadow: '5px 5px 5px #000',
 
         "&:hover": {
-          border: "1px solid",
-          borderColor: "primary.main",
+          border: "3px solid #000",
+          background: '#006636',
         },
       }}
       variant="contained"

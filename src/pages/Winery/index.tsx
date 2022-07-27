@@ -255,7 +255,7 @@ const Winery = () => {
               variant="h4"
               component="h4"
             >
-              No items Staked
+              No Vintners Staked
             </Typography>
             ;
           </Box>
@@ -304,7 +304,7 @@ const Winery = () => {
               variant="h4"
               component="h4"
             >
-              No items Resting
+              No Vintners Resting
             </Typography>
             ;
           </Box>
@@ -355,7 +355,7 @@ const Winery = () => {
               variant="h4"
               component="h4"
             >
-              No items Unstaked
+              No Vintners Unstaked
             </Typography>
             ;
           </Box>
@@ -396,11 +396,12 @@ const Winery = () => {
             width: "100%",
             height: "auto",
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
             p: 3,
-            borderRadius: "1.5rem",
+            borderRadius: "1px",
             boxShadow: 2,
-            border: "1px solid rgb(68 64 60)",
+            border: "1px solid rgb(0 0 0)",
+            WebkitBoxShadow: '5px 5px 5px #000'
           }}
         >
           <Stack
@@ -419,7 +420,7 @@ const Winery = () => {
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 0 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -452,7 +453,7 @@ const Winery = () => {
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 1 && {
                     backgroundColor: "rgb(254 215 170)",
@@ -485,7 +486,7 @@ const Winery = () => {
             >
               <Box
                 sx={{
-                  borderRadius: ".8rem",
+                  borderRadius: "1px",
                   p: 1.5,
                   ...(tabValue === 2 && {
                     backgroundColor: "rgb(254 215 170)",

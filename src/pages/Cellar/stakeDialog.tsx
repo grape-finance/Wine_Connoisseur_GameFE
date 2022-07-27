@@ -85,7 +85,7 @@ export default function StakeDialog({
         PaperProps={{
           style: {
             background:
-              "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -99,14 +99,13 @@ export default function StakeDialog({
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography color="primary.light" variant="h4" component="p">
-            Available VintageWine : {trim(vintageWineBalance, 2)}
+            Available Vintage: {trim(vintageWineBalance, 2)}
           </Typography>
           <Divider sx={{ height: "1px", background: "white", my: 1 }} />
           <Typography color="primary.light" variant="h5" component="p">
-            Stake your $VintageWine in the New Freezer to earn 10% of all
-            produced VintageWine. However, unstaking from the Freezer will take
-            2 days if you want the smallest penalty, and a great penalty if you
-            want to unstake immediately.
+            Stake your Vintage in the Cellar to earn 10% of all
+            produced Vintage. However, unstaking from the Cellar will take
+            2 days if you want the smallest penalty, immediate unstakes come at a great penalty.
           </Typography>
         </DialogContent>
         <DialogContent>
@@ -124,18 +123,18 @@ export default function StakeDialog({
               }}
               sx={{
                 width: { xs: "100%", md: "25%" },
-                borderRadius: "1rem",
+                borderRadius: "1px",
                 transition: "0.3s",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
-                border: "1px solid",
-                borderColor: "primary.dark",
+                border: "3px solid #000",
                 color: "primary.light",
+                boxShadow: '5px 5px 5px #000',
 
                 "&:hover": {
-                  border: "1px solid",
-                  borderColor: "primary.main",
+                  border: "3px solid #000",
+                  background: '#006636'
                 },
               }}
               variant="contained"

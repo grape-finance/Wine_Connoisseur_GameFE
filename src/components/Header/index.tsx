@@ -32,7 +32,7 @@ const Header = () => {
           top: 0,
           height: { xs: 94, md: 94, lg: 84 },
           background: "transparent",
-          backdropFilter: "blur(10px)",
+          backdropFilter: "blur(5px)",
           border: "none",
           transition: "all 0.3s",
           display: "flex",
@@ -65,12 +65,12 @@ const Header = () => {
                 }}
                 component="img"
                 image={headerIcon}
-                style={{ width: "200px", height: "40px", cursor: "pointer" }}
+                style={{ width: "150px", height: "40px", cursor: "pointer" }}
                 onClick={() => navigate("/")}
               />
               <Stack
                 direction="row"
-                spacing={2.3}
+                spacing={2}
                 sx={{
                   display: { xs: "none", md: "none", lg: "flex" },
                 }}
@@ -78,21 +78,18 @@ const Header = () => {
                 <CardMedia
                   component="img"
                   image={headerIcon}
-                  style={{ width: "200px", height: "40px", cursor: "pointer" }}
+                  style={{ width: "100%", height: "60px", cursor: "pointer" }}
                   onClick={() => navigate("/")}
                 />
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-1" icon={faTwitter} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-1" icon={faDiscord} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-1" icon={faMedium} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon className="icon-2" icon={faBook} />
-                </Link>
+            <Link href="https://twitter.com/grape_finance">
+              <FontAwesomeIcon className="icon-1" icon={faTwitter} />
+            </Link>
+            <Link href="https://discord.gg/grapefinance">
+              <FontAwesomeIcon className="icon-1" icon={faDiscord} />
+            </Link>
+            <Link href="https://winemaker-docs.grapefinance.app">
+              <FontAwesomeIcon className="icon-2" icon={faBook} />
+            </Link>
               </Stack>
               <Stack
                 direction="row"
@@ -102,50 +99,52 @@ const Header = () => {
                 <Button
                   sx={{
                     p: 1.3,
-                    borderRadius: "1rem",
+                    borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
                     fontSize: "16px",
                     fontWeight: "fontWeightBold",
-                    border: "1px solid",
-                    borderColor: "secondary.dark",
+                    border: "3px solid #000",
+                    boxShadow: '5px 5px 5px #000',
                     // color: "white",
                     display: { xs: "none", md: "none", lg: "block" },
                     "&:hover": {
-                      border: "1px solid",
-                      borderColor: "secondary.main",
+                      border: "3px solid",
+                      background: '#006636',
+                      borderColor: "#000",
                     },
                   }}
-                  color="secondary"
+                  color="primary"
                   variant="contained"
                   target="_blank"
                   href={buyGrapeAddress}
                 >
-                  Buy $Grape
+                  Buy GRAPE
                 </Button>
                 <Button
                   sx={{
                     p: 1.3,
-                    borderRadius: "1rem",
+                    borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
                     fontSize: "16px",
                     fontWeight: "fontWeightBold",
-                    border: "1px solid",
-                    borderColor: "secondary.dark",
+                    border: "3px solid #000",
+                    boxShadow: '5px 5px 5px #000',
                     // color: "white",
                     display: { xs: "none", md: "none", lg: "block" },
                     "&:hover": {
-                      border: "1px solid",
-                      borderColor: "secondary.main",
+                      border: "3px solid",
+                      background: '#006636',
+                      borderColor: "#000",
                     },
                   }}
-                  color="secondary"
+                  color="primary"
                   variant="contained"
                   target="_blank"
                   href={buyVintageWineAddress}
                 >
-                  Buy $VintageWine
+                  Buy VINTAGE
                 </Button>
                 <ConnectWalletButton />
               </Stack>

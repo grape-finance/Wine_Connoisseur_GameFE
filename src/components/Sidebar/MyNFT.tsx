@@ -11,7 +11,7 @@ const MyNFT = () => {
   } = useNFTState();
   const NFTState = [
     {
-      name: "Vintagewine PM",
+      name: "Vintage PM",
       value: vintageWinePerMinute.toFixed(2),
     },
     {
@@ -19,11 +19,11 @@ const MyNFT = () => {
       value: unixToDate(timeUntilFatigues),
     },
     {
-      name: "Current Fatiue",
+      name: "Current Fatigue",
       value: fatigueAccrued.toFixed(2) + "%",
     },
     {
-      name: "Earned Vintagewine",
+      name: "Earned Vintage",
       value: vintageWineAccrued.toFixed(2),
     },
   ];
@@ -52,12 +52,13 @@ const MyNFT = () => {
               height: "auto",
               display: "flex",
               background:
-                "linear-gradient(to bottom,rgb(28 25 23/0.95),rgb(41 37 36/0.95),rgb(28 25 23/0.7))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
               p: 2,
-              borderRadius: "1.5rem",
+              borderRadius: "1px",
               boxShadow: 2,
               justifyContent: "flex-start",
-              border: "1px solid rgb(68 64 60)",
+              border: "1px solid rgb(00 00 00)",
+              WebkitBoxShadow: '5px 5px 5px #000'
             }}
           >
             <Box
@@ -76,7 +77,7 @@ const MyNFT = () => {
                 variant="h5"
                 component="h5"
               >
-                {data.name} : {data.value}
+                {data.name}: {data.value}
               </Typography>
             </Box>
           </Box>
