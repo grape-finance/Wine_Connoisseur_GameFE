@@ -336,7 +336,7 @@ const Skills = () => {
             />
 
             {approveStatus !== ApprovalState.APPROVED ? (
-              <StyledButton onClick={approve}>Deposit</StyledButton>
+              <StyledButton onClick={approve}>Approve</StyledButton>
             ) : (
               <>
                 <StyledButton onClick={() => deposit()}>Deposit</StyledButton>
