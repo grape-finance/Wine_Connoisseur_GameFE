@@ -45,7 +45,7 @@ const Header = () => {
             height: "100%",
           }}
         >
-          <Box sx={{ px: 10 }}>
+          <Box sx={{ px: 5 }}>
             <Box
               sx={{
                 display: "flex",
@@ -72,7 +72,12 @@ const Header = () => {
                 direction="row"
                 spacing={2}
                 sx={{
-                  display: { xs: "none", md: "none", lg: "flex" },
+                  display: {
+                    xs: "none",
+                    md: "none",
+                    lg: "flex",
+                    alignItems: "center",
+                  },
                 }}
               >
                 <CardMedia
@@ -81,15 +86,15 @@ const Header = () => {
                   style={{ width: "100%", height: "60px", cursor: "pointer" }}
                   onClick={() => navigate("/")}
                 />
-            <Link href="https://twitter.com/grape_finance">
-              <FontAwesomeIcon className="icon-1" icon={faTwitter} />
-            </Link>
-            <Link href="https://discord.gg/grapefinance">
-              <FontAwesomeIcon className="icon-1" icon={faDiscord} />
-            </Link>
-            <Link href="https://winemaker-docs.grapefinance.app">
-              <FontAwesomeIcon className="icon-2" icon={faBook} />
-            </Link>
+                <Link href="https://twitter.com/grape_finance">
+                  <FontAwesomeIcon className="icon-1" icon={faTwitter} />
+                </Link>
+                <Link href="https://discord.gg/grapefinance">
+                  <FontAwesomeIcon className="icon-1" icon={faDiscord} />
+                </Link>
+                <Link href="https://winemaker-docs.grapefinance.app">
+                  <FontAwesomeIcon className="icon-2" icon={faBook} />
+                </Link>
               </Stack>
               <Stack
                 direction="row"
@@ -105,12 +110,12 @@ const Header = () => {
                     fontSize: "16px",
                     fontWeight: "fontWeightBold",
                     border: "3px solid #000",
-                    boxShadow: '5px 5px 5px #000',
+                    boxShadow: "5px 5px 5px #000",
                     // color: "white",
                     display: { xs: "none", md: "none", lg: "block" },
                     "&:hover": {
                       border: "3px solid",
-                      background: '#006636',
+                      background: "#006636",
                       borderColor: "#000",
                     },
                   }}
@@ -130,12 +135,12 @@ const Header = () => {
                     fontSize: "16px",
                     fontWeight: "fontWeightBold",
                     border: "3px solid #000",
-                    boxShadow: '5px 5px 5px #000',
+                    boxShadow: "5px 5px 5px #000",
                     // color: "white",
                     display: { xs: "none", md: "none", lg: "block" },
                     "&:hover": {
                       border: "3px solid",
-                      background: '#006636',
+                      background: "#006636",
                       borderColor: "#000",
                     },
                   }}
