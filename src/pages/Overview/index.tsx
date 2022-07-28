@@ -288,7 +288,7 @@ const Overview = () => {
           }}
         >
           {approveStatus !== ApprovalState.APPROVED ? (
-            <StyledButton onClick={approve}>Rest</StyledButton>
+            <StyledButton onClick={approve}>Approve</StyledButton>
           ) : (
             <StyledButton onClick={() => resetFatigue()}>
               Rest

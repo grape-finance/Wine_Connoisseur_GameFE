@@ -37,7 +37,9 @@ export default function Updater(): null {
       vintnerContract &&
       upgradeContract &&
       wineryContract &&
-      chainId === SupportedChainId.MAINNET
+      (chainId === SupportedChainId.MAINNET 
+        // || chainId === SupportedChainId.TESTNET
+        )
     ) {
       try {
         // Get user token balance of Grape and VintageWine and USDC-VintageWine LP

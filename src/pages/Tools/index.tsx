@@ -361,7 +361,7 @@ const Tools = () => {
                     <NFTItem
                       image={`${TOOL_URI}/${
                         (Number(item.toolPPM) + 1) / 2
-                      }.png`}
+                      }.jpg`}
                       selected={selectedNFTs.includes(item)}
                     />
                   </>
@@ -445,7 +445,7 @@ const Tools = () => {
                   key={index}
                 >
                   <NFTItem
-                    image={`${TOOL_URI}/${item?.contentURI?.slice(30, 31)}.png`}
+                    image={`${TOOL_URI}/${item?.contentURI?.slice(30, 31)}.jpg`}
                     selected={selectedNFTs.includes(item)}
                   />
                 </Box>
@@ -689,7 +689,7 @@ const Tools = () => {
                   setValue={setMintAmountInput}
                 />
                 {approveStatus !== ApprovalState.APPROVED ? (
-                  <StyledButton onClick={approve}>MINT</StyledButton>
+                  <StyledButton onClick={approve}>Approve</StyledButton>
                 ) : (
                   <StyledButton onClick={() => mintNFT()}>MINT {mintAmountInput}</StyledButton>
                 )}
