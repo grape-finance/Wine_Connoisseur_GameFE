@@ -13,61 +13,10 @@ import { SupportedChainId } from "config/address";
 const INFURA_ID = "e67a2556dede4ff2b521a375a1905f8b";
 
 const web3Modal = new Web3Modal({
-  disableInjectedProvider: true,
+  disableInjectedProvider: false,
   network: "mainnet",
   cacheProvider: true,
   providerOptions: {
-    "custom-metamask": {
-      display: {
-        name: "MetaMask",
-        description: "Connect to your MetaMask Wallet",
-        logo: "https://duckduckgo.com/i/b08b6e4c.png",
-      },
-      package: true,
-      connector: async () => {
-        if ((window as any).ethereum === undefined) {
-          (window as any).open(
-            "https://metamask.app.link/dapp/www.ethbox.org/app/",
-            "_blank"
-          );
-          return;
-        } else if ((window as any).ethereum.providers !== undefined) {
-          const providers = (window as any).ethereum.providers;
-          const provider = providers.find((p: any) => p.isMetaMask); // <-- LOOK HERE
-          if (provider) {
-            try {
-              await provider.request({ method: "eth_requestAccounts" });
-              return provider;
-            } catch (error) {
-              throw new Error("User Rejected");
-            }
-          } else {
-            (window as any).open(
-              "https://metamask.app.link/dapp/www.ethbox.org/app/",
-              "_blank"
-            );
-            return;
-          }
-        } else if (
-          (window as any).ethereum.providers === undefined &&
-          (window as any).ethereum.isMetaMask === true
-        ) {
-          const provider = (window as any).ethereum;
-          try {
-            await provider.request({ method: "eth_requestAccounts" });
-            return provider;
-          } catch (error) {
-            throw new Error("User Rejected");
-          }
-        } else {
-          window.open(
-            "https://metamask.app.link/dapp/www.ethbox.org/app/",
-            "_blank"
-          );
-          return;
-        }
-      },
-    },
     walletconnect: {
       package: WalletConnectProvider,
       options: {
