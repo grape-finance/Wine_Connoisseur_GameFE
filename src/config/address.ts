@@ -64,5 +64,5 @@ export const TOOL_URI =
   "https://vintner-tools.s3.us-west-1.amazonaws.com/tool";
 export const buyGrapeAddress = `https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=${GRAPE_ADDRESS[43114]}`;
 export const buyVintageWineAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${VINTAGEWINE_ADDRESS[43114]}`;
-export const buyVintnerNFTAddress = "#";
-export const buyToolsNFTAddress = "#";
+export const buyVintnerNFTAddress = "https://mint.grapefinance.app/";
+export const buyToolsNFTAddress = "https://winemaker.grapefinance.app/app/Tools";
