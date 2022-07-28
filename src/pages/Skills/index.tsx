@@ -289,7 +289,7 @@ const Skills = () => {
   };
 
   return (
-    <Container sx={{ my: 3 }}>
+    <Container sx={{ my: 3, p: '0 !important' }}>
       <Box
         sx={{
           width: "100%",
