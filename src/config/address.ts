@@ -18,7 +18,7 @@ export const VINTAGEWINE_ADDRESS: AddressMap = {
 };
 
 export const USDC_VINTAGEWINE_LP_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: "",
+  [SupportedChainId.MAINNET]: "0x1A3b20040dD5C890f247a5fb6C078B9943FfaA40",
   [SupportedChainId.TESTNET]: "0x46372ce0868EBB34CdB334daF8C0d699a24d39a4",
 };
 
@@ -48,7 +48,7 @@ export const WINERY_ADDRESS: AddressMap = {
 };
 
 export const VINTAGEWINE_FOUNTAIN_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: "0x165F5bbEd43Caf1A614e8e98C1656706d8c957cd",
+  [SupportedChainId.MAINNET]: "0x329F8a3044E17d5691B64c6BD1b4dEd45775BB92",
   [SupportedChainId.TESTNET]: "0x004FeC4da28E9137c9779C948A047C0c4fff92Ca",
 };
 

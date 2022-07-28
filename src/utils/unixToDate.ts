@@ -14,6 +14,5 @@ export const unixToDate = (unix_timestamp: number) => {
   var formattedTime = hours + "h " + minutes.substr(-2) + "m ";
   //  + seconds.substr(-2);
 
-  //   console.log(formattedTime);
   return formattedTime;
 };
