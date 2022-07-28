@@ -110,7 +110,6 @@ const Cellar = () => {
   const quickUnstake = async (shareAmount: string) => {
     if (account && chainId && cellarContract) {
       try {
-        console.log("shareAmount", shareAmount);
         setLoading(true);
         let tx = await cellarContract.quickUnstake(
           ethers.utils.parseEther(shareAmount)

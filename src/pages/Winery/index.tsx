@@ -8,10 +8,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import {
-  useVintnerContract,
-  useWineryContract,
-} from "hooks/useContract";
+import { useVintnerContract, useWineryContract } from "hooks/useContract";
 import { useWeb3 } from "state/web3";
 import _ from "lodash";
 import Loading from "components/Loading";
@@ -261,6 +258,7 @@ const Winery = () => {
           </Box>
         );
       // Show staked NFTs
+      console.log("userStakedList", userStakedList);
       return (
         <Box
           style={{
@@ -270,14 +268,14 @@ const Winery = () => {
             justifyContent: "center",
           }}
         >
-          {userStakedList?.map((item, index) => (
+          {userStakedList?.map((item: any, index) => (
             <Box
               onClick={() => handleClick(item)}
               style={{ padding: "10px" }}
               key={index}
             >
               <NFTItem
-                image={`${NFT_URI}/${item}.png`}
+                image={`${NFT_URI}/${+item?.vintnerId!}.png`}
                 selected={selectedNFTs.includes(item)}
               />
             </Box>
@@ -396,12 +394,12 @@ const Winery = () => {
             width: "100%",
             height: "auto",
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
             p: 3,
             borderRadius: "1px",
             boxShadow: 2,
             border: "1px solid rgb(0 0 0)",
-            WebkitBoxShadow: '5px 5px 5px #000'
+            WebkitBoxShadow: "5px 5px 5px #000",
           }}
         >
           <Stack

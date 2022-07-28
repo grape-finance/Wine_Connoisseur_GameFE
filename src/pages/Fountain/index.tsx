@@ -66,13 +66,10 @@ const Fountain = () => {
           const _accRewardToken = _accRewardTokenPerShare.add(
             _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
           );
-          console.log("_userInfo", _userInfo);
           const _rewardPerDay = _userInfo.amount
             .mul(_accRewardToken)
             .div(BigNumber.from(10).pow(12))
             .sub(_userInfo.rewardDebt);
-          console.log("_rewardPerDay", _rewardPerDay);
-          console.log(_accRewardTokenPerShare, _getRewardPerSecond, _LPSupply);
           setRewardPerDay(+ethers.utils.formatEther(_rewardPerDay));
         };
         getUserInfo();
