@@ -328,25 +328,29 @@ const Tools = () => {
                   <>
                     <Typography variant="h6">
                       {toolNFTLists[tokenURI].name}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       {toolNFTLists[tokenURI].description}
-                    </Typography><br />
+                    </Typography>
+                    <br />
 
                     <Typography variant="body1">
                       Total Supply: {Number(toolNFTLists[tokenURI].maxSupply)}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       Minted Count: {Number(toolNFTLists[tokenURI].supply)}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
-                      Cost: <br />{" "}
-                      {ethers.utils.formatEther(item.priceGrape)} Grape <br />
-                       {ethers.utils.formatEther(item.priceVintageWine)} {" "}Vintage
-                    </Typography><br />
+                      Cost: <br /> {ethers.utils.formatEther(toolNFTLists[tokenURI].priceGrape)}{" "}
+                      Grape <br />
+                      {ethers.utils.formatEther(toolNFTLists[tokenURI].priceVintageWine)} Vintage
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
-                      Vintage multi:{" "}
-                      {Number(toolNFTLists[tokenURI].yield)}
+                      Vintage multi: {Number(toolNFTLists[tokenURI].yield)}
                     </Typography>
                   </>
                 }
@@ -408,32 +412,43 @@ const Tools = () => {
           }}
         >
           {userUnstakedList.map((item: any, index: number) => {
-            const tokenURI = Number(item.contentURI.slice(30, 31)) - 1;
+            const tokenURI = Number(item.contentURI.slice(51, 52)) - 1;
+
             return (
               <Tooltip
                 title={
                   <>
                     <Typography variant="h6">
                       {toolNFTLists[tokenURI].name}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       {toolNFTLists[tokenURI].description}
-                    </Typography><br />
+                    </Typography>
+                    <br />
 
                     <Typography variant="body1">
                       Total Supply: {Number(toolNFTLists[tokenURI].maxSupply)}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       Minted Count: {Number(toolNFTLists[tokenURI].supply)}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       Cost: <br />{" "}
-                      {ethers.utils.formatEther(item.priceGrape)} Grape <br />
-                       {ethers.utils.formatEther(item.priceVintageWine)} {" "}Vintage
-                    </Typography><br />
+                      {ethers.utils.formatEther(
+                        toolNFTLists[tokenURI].priceGrape
+                      )}{" "}
+                      Grape <br />
+                      {ethers.utils.formatEther(
+                        toolNFTLists[tokenURI].priceVintageWine
+                      )}{" "}
+                      Vintage
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
-                      Vintage multi:{" "}
-                      {Number(toolNFTLists[tokenURI].yield)}
+                      Vintage multi: {Number(toolNFTLists[tokenURI].yield)}
                     </Typography>
                   </>
                 }
@@ -445,7 +460,7 @@ const Tools = () => {
                   key={index}
                 >
                   <NFTItem
-                    image={`${TOOL_URI}/${item?.contentURI?.slice(30, 31)}.jpg`}
+                    image={`${TOOL_URI}/${tokenURI + 1}.jpg`}
                     selected={selectedNFTs.includes(item)}
                   />
                 </Box>
@@ -477,20 +492,25 @@ const Tools = () => {
               <Tooltip
                 title={
                   <>
-                    <Typography variant="h6">{item.name}</Typography><br />
-                    <Typography variant="body1">{item.description}</Typography><br />
+                    <Typography variant="h6">{item.name}</Typography>
+                    <br />
+                    <Typography variant="body1">{item.description}</Typography>
+                    <br />
 
                     <Typography variant="body1">
                       Total Supply: {Number(item.maxSupply)}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       Minted Count: {Number(item.supply)}
-                    </Typography><br />
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
-                      Cost: <br />{" "}
-                      {ethers.utils.formatEther(item.priceGrape)} Grape <br />
-                       {ethers.utils.formatEther(item.priceVintageWine)} {" "}Vintage
-                    </Typography><br />
+                      Cost: <br /> {ethers.utils.formatEther(item.priceGrape)}{" "}
+                      Grape <br />
+                      {ethers.utils.formatEther(item.priceVintageWine)} Vintage
+                    </Typography>
+                    <br />
                     <Typography variant="body1">
                       Vintage Multi: {Number(item.yield)}
                     </Typography>
@@ -525,12 +545,12 @@ const Tools = () => {
             width: "100%",
             height: "auto",
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
             p: 3,
             borderRadius: "1px",
             boxShadow: 2,
             border: "1px solid rgb(0 0 0)",
-            WebkitBoxShadow: '5px 5px 5px #000'
+            WebkitBoxShadow: "5px 5px 5px #000",
           }}
         >
           <Stack
@@ -691,7 +711,9 @@ const Tools = () => {
                 {approveStatus !== ApprovalState.APPROVED ? (
                   <StyledButton onClick={approve}>Approve</StyledButton>
                 ) : (
-                  <StyledButton onClick={() => mintNFT()}>MINT {mintAmountInput}</StyledButton>
+                  <StyledButton onClick={() => mintNFT()}>
+                    MINT {mintAmountInput}
+                  </StyledButton>
                 )}
               </>
             )}

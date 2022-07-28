@@ -13,7 +13,7 @@ export const GRAPE_ADDRESS: AddressMap = {
 };
 
 export const VINTAGEWINE_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: "0xE78EB60A60057072fbEf50e2c99286B975Abb6E4",
+  [SupportedChainId.MAINNET]: "0x01Af64EF39AEB5612202AA07B3A3829f20c395fd",
   [SupportedChainId.TESTNET]: "0x063c8BC02bF3e22C7C12d6583203DB5C7fe868f6",
 };
 
