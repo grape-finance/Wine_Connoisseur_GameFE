@@ -21,7 +21,7 @@ export default function Updater(): null {
     const getPrice = async () => {
       try {
         let grapePrice;
-        let vintageWinePrice = 0.5;
+        let vintageWinePrice = 0.1;
         const response = await axios(config);
         grapePrice = response?.data.usdPrice;
         dispatch(
