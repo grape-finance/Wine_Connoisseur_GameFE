@@ -146,7 +146,7 @@ const Home = () => {
                 borderColor: "#000",
                 color: "primary.light",
                 mb: 16,
-                width: { xs: "80%", md: "30%" },
+                width: { xs: "80%", md: "15%" },
                 "&:hover": {
                   border: "5px solid",
                   borderColor: "#000",

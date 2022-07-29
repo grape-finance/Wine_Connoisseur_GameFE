@@ -709,7 +709,7 @@ const Tools = () => {
                   setValue={setMintAmountInput}
                 />
                 {approveStatus !== ApprovalState.APPROVED ? (
-                  <StyledButton onClick={approve}>Approve</StyledButton>
+                  <StyledButton onClick={approve}>Mint</StyledButton>
                 ) : (
                   <StyledButton onClick={() => mintNFT()}>
                     MINT {mintAmountInput}
