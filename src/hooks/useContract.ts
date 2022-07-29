@@ -10,6 +10,7 @@ import {
   MULTICALL_ADDRESS,
   VINTAGEWINE_FOUNTAIN_ADDRESS,
   USDC_VINTAGEWINE_LP_ADDRESS,
+  MIM_ADDRESS,
 } from "config/address";
 import { useMemo } from "react";
 import { useWeb3 } from "state/web3";
@@ -24,6 +25,7 @@ import WINERY_ABI from "abi/winery.json";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 import VINTAGEWINE_FOUNTAIN_ABI from "abi/vintageWineFountain.json";
 import MULTICALL_ABI from "abi/multicall.json";
+import MIM_ABI from "abi/mim.json";
 // import { getProvider } from "utils/provider";
 
 export function useContract(
@@ -102,6 +104,10 @@ export function useWineryProgressionContract() {
 
 export function useVintageWineFountainContract() {
   return useContract(VINTAGEWINE_FOUNTAIN_ADDRESS, VINTAGEWINE_FOUNTAIN_ABI);
+}
+
+export function useMIMContract() {
+  return useContract(MIM_ADDRESS, MIM_ABI);
 }
 
 // export function usePizzeriaContract() {

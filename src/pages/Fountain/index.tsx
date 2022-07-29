@@ -166,7 +166,7 @@ const Fountain = () => {
             spacing={3}
           >
             {approveStatus !== ApprovalState.APPROVED ? (
-              <StyledButton onClick={approve}>Approve</StyledButton>
+              <StyledButton onClick={approve}>Stake</StyledButton>
             ) : (
               <>
                 <StyledButton onClick={() => setOpenStakeModal(true)}>
@@ -204,6 +204,9 @@ const Fountain = () => {
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {trim(rewardPerDay, 2)}
+        </Typography>
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
+          <a target={'_blank'} rel="noopener noreferrer" href="https://www.swapsicle.io/add/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd/0x130966628846BFd36ff31a822705796e8cb8C18D">Add liduidity here</a>
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
