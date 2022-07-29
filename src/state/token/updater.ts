@@ -12,18 +12,14 @@ export default function Updater(): null {
   useEffect(() => {
     const config = {
       method: "get",
-      url: `https://deep-index.moralis.io/api/v2/erc20/${GRAPE_ADDRESS[43114]}/price?chain=avalanche`,
-      headers: {
-        "x-api-key":
-          "o4APhPnPagfzQ8sLAohU6wZlV23r9T1tO4j3S40htIoRFvQoChcS3xyElJ6sVvW8",
-      },
+      url: `https://api.coingecko.com/api/v3/simple/price?ids=grape-finance&vs_currencies=usd`,
     };
     const getPrice = async () => {
       try {
         let grapePrice;
-        let vintageWinePrice = 0.5;
-        const response = await axios(config);
-        grapePrice = response?.data.usdPrice;
+        let vintageWinePrice = 0.10;
+        const response = await axios(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=grape-finance`);     
+        grapePrice = response.data[0].current_price;
         dispatch(
           setTokenPrice({
             grapePrice,

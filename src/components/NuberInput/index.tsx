@@ -39,7 +39,9 @@ const NumberInput = ({ value, setValue, max }: IProps) => {
   return (
     <>
       <StyledTextField
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          if (+e.target.value > 0) setValue(e.target.value);
+        }}
         type="number"
         inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
         InputLabelProps={{

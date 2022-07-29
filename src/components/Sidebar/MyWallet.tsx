@@ -28,12 +28,12 @@ const MyWallet = () => {
       link: buyVintageWineAddress,
     },
     {
-      image: sideImage3,
+      image: sideImage4,
       value: vintnerBalance,
       link: buyVintnerNFTAddress,
     },
     {
-      image: sideImage4,
+      image: sideImage3,
       value: upgradeBalance,
       link: buyToolsNFTAddress,
     },

@@ -268,13 +268,13 @@ const Overview = () => {
           width: "100%",
           height: "auto",
           background:
-          "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.7),rgb(00 00 00/0.7),rgb(00 00 00/0.7))",
           p: 3,
           borderRadius: "1px",
           boxShadow: 2,
           textAlign: "center",
           border: "1px solid rgb(0 0 0)",
-          WebkitBoxShadow: '5px 5px 5px #000'
+          WebkitBoxShadow: "5px 5px 5px #000",
         }}
       >
         <Stack
@@ -288,11 +288,9 @@ const Overview = () => {
           }}
         >
           {approveStatus !== ApprovalState.APPROVED ? (
-            <StyledButton onClick={approve}>Rest</StyledButton>
+            <StyledButton onClick={approve}>Reset</StyledButton>
           ) : (
-            <StyledButton onClick={() => resetFatigue()}>
-              Rest
-            </StyledButton>
+            <StyledButton onClick={() => resetFatigue()}>Reset</StyledButton>
           )}
 
           <StyledButton onClick={() => claimVintageWine()}>Claim</StyledButton>

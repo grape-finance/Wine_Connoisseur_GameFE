@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     height: "100vh",
-    overflow: 'hidden',
+    overflow: "hidden",
     position: "relative",
     "& video": {
       objectFit: "cover",
@@ -89,6 +89,7 @@ const Home = () => {
       </AppBar>
       <div className={classes.overlay}>
         <Box
+          width="100%"
           height="100%"
           display="flex"
           flexDirection="column"
@@ -96,22 +97,33 @@ const Home = () => {
           alignItems="center"
           color="#fff"
         >
-          <Stack spacing={3} alignItems="center">
-            <Typography
-              color="primary.light"
-              sx={{
-                filter: "drop-shadow(0 25px 25px rgb(0 0 0/0.15))",
-                textAlign: "center",
-              }}
-              variant="h1"
-              component="h1"
+          <Stack
+            spacing={3}
+            alignItems="center"
+            sx={{ width: "100%", px: 0.5 }}
+          >
+            <Stack
+              sx={{ flexDirection: { sm: "column", md: "row" } }}
+              alignItems="center"
+              justifyContent="center"
             >
-              
-              <Typography color="#fff" variant="h1" component="span">
-                {" "}
-                Winemaker
+              <Typography
+                sx={{ textAlign: "center" }}
+                color="#fff"
+                variant="h1"
+                component="h1"
+              >
+                Wine
               </Typography>
-            </Typography>
+              <Typography
+                sx={{ textAlign: "center" }}
+                color="#fff"
+                variant="h1"
+                component="h1"
+              >
+                maker
+              </Typography>
+            </Stack>
             <Typography
               sx={{ textAlign: "center" }}
               color="primary.light"
@@ -130,15 +142,15 @@ const Home = () => {
                 fontSize: "16px",
                 fontWeight: "fontWeightBold",
                 border: "5px solid",
-                boxShadow: '5px 5px 5px #000',
+                boxShadow: "5px 5px 5px #000",
                 borderColor: "#000",
                 color: "primary.light",
                 mb: 16,
-                width: { xs: "80%", md: "30%" },
+                width: { xs: "80%", md: "15%" },
                 "&:hover": {
                   border: "5px solid",
                   borderColor: "#000",
-                  background: '#006636',
+                  background: "#006636",
                 },
               }}
               variant="contained"
