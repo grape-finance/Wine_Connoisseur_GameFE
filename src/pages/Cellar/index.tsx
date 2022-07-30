@@ -213,13 +213,13 @@ const Cellar = () => {
           {(+ethers.utils.formatEther(cellarVintageWineBal)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Your Staked Balance
+          Your sVintage Balance
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(userCellarAmounts)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Your Pending Balance
+          Your Delayed Unstake Pending
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(userUnlockAmounts)).toFixed(2)}
