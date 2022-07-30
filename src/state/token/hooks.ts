@@ -6,5 +6,6 @@ export function useTokenPrice() {
   const vintageWinePrice = useSelector(
     (state: AppState) => state.token.vintageWinePrice
   );
-  return { grapePrice, vintageWinePrice };
+  const lpPrice = useSelector((state: AppState) => state.token.lpPrice);
+  return { grapePrice, vintageWinePrice, lpPrice };
 }

@@ -151,7 +151,7 @@ const Winery = () => {
         }
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -178,7 +178,7 @@ const Winery = () => {
         }
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -200,7 +200,7 @@ const Winery = () => {
         }
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -224,7 +224,7 @@ const Winery = () => {
         }
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -388,7 +388,7 @@ const Winery = () => {
 
   return (
     <>
-      <Container sx={{ my: 3 }}>
+      <Container sx={{ my: 3, p: '0 !important' }}>
         <Box
           sx={{
             width: "100%",

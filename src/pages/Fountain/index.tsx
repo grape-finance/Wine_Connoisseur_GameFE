@@ -16,6 +16,7 @@ import { useWeb3 } from "state/web3";
 import { trim } from "utils/trim";
 import LPStakeDialog from "./LPstakeDialog";
 import LPUnstakeDialog from "./LPunstakeDialog";
+import { useTokenPrice } from "state/token/hooks";
 
 const Fountain = () => {
   const { account, provider, chainId } = useWeb3();
@@ -33,12 +34,13 @@ const Fountain = () => {
     LPToken!,
     VINTAGEWINE_FOUNTAIN_ADDRESS[chainId!]
   );
-
+  const { lpPrice, vintageWinePrice } = useTokenPrice();
   // get User Info
   const { USDCVintageWineLPBalance } = useTokenBalance();
   const [LPStakedBalance, setLPStakedBalance] = useState(0);
   const [pendingReward, setPendingReward] = useState(0);
   const [rewardPerDay, setRewardPerDay] = useState(0);
+  const [apr, setapr] = useState(0);
 
   useEffect(() => {
     if (account && fountainContract) {
@@ -56,13 +58,19 @@ const Fountain = () => {
             await fountainContract.getRewardPerSecond();
           const _accRewardTokenPerShare =
             await fountainContract.accRewardTokenPerShare();
-
+   
           let _LPSupply: BigNumber = await fountainContract.depositedBalance();
           _LPSupply = _LPSupply._hex === "0x00" ? BigNumber.from(1) : _LPSupply; // To prevent to devied by zero
-
+           
           const _tokenReward = BigNumber.from(3600 * 24).mul(
             _getRewardPerSecond
           );
+
+          const _rewardDayDollars = Number(_tokenReward) * vintageWinePrice;
+          const _TVL = lpPrice * Number(_LPSupply);
+
+          setapr(((_rewardDayDollars/_TVL)*100)*365)
+
           const _accRewardToken = _accRewardTokenPerShare.add(
             _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
           );
@@ -95,7 +103,7 @@ const Fountain = () => {
         window.location.reload();
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data.message);
+        //alert(err?.data.message);
         setLoading(false);
       }
     }
@@ -113,7 +121,7 @@ const Fountain = () => {
         window.location.reload();
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data.message);
+        //alert(err?.data.message);
         setLoading(false);
       }
     }
@@ -129,14 +137,14 @@ const Fountain = () => {
         window.location.reload();
       } catch (err: any) {
         console.log("err", err);
-        alert(err?.data.message);
+        //alert(err?.data.message);
         setLoading(false);
       }
     }
   };
 
   return (
-    <Container sx={{ my: 3 }}>
+    <Container sx={{ my: 3, p: '0 !important' }}>
       <Stack
         flexDirection="column"
         spacing={2}
@@ -180,7 +188,12 @@ const Fountain = () => {
           </Stack>
           <StyledButton onClick={() => claimLP()}>Claim</StyledButton>
         </Stack>
-
+        <Typography color="primary.light" variant="body2" component="p">
+          Staking APR:
+        </Typography>
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
+          {trim(apr, 2)}%
+        </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Your MIM-Vintage LP:
         </Typography>
@@ -205,8 +218,9 @@ const Fountain = () => {
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {trim(rewardPerDay, 2)}
         </Typography>
+
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          <a target={'_blank'} rel="noopener noreferrer" href="https://www.swapsicle.io/add/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd/0x130966628846BFd36ff31a822705796e8cb8C18D">Add liduidity here</a>
+          <a target={'_blank'} rel="noopener noreferrer" href="https://www.swapsicle.io/add/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd/0x130966628846BFd36ff31a822705796e8cb8C18D">Add liquidity here</a>
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />

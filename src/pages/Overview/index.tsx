@@ -260,7 +260,7 @@ const Overview = () => {
   };
 
   return (
-    <Container sx={{ my: 3 }}>
+    <Container sx={{ my: 3, p: '0 !important' }}>
       <Stack
         flexDirection="column"
         spacing={2}

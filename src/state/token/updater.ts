@@ -15,7 +15,7 @@ export default function Updater(): null {
   const { chainId } = useWeb3();
   const vintageWineContract = useVintageWineContract();
   const mimContract = useMIMContract();
-
+  const lpContract = useUSDCVintageWineLPContract();
   // deep-index.moralis.io/api/v2/erc20/0x5541D83EFaD1f281571B343977648B75d95cdAC2/price?chain=avalanche
 
   useEffect(() => {
@@ -24,9 +24,10 @@ export default function Updater(): null {
       url: `https://api.coingecko.com/api/v3/simple/price?ids=grape-finance&vs_currencies=usd`,
     };
     const getPrice = async () => {
-      if (chainId && vintageWineContract && mimContract) {
+      if (chainId && vintageWineContract && mimContract && lpContract) {
         try {
           let grapePrice;
+          let lpPrice = 0;
           const response = await axios(
             `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=grape-finance`
           );
@@ -37,10 +38,13 @@ export default function Updater(): null {
           const vinatageBalance = await vintageWineContract.balanceOf(
             USDC_VINTAGEWINE_LP_ADDRESS[chainId]
           );
+          const lpSupply = await lpContract.totalSupply();
+          lpPrice = (MIMBalance * 2)/lpSupply
           dispatch(
             setTokenPrice({
               grapePrice,
               vintageWinePrice: +MIMBalance / +vinatageBalance,
+              lpPrice
             })
           );
         } catch (err) {
