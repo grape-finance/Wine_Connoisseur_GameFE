@@ -17,6 +17,7 @@ import { setUserNFTState } from "state/user/actions";
 import { useNFTState } from "state/user/hooks";
 import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
+import useFirebase from "hooks/useFirebase";
 
 const Overview = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Overview = () => {
   // Get Contract
   const grapeContract = useGrapeContract();
   const wineryContract = useWineryContract();
+  const firebase = useFirebase();
+
   const grapeToken = useMemo(() => {
     if (provider && grapeContract) {
       const signer = provider.getSigner();
@@ -54,6 +57,8 @@ const Overview = () => {
         setUserStakedList(res);
       };
       getNFTState();
+
+      firebase?.getAllUsers()
     }
   }, [account, wineryContract]);
 
@@ -219,6 +224,11 @@ const Overview = () => {
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
         return maxVintageWine;
       }
+      firebase?.setField(
+        "vpm",
+        newVintageWineAmount / Math.pow(10, 18),
+        account!
+      );
       return newVintageWineAmount;
     }
   };
