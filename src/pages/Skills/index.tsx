@@ -3,6 +3,7 @@ import {
   Box,
   CardMedia,
   Container,
+  Grid,
   LinearProgress,
   Stack,
   Tooltip,
@@ -20,6 +21,7 @@ import StyledButton from "components/StyledButton";
 import { skills } from "config/skills";
 import LockImg from "assets/image/skills/lock.svg";
 import SkillDialog from "./skillDialog";
+import BuySkillsDialog from "./buySkillsDialog";
 import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
 import { useTokenBalance } from "state/user/hooks";
@@ -48,9 +50,8 @@ const Skills = () => {
     grapeToken!,
     WINERYPROGRESSION_ADDRESS[chainId!]
   );
-  let a = '0';
+  let a = "0";
   // Get Skills variables
-  const [grapeInput, setGrapeInput] = useState("");
   const [level, setLevel] = useState(0);
   const [skillPoint, setSkillPoint] = useState(0);
   const [skillLearned, setSkillLearned] = useState<ISkillLearned>();
@@ -61,6 +62,7 @@ const Skills = () => {
   const [maxGrapeAmount, setMaxGrapeAmount] = useState(0);
 
   const [openSkillModal, setOpenSkillModal] = useState(false);
+  const [openBuySkillsModal, setOpenBuySkillsModal] = useState(false);
   const [upgradeSkillType, setUpgradeSkillType] = useState(0);
   const [upgradeSkillPoint, setUpgradeSkillPoint] = useState(0);
   const [upgradeSkillDefinition, setUpgradeSkillDefinition] = useState("");
@@ -136,18 +138,14 @@ const Skills = () => {
     getInfo();
   }, [account, chainId, wineryProgressionContract]);
 
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setGrapeInput(Number(event.target.value));
-  // };
-
-  const deposit = async () => {
-    if (+grapeInput <= 0) alert("Grape token should be >0");
-    else if (maxGrapeAmount - grapeDeposited < +grapeInput)
+  const depositGrape = async (amount: number) => {
+    if (+amount <= 0) alert("Grape token should be >0");
+    else if (maxGrapeAmount - grapeDeposited < +amount)
       alert("You reached out the Max amount");
     else if (account && chainId && grapeContract && wineryProgressionContract) {
       try {
         const tx = await wineryProgressionContract.depositGrape(
-          BigNumber.from(+grapeInput).mul(BigNumber.from(10).pow(18))
+          BigNumber.from(+amount).mul(BigNumber.from(10).pow(18))
         );
         setLoading(true);
         await tx.wait();
@@ -201,13 +199,13 @@ const Skills = () => {
   const showSkills = () => {
     if (skillLearned) {
       return Object.keys(skills as ISkills).map((item, i) => {
-        if(item == 'burn'){
-          a = 'quality'
-        }else if(item == 'mastervintner'){
-          a = 'mastery'
-        }else if(item == 'vintageWineStorage'){
-          a = 'storage'
-        }else{
+        if (item == "burn") {
+          a = "quality";
+        } else if (item == "mastervintner") {
+          a = "mastery";
+        } else if (item == "vintageWineStorage") {
+          a = "storage";
+        } else {
           a = item;
         }
         const subSkills = skills[item as keyof ISkills];
@@ -222,7 +220,6 @@ const Skills = () => {
             alignItems="center"
           >
             <Typography variant="h6" color="primary.light">
-              
               {a} skill:
             </Typography>
             {subSkills.map((subItem, index) => {
@@ -289,33 +286,50 @@ const Skills = () => {
   };
 
   return (
-    <Container sx={{ my: 3, p: '0 !important' }}>
+    <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
       <Box
         sx={{
           width: "100%",
           height: "auto",
           background:
-          "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           p: 3,
           borderRadius: "1px",
           boxShadow: 2,
           border: "1px solid rgb(0 0 0)",
-          WebkitBoxShadow: '5px 5px 5px #000'
+          WebkitBoxShadow: "5px 5px 5px #000",
         }}
       >
         <Stack spacing={3}>
-          <Typography
-            color="rgb(251 146 60)"
-            sx={{
-              mt: 2,
-              "&:hover": { color: "rgb(251 146 60)" },
-            }}
-            component="h6"
-            variant="h6"
-          >
-            Your Grape Amount: {trim(grapeBalance, 2)} Deposited Amount:{" "}
-            {grapeDeposited}
-          </Typography>
+          <Grid container justifyContent={"space-between"}>
+            <Grid item>
+              <Typography
+                color="rgb(251 146 60)"
+                sx={{
+                  mt: 2,
+                  "&:hover": { color: "rgb(251 146 60)" },
+                }}
+                component="h6"
+                variant="h6"
+              >
+                Grape in Wallet: {trim(grapeBalance, 2)}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography
+                color="rgb(251 146 60)"
+                sx={{
+                  mt: 2,
+                  "&:hover": { color: "rgb(251 146 60)" },
+                }}
+                component="h6"
+                variant="h6"
+              >
+                Total Deposited Grape: {grapeDeposited}
+              </Typography>
+            </Grid>
+          </Grid>
+
           <Stack
             direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
             spacing={2}
@@ -329,20 +343,15 @@ const Skills = () => {
                 sx={{ height: 50, borderRadius: "10px" }}
               />
             </Box>
-            <NumberInput
-              value={grapeInput}
-              setValue={setGrapeInput}
-              max={maxGrapeAmount - grapeDeposited}
-            />
 
             {approveStatus !== ApprovalState.APPROVED ? (
-              <StyledButton onClick={approve}>Deposit</StyledButton>
+              <StyledButton onClick={approve}>Approve</StyledButton>
             ) : (
               <>
-                <StyledButton onClick={() => deposit()}>Deposit</StyledButton>
-                <StyledButton onClick={() => resetSkill()}>
-                  Reset
+                <StyledButton onClick={() => setOpenBuySkillsModal(true)}>
+                  Buy Level
                 </StyledButton>
+                <StyledButton onClick={() => resetSkill()}>Reset</StyledButton>
               </>
             )}
           </Stack>
@@ -355,8 +364,26 @@ const Skills = () => {
               component="h6"
               variant="h6"
             >
-              Level: {level} &nbsp; &nbsp; Skill point: {skillPoint} &nbsp;
-              &nbsp;
+              Level: {level}
+            </Typography>
+            <Typography
+              color="rgb(251 146 60)"
+              sx={{
+                "&:hover": { color: "rgb(251 146 60)" },
+              }}
+              component="h6"
+              variant="h6"
+            >
+              Skill point to use: {skillPoint}
+            </Typography>
+            <Typography
+              color="rgb(251 146 60)"
+              sx={{
+                "&:hover": { color: "rgb(251 146 60)" },
+              }}
+              component="h6"
+              variant="h6"
+            >
               {(grapeToNextLevel - grapeDepositInCurrentLevel).toFixed(2)} Grape
               to Next Level
             </Typography>
@@ -368,6 +395,14 @@ const Skills = () => {
       </Box>
 
       <Loading isLoading={isLoading} />
+
+      <BuySkillsDialog
+        open={openBuySkillsModal}
+        setOpen={setOpenBuySkillsModal}
+        grapeBalance={trim(grapeBalance, 2)}
+        depositGrape={depositGrape}
+      />
+
       <SkillDialog
         open={openSkillModal}
         setOpen={setOpenSkillModal}

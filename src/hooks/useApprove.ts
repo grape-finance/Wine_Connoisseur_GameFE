@@ -52,16 +52,21 @@ function useApprove(
     }
 
     // if (token) {
-    const response = await token.approve(spender, APPROVE_AMOUNT);
-    await response.wait();
+    try {
+      const response = await token.approve(spender, APPROVE_AMOUNT);
+      await response.wait();
 
-    await addTransaction(response, {
-      summary: `Approve ${token.symbol}`,
-      approval: {
-        tokenAddress: token.address,
-        spender: spender,
-      },
-    });
+      await addTransaction(response, {
+        summary: `Approve ${token.symbol}`,
+        approval: {
+          tokenAddress: token.address,
+          spender: spender,
+        },
+      });
+    } catch (err) {
+      dispatch(setLoading({ isLoading: true }));
+    }
+
     // }
     dispatch(setLoading({ isLoading: false }));
     window.location.reload();
