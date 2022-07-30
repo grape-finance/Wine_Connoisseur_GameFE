@@ -326,7 +326,7 @@ const Winery = () => {
               <NFTItem
                 isResting
                 endTime={Number(item?.endTimestamp)}
-                image={`${NFT_URI}/${item}.png`}
+                image={`${NFT_URI}/${item?.vintnerId}.png`}
                 selected={selectedNFTs.includes(item)}
               />
             </Box>
