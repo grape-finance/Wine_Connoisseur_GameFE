@@ -155,7 +155,7 @@ const Skills = () => {
         window.location.reload();
       } catch (err: any) {
         console.log("err?data.message", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -174,7 +174,7 @@ const Skills = () => {
         window.location.reload();
       } catch (err: any) {
         console.log("err?data.message", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
@@ -192,7 +192,7 @@ const Skills = () => {
         window.location.reload();
       } catch (err: any) {
         console.log("err?data.message", err);
-        alert(err?.data?.message!);
+        //alert(err?.data?.message!);
         setLoading(false);
       }
     }
