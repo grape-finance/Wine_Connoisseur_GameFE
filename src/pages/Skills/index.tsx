@@ -152,8 +152,10 @@ const Skills = () => {
         setLoading(false);
         window.location.reload();
       } catch (err: any) {
-        console.log("err?data.message", err);
-        //alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -171,8 +173,10 @@ const Skills = () => {
         setLoading(false);
         window.location.reload();
       } catch (err: any) {
-        console.log("err?data.message", err);
-        //alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -189,8 +193,10 @@ const Skills = () => {
         setLoading(false);
         window.location.reload();
       } catch (err: any) {
-        console.log("err?data.message", err);
-        //alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }

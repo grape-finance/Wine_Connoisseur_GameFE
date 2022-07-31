@@ -208,8 +208,10 @@ const Tools = () => {
             window.location.reload();
           }
         } catch (err: any) {
-          console.log("err", err);
-          //alert(err?.data?.message!);
+          const msg = err?.data?.message!;
+          if (msg) {
+            alert(msg.replace("execution reverted: ", ""));
+          }
           setLoading(false);
         }
       }
