@@ -528,7 +528,7 @@ const Winery = () => {
               <>
                 {!vintnerApproved ? (
                   <StyledButton onClick={() => approveVintner()}>
-                    Stake
+                    Approve
                   </StyledButton>
                 ) : (
                   <StyledButton onClick={() => stakeNFT()}>Stake</StyledButton>

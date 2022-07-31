@@ -349,7 +349,7 @@ const Skills = () => {
             ) : (
               <>
                 <StyledButton onClick={() => setOpenBuySkillsModal(true)}>
-                  Buy Level
+                  Buy Levels
                 </StyledButton>
                 <StyledButton onClick={() => resetSkill()}>Reset</StyledButton>
               </>

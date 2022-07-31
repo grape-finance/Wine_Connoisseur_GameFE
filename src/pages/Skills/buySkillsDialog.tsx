@@ -93,7 +93,7 @@ export default function BuySkillsDialog({
           onClose={handleClose}
         >
           <Typography color="primary.light" variant="h3" component="p">
-            Buy Level
+            Buy Levels
           </Typography>
         </BootstrapDialogTitle>
         <DialogContent>
