@@ -539,7 +539,7 @@ const Tools = () => {
 
   return (
     <>
-      <Container sx={{ my: 3, p: '0 !important' }}>
+      <Container sx={{ my: 3, p: "0 !important", maxWidth: 'unset !important' }}>
         <Box
           sx={{
             width: "100%",

@@ -12,7 +12,7 @@ const StyledButton = ({ children, ...rest }: IProps) => {
   return (
     <Button
       sx={{
-        width: { xs: "100%", sm: "100%", md: "100%", lg: "200px" },
+        minWidth: { xs: "100%", sm: "100%", md: "100%", lg: "200px" },
         height: "50px",
         borderRadius: "1px",
         transition: "0.3s",
@@ -21,11 +21,11 @@ const StyledButton = ({ children, ...rest }: IProps) => {
         fontWeight: "fontWeightBold",
         border: "3px solid #000",
         color: "primary.light",
-        boxShadow: '5px 5px 5px #000',
+        boxShadow: "5px 5px 5px #000",
 
         "&:hover": {
           border: "3px solid #000",
-          background: '#006636',
+          background: "#006636",
         },
       }}
       variant="contained"

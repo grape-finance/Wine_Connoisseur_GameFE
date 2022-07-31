@@ -48,6 +48,7 @@ const Home = () => {
         muted
         width="100%"
         height="100%"
+        style={{position: 'fixed'}}
       />
       <AppBar
         position="absolute"
