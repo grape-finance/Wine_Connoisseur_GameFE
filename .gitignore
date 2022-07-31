@@ -11,3 +11,7 @@ deployments
 cache
 artifacts
 node_modules
+.yarn/install-state.gz
+yarn.lock
+yarn.lock
+*.lock

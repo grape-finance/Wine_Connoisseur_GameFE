@@ -140,8 +140,11 @@ const Cellar = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -169,7 +172,7 @@ const Cellar = () => {
   };
 
   return (
-    <Container sx={{ my: 3, p: "0 !important", maxWidth: 'unset !important' }}>
+    <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
       <Stack
         flexDirection="column"
         spacing={2}

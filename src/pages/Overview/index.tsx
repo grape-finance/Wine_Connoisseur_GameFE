@@ -246,8 +246,11 @@ const Overview = () => {
         let tx = await wineryContract.resetFatigue();
         await tx.wait();
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
       } finally {
         setLoading(false);
       }
@@ -262,8 +265,11 @@ const Overview = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
