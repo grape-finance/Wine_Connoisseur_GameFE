@@ -4,12 +4,11 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { Divider, Stack } from "@mui/material";
-import { useTokenBalance } from "state/user/hooks";
-import { trim } from "utils/trim";
+import { Stack } from "@mui/material";
 import NumberInput from "components/NuberInput";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -61,20 +60,20 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 interface IProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
-  stakeVintageWine: (arg: number) => void;
+  grapeBalance: string;
+  depositGrape: (arg: number) => void;
 }
 
-export default function StakeDialog({
+export default function BuySkillsDialog({
   open,
   setOpen,
-  stakeVintageWine,
+  grapeBalance,
+  depositGrape,
 }: IProps) {
-  const [vintageWineInput, setVintageWineInput] = React.useState("");
-  const { vintageWineBalance } = useTokenBalance();
-
   const handleClose = () => {
     setOpen(false);
   };
+  const [grapeAmount, setGrapeAmount] = React.useState("");
 
   return (
     <div>
@@ -85,7 +84,7 @@ export default function StakeDialog({
         PaperProps={{
           style: {
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -94,32 +93,29 @@ export default function StakeDialog({
           onClose={handleClose}
         >
           <Typography color="primary.light" variant="h3" component="p">
-            Stake
+            Buy Level
           </Typography>
         </BootstrapDialogTitle>
-        <DialogContent dividers>
+        <DialogContent>
           <Typography color="primary.light" variant="h4" component="p">
-            Available Vintage: {trim(vintageWineBalance, 2)}
-          </Typography>
-          <Divider sx={{ height: "1px", background: "white", my: 1 }} />
-          <Typography color="primary.light" variant="h5" component="p">
-            Stake your Vintage to sVintage in the Cellar to earn 10% of all
-            produced Vintage. However, unstaking from the Cellar will take
-            2 days if you want the smallest penalty, immediate unstakes come at a great penalty.<br />
-            Claiming sVintage gives your initial Vintage back + earned Vintage - claiming fees. 
+            You can level up using Grape. Leveling up gets you a Skill point to
+            use in your Skill tree. Depositing more Grape than enough for 1
+            level goes towards your next level. <br />
+            Resetting your Skill tree doesn't refund the spent Grape, only Skill
+            points.
           </Typography>
         </DialogContent>
         <DialogContent>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
             <NumberInput
-              value={vintageWineInput}
-              setValue={setVintageWineInput}
-              max={vintageWineBalance}
+              value={grapeAmount}
+              setValue={setGrapeAmount}
+              max={Number(grapeBalance)}
             />
 
             <Button
               onClick={() => {
-                stakeVintageWine(+vintageWineInput);
+                depositGrape(+grapeAmount);
                 setOpen(false);
               }}
               sx={{
@@ -131,16 +127,16 @@ export default function StakeDialog({
                 fontWeight: "fontWeightBold",
                 border: "3px solid #000",
                 color: "primary.light",
-                boxShadow: '5px 5px 5px #000',
+                boxShadow: "5px 5px 5px #000",
 
                 "&:hover": {
                   border: "3px solid #000",
-                  background: '#006636'
+                  background: "#006636",
                 },
               }}
               variant="contained"
             >
-              Stake
+              Purchase
             </Button>
           </Stack>
         </DialogContent>

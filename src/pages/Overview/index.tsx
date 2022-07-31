@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, Stack, Tooltip, Typography } from "@mui/material";
 import { useGrapeContract, useWineryContract } from "hooks/useContract";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -40,6 +40,8 @@ const Overview = () => {
     useNFTState();
 
   const [vpm, setvpm] = useState(0);
+  const [ppm, setPPM] = useState(0);
+  const [grapeResetCost, setGrapeResetCost] = useState(0);
   const [fatiguePerMinuteWithModifier, setFatiguePerMinuteWithModifier] =
     useState(0);
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
@@ -68,6 +70,7 @@ const Overview = () => {
 
         const [
           ppm,
+          grapeResetCost,
           _startTime,
           _timeUntilFatigues,
           _wineryFatigue,
@@ -82,6 +85,11 @@ const Overview = () => {
               address: WINERY_ADDRESS[chainId],
               name: "getTotalPPM",
               params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "grapeResetCost",
+              params: [],
             },
             {
               address: WINERY_ADDRESS[chainId],
@@ -123,6 +131,8 @@ const Overview = () => {
         );
         // setppm(Number(ppm));
         setFatiguePerMinuteWithModifier(_fatiguePerMinuteWithModifier);
+        setPPM(Number(ppm));
+        setGrapeResetCost(Number(grapeResetCost / Math.pow(10, 18)));
 
         await calcualteVintageWinePerMin(
           Number(ppm),
@@ -232,13 +242,13 @@ const Overview = () => {
         // );
         // setLoading(true);
         // await tx.wait();
-        let tx = await wineryContract.resetFatigue();
         setLoading(true);
+        let tx = await wineryContract.resetFatigue();
         await tx.wait();
-        setLoading(false);
         window.location.reload();
       } catch (err) {
         console.log("err", err);
+      } finally {
         setLoading(false);
       }
     }
@@ -260,7 +270,7 @@ const Overview = () => {
   };
 
   return (
-    <Container sx={{ my: 3, p: '0 !important' }}>
+    <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
       <Stack
         flexDirection="column"
         spacing={2}
@@ -288,12 +298,16 @@ const Overview = () => {
           }}
         >
           {approveStatus !== ApprovalState.APPROVED ? (
-            <StyledButton onClick={approve}>Reset</StyledButton>
+            <StyledButton onClick={approve}>Approve Rest</StyledButton>
           ) : (
-            <StyledButton onClick={() => resetFatigue()}>Reset</StyledButton>
+            <StyledButton onClick={() => resetFatigue()}>
+              Rest Vintners
+            </StyledButton>
           )}
 
-          <StyledButton onClick={() => claimVintageWine()}>Claim</StyledButton>
+          <StyledButton onClick={() => claimVintageWine()}>
+            Claim Vintage
+          </StyledButton>
         </Stack>
         <Typography color="primary.light" variant="body2" component="p">
           Vintage Per Minute
@@ -314,6 +328,12 @@ const Overview = () => {
           {fatiguePerMinuteWithModifier === 0
             ? "0m"
             : unixToDate(timeUntilFatigues)}
+        </Typography>
+        <Typography color="primary.light" variant="body2" component="p">
+          Cost to Rest with Grape
+        </Typography>
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
+          {ppm * grapeResetCost} Grape
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Earned Vintage
