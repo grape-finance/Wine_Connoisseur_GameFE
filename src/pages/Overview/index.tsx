@@ -336,7 +336,7 @@ const Overview = () => {
             : unixToDate(timeUntilFatigues)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Cost to Rest with Grape
+          Cost to Recharge with Grape
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {ppm * grapeResetCost} Grape
