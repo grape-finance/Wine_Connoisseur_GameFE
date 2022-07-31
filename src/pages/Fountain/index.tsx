@@ -58,10 +58,10 @@ const Fountain = () => {
             await fountainContract.getRewardPerSecond();
           const _accRewardTokenPerShare =
             await fountainContract.accRewardTokenPerShare();
-   
+
           let _LPSupply: BigNumber = await fountainContract.depositedBalance();
           _LPSupply = _LPSupply._hex === "0x00" ? BigNumber.from(1) : _LPSupply; // To prevent to devied by zero
-           
+
           const _tokenReward = BigNumber.from(3600 * 24).mul(
             _getRewardPerSecond
           );
@@ -69,7 +69,7 @@ const Fountain = () => {
           const _rewardDayDollars = Number(_tokenReward) * vintageWinePrice;
           const _TVL = lpPrice * Number(_LPSupply);
 
-          setapr(((_rewardDayDollars/_TVL)*100)*365)
+          setapr((_rewardDayDollars / _TVL) * 100 * 365);
 
           const _accRewardToken = _accRewardTokenPerShare.add(
             _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
@@ -102,8 +102,10 @@ const Fountain = () => {
         setLoading(false);
         window.location.reload();
       } catch (err: any) {
-        console.log("err", err);
-        //alert(err?.data.message);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -120,8 +122,10 @@ const Fountain = () => {
         setLoading(false);
         window.location.reload();
       } catch (err: any) {
-        console.log("err", err);
-        //alert(err?.data.message);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -144,7 +148,7 @@ const Fountain = () => {
   };
 
   return (
-    <Container sx={{ my: 3, p: '0 !important' }}>
+    <Container sx={{ my: 3, p: "0 !important" }}>
       <Stack
         flexDirection="column"
         spacing={2}
@@ -152,13 +156,13 @@ const Fountain = () => {
           width: "100%",
           height: "auto",
           background:
-          "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           p: 3,
           borderRadius: "1px",
           boxShadow: 2,
           textAlign: "center",
           border: "1px solid rgb(0 0 0)",
-          WebkitBoxShadow: '5px 5px 5px #000'
+          WebkitBoxShadow: "5px 5px 5px #000",
         }}
       >
         <Stack
@@ -220,7 +224,13 @@ const Fountain = () => {
         </Typography>
 
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          <a target={'_blank'} rel="noopener noreferrer" href="https://www.swapsicle.io/add/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd/0x130966628846BFd36ff31a822705796e8cb8C18D">Add liquidity here</a>
+          <a
+            target={"_blank"}
+            rel="noopener noreferrer"
+            href="https://www.swapsicle.io/add/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd/0x130966628846BFd36ff31a822705796e8cb8C18D"
+          >
+            Add liquidity here
+          </a>
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />

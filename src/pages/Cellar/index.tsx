@@ -100,8 +100,11 @@ const Cellar = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -117,8 +120,11 @@ const Cellar = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -163,7 +169,7 @@ const Cellar = () => {
   };
 
   return (
-    <Container sx={{ my: 3, p: '0 !important' }}>
+    <Container sx={{ my: 3, p: "0 !important" }}>
       <Stack
         flexDirection="column"
         spacing={2}
@@ -177,7 +183,7 @@ const Cellar = () => {
           boxShadow: 2,
           textAlign: "center",
           border: "1px solid rgb(0 0 0)",
-          WebkitBoxShadow: '5px 5px 5px #000'   
+          WebkitBoxShadow: "5px 5px 5px #000",
         }}
       >
         <Stack
