@@ -307,7 +307,7 @@ const Overview = () => {
             <StyledButton onClick={approve}>Approve Rest</StyledButton>
           ) : (
             <StyledButton onClick={() => resetFatigue()}>
-              Rest Vintners
+              Recharge Vintners
             </StyledButton>
           )}
 
