@@ -11,6 +11,7 @@ import {
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import heroVideo from "assets/home3.mp4";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const useStyles = makeStyles({
   root: {
@@ -38,12 +39,12 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const matches = useMediaQuery('(min-width:600px)');
   return (
     <section className={classes.root}>
       <ReactPlayer
         url={heroVideo}
-        playing
+        playing={matches}
         loop
         muted
         width="100%"
