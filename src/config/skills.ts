@@ -57,7 +57,7 @@ export const skills: ISkills = {
       name: "Solera Aging",
       skillPoint: 3,
       definition:
-        "Decrease the amount of vintage spoiled when claimed by 6% (12% total)",
+        "Decrease the amount of vintage spoiled when claimed by 3% (9% total)",
       image: solera_aging,
     },
   ],
@@ -106,7 +106,7 @@ export const skills: ISkills = {
       name: "Deal With Devil",
       skillPoint: 2,
       definition:
-        "Decrease the amount lost to the cellar when claiming by 8% (12% total)",
+        "Decrease the amount lost to the cellar when claiming by 4% (8% total)",
       image: deal_with_devil,
     },
   ],

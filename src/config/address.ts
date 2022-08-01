@@ -57,12 +57,18 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.TESTNET]: "0xAf61f4F9b4461BE61bfc9ad28A5B6d63FC22CFc0",
 };
 
+export const MIM_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x130966628846bfd36ff31a822705796e8cb8c18d",
+  [SupportedChainId.TESTNET]: "",
+};
+
 export const NFT_URI =
   "https://vintner-image.s3.us-west-1.amazonaws.com/images";
 
-export const TOOL_URI =
-  "https://vintner-tools.s3.us-west-1.amazonaws.com/tool";
-export const buyGrapeAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${GRAPE_ADDRESS[43114]}`;
-export const buyVintageWineAddress = `https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=${VINTAGEWINE_ADDRESS[43114]}`;
-export const buyVintnerNFTAddress = "#";
-export const buyToolsNFTAddress = "#";
+
+export const TOOL_URI = "https://vintner-tools.s3.us-west-1.amazonaws.com/tool";
+export const buyGrapeAddress = `https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/`;
+export const buyVintageWineAddress = `https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/`;
+export const buyVintnerNFTAddress = "https://mint.grapefinance.app/";
+export const buyToolsNFTAddress =
+  "https://winemaker.grapefinance.app/app/Tools";

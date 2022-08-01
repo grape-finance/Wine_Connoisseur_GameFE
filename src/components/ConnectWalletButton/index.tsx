@@ -9,6 +9,8 @@ import WalletLink from "walletlink";
 import { useWeb3 } from "state/web3";
 import Web3Modal from "web3modal";
 import { SupportedChainId } from "config/address";
+import metamaskIcon from "assets/wallet/metamask.png";
+import trustwalletIcon from "assets/wallet/trustwallet.png";
 
 const INFURA_ID = "e67a2556dede4ff2b521a375a1905f8b";
 
@@ -21,7 +23,7 @@ const web3Modal = new Web3Modal({
       display: {
         name: "MetaMask",
         description: "Connect to your MetaMask Wallet",
-        logo: "https://duckduckgo.com/i/b08b6e4c.png",
+        logo: metamaskIcon,
       },
       package: true,
       connector: async () => {
@@ -282,10 +284,10 @@ export default function ConnectWalletButton() {
         fontWeight: "fontWeightBold",
         border: "3px solid #000",
         color: "info.light",
-        boxShadow: '5px 5px 5px #000',
+        boxShadow: "5px 5px 5px #000",
         "&:hover": {
           border: "3px solid #000",
-          background:'rgb(253 186 116)',
+          background: "rgb(253 186 116)",
           // color: "info.main",
         },
       }}
