@@ -57,8 +57,6 @@ const Overview = () => {
         setUserStakedList(res);
       };
       getNFTState();
-
-      firebase?.getAllUsers()
     }
   }, [account, wineryContract]);
 

@@ -29,6 +29,7 @@ import NETWORKS from "config/network";
 import multicall from "utils/multicall";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 import NumberInput from "components/NuberInput";
+import useFirebase from "hooks/useFirebase";
 
 const Skills = () => {
   const { account, provider, chainId } = useWeb3();
@@ -64,6 +65,7 @@ const Skills = () => {
   const [upgradeSkillType, setUpgradeSkillType] = useState(0);
   const [upgradeSkillPoint, setUpgradeSkillPoint] = useState(0);
   const [upgradeSkillDefinition, setUpgradeSkillDefinition] = useState("");
+  const firebase = useFirebase();
 
   useEffect(() => {
     const getInfo = async () => {
@@ -131,6 +133,12 @@ const Skills = () => {
           +ethers.utils.formatEther(_getGrapeDeposited[0])
         );
         setMaxGrapeAmount(+ethers.utils.formatEther(_maxGrapeAmount[0]));
+
+        firebase?.setField(
+          "level",
+          _level[0],
+          account!
+        );
       }
     };
     getInfo();
