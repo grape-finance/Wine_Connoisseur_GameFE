@@ -150,8 +150,10 @@ const Winery = () => {
           window.location.reload();
         }
       } catch (err: any) {
-        console.log("err", err);
-        alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -177,8 +179,10 @@ const Winery = () => {
           window.location.reload();
         }
       } catch (err: any) {
-        console.log("err", err);
-        alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -199,8 +203,10 @@ const Winery = () => {
           window.location.reload();
         }
       } catch (err: any) {
-        console.log("err", err);
-        alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -223,8 +229,10 @@ const Winery = () => {
           window.location.reload();
         }
       } catch (err: any) {
-        console.log("err", err);
-        alert(err?.data?.message!);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -326,7 +334,7 @@ const Winery = () => {
               <NFTItem
                 isResting
                 endTime={Number(item?.endTimestamp)}
-                image={`${NFT_URI}/${item}.png`}
+                image={`${NFT_URI}/${item?.vintnerId}.png`}
                 selected={selectedNFTs.includes(item)}
               />
             </Box>
@@ -388,7 +396,9 @@ const Winery = () => {
 
   return (
     <>
-      <Container sx={{ my: 3 }}>
+      <Container
+        sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}
+      >
         <Box
           sx={{
             width: "100%",

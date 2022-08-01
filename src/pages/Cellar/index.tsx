@@ -100,8 +100,11 @@ const Cellar = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -117,8 +120,11 @@ const Cellar = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -134,8 +140,11 @@ const Cellar = () => {
         await tx.wait();
         setLoading(false);
         window.location.reload();
-      } catch (err) {
-        console.log("err", err);
+      } catch (err: any) {
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -163,7 +172,7 @@ const Cellar = () => {
   };
 
   return (
-    <Container sx={{ my: 3 }}>
+    <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
       <Stack
         flexDirection="column"
         spacing={2}
@@ -177,7 +186,7 @@ const Cellar = () => {
           boxShadow: 2,
           textAlign: "center",
           border: "1px solid rgb(0 0 0)",
-          WebkitBoxShadow: '5px 5px 5px #000'   
+          WebkitBoxShadow: "5px 5px 5px #000",
         }}
       >
         <Stack
@@ -213,13 +222,13 @@ const Cellar = () => {
           {(+ethers.utils.formatEther(cellarVintageWineBal)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Your Staked Balance
+          Your sVintage Balance
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(userCellarAmounts)).toFixed(2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Your Pending Balance
+          Your Delayed Unstake Pending
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {(+ethers.utils.formatEther(userUnlockAmounts)).toFixed(2)}

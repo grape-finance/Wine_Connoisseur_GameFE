@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
@@ -40,6 +40,7 @@ const useStyles = makeStyles({
 const Application = () => {
   const classes = useStyles();
   const { tab } = useParams();
+  const matches = useMediaQuery('(min-width:600px)');
 
   const background = () => {
     switch (tab) {
@@ -78,7 +79,7 @@ const Application = () => {
         >
           <ReactPlayer
             url={heroVideo}
-            playing
+            playing={matches}
             loop
             muted
             width="100%"
@@ -96,7 +97,7 @@ const Application = () => {
         >
           <ReactPlayer
             url={tool_bg}
-            playing
+            playing={matches}
             loop
             muted
             width="100%"
