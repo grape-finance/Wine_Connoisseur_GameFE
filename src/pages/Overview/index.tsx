@@ -233,7 +233,7 @@ const Overview = () => {
         return maxVintageWine;
       }
       firebase?.setField(
-        "vpm",
+        "currentVpm",
         newVintageWineAmount / Math.pow(10, 18),
         account!
       );
@@ -312,7 +312,7 @@ const Overview = () => {
           }}
         >
           {approveStatus !== ApprovalState.APPROVED ? (
-            <StyledButton onClick={approve}>Approve Rest</StyledButton>
+            <StyledButton onClick={approve}>Approve Recharge</StyledButton>
           ) : (
             <StyledButton onClick={() => resetFatigue()}>
               Recharge Vintners

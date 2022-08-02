@@ -20,15 +20,15 @@ const client = new ApolloClient({
 ReactDOM.render(
   <Provider store={store}>
     <ApolloProvider client={client}>
-      <FirebaseProvider>
-        <Web3Provider>
+      <Web3Provider>
+        <FirebaseProvider>
           <Updater />
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <App />
           </ThemeProvider>
-        </Web3Provider>
-      </FirebaseProvider>
+        </FirebaseProvider>
+      </Web3Provider>
     </ApolloProvider>
   </Provider>,
   document.querySelector("#root")

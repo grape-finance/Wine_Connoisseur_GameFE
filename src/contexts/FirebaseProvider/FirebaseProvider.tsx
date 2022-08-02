@@ -1,3 +1,4 @@
+import { useWineryContract, useWineryProgressionContract } from "hooks/useContract";
 import React, { createContext, useEffect, useState } from "react";
 import { FirebaseHelper } from "./FirebaseHelper";
 
@@ -15,12 +16,16 @@ interface IFirebaseProps {
 
 export const FirebaseProvider: React.FC<IFirebaseProps> = ({ children }) => {
   const [firebaseHelper, setFirebaseHelper] = useState<FirebaseHelper>();
+  const wineryContract = useWineryContract()
+  const wineryProgressionContract = useWineryProgressionContract()
 
   useEffect(() => {
-    if (!firebaseHelper) {
-      setFirebaseHelper(new FirebaseHelper());
+    if (wineryContract && wineryProgressionContract) {
+      if (!firebaseHelper) {
+        setFirebaseHelper(new FirebaseHelper(wineryContract, wineryProgressionContract));
+      }
     }
-  }, [firebaseHelper]);
+  }, [firebaseHelper, wineryContract, wineryProgressionContract]);
 
   return (
     <Context.Provider value={{ firebaseHelper }}>{children}</Context.Provider>
