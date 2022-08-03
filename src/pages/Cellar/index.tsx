@@ -34,8 +34,6 @@ const Cellar = () => {
   const [openStakeModal, setOpenStakeModal] = React.useState(false);
   const [openUnstakeModal, setOpenUnstakeModal] = React.useState(false);
 
-  
-
   useEffect(() => {
     if (account && chainId && cellarContract) {
       const getInfo = async () => {
@@ -168,22 +166,23 @@ const Cellar = () => {
 
   const claimDelayedUnstake = async () => {
     if (account && chainId && cellarContract) {
-      if (currentUnixTime > +userUnlockTimestamps)
-        alert("VINTAGE not yet unlocked");
-      else {
-        try {
-          setLoading(true);
-          let tx = await cellarContract.claimDelayedUnstake(
-            ethers.utils.parseUnits(userUnlockAmounts.toString())
-          );
-          await tx.wait();
-          setLoading(false);
-          window.location.reload();
-        } catch (err) {
-          console.log("err", err);
-          setLoading(false);
-        }
+      // if (currentUnixTime > +userUnlockTimestamps)
+      //   alert("VINTAGE not yet unlocked");
+      // else {
+      try {
+        setLoading(true);
+        let tx = await cellarContract.claimDelayedUnstake(
+          // ethers.utils.parseUnits(userUnlockAmounts.toString())
+          userUnlockAmounts
+        );
+        await tx.wait();
+        setLoading(false);
+        window.location.reload();
+      } catch (err) {
+        console.log("err", err);
+        setLoading(false);
       }
+      // }
     }
   };
 
@@ -261,7 +260,7 @@ const Cellar = () => {
           sVintage to Vintage
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          {(Number(vintageBalance)/Number(totalSupply)).toFixed(2)}
+          {(Number(vintageBalance) / Number(totalSupply)).toFixed(2)}
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
