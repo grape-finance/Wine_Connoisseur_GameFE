@@ -78,7 +78,6 @@ const Overview = () => {
           (item) => item.chainId === chainId
         )[0]?.defaultProvider[0];
 
-        console.log("address = " + WINERYPROGRESSION_ADDRESS[chainId]);
         const [
           ppm,
           grapeResetCost,
@@ -102,7 +101,6 @@ const Overview = () => {
             {
               address: WINERY_ADDRESS[chainId],
               name: "grapeResetCost",
-              params: [],
             },
             {
               address: WINERY_ADDRESS[chainId],
@@ -151,6 +149,8 @@ const Overview = () => {
           chainId
         );
 
+        console.log('ppm === ' + ppm)
+
         const [_maxStorage, _skillCellarModifier, _burnCellarModifier] =
           await multicall(
             WINERYPROGRESSION_ABI,
@@ -158,7 +158,7 @@ const Overview = () => {
               {
                 address: WINERYPROGRESSION_ADDRESS[chainId],
                 name: "getVintageWineStorage",
-                params: ['account'],
+                params: [account],
               },
               {
                 address: WINERYPROGRESSION_ADDRESS[chainId],
