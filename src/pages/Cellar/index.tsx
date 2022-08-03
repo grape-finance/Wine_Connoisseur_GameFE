@@ -172,7 +172,8 @@ const Cellar = () => {
       try {
         setLoading(true);
         let tx = await cellarContract.claimDelayedUnstake(
-          ethers.utils.parseUnits(userUnlockAmounts.toString())
+          // ethers.utils.parseUnits(userUnlockAmounts.toString())
+          userUnlockAmounts
         );
         await tx.wait();
         setLoading(false);
