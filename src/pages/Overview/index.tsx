@@ -41,6 +41,7 @@ const Overview = () => {
 
   const [vpm, setvpm] = useState(0);
   const [ppm, setPPM] = useState(0);
+  const [maxStorage, setMaxStorage] = useState(500);
   const [grapeResetCost, setGrapeResetCost] = useState(0);
   const [fatiguePerMinuteWithModifier, setFatiguePerMinuteWithModifier] =
     useState(0);
@@ -68,6 +69,7 @@ const Overview = () => {
           (item) => item.chainId === chainId
         )[0]?.defaultProvider[0];
 
+        console.log("address = " + WINERYPROGRESSION_ADDRESS[chainId]);
         const [
           ppm,
           grapeResetCost,
@@ -78,6 +80,7 @@ const Overview = () => {
           _masterVintnerNumber,
           _fatiguePerMinuteWithModifier,
           _yieldPPS,
+          _vintageWineStorage,
         ] = await multicall(
           WINERY_ABI,
           [
@@ -129,8 +132,23 @@ const Overview = () => {
           web3Provider,
           chainId
         );
+
+        const [maxStorage] = await multicall(
+          WINERYPROGRESSION_ABI,
+          [
+            {
+              address: WINERYPROGRESSION_ADDRESS[chainId],
+              name: "getVintageWineStorage",
+              params: [account],
+            },
+          ],
+          web3Provider,
+          chainId
+        );
+
         // setppm(Number(ppm));
         setFatiguePerMinuteWithModifier(_fatiguePerMinuteWithModifier);
+        setMaxStorage(Number(maxStorage) / Math.pow(10, 18));
         setPPM(Number(ppm));
         setGrapeResetCost(Number(grapeResetCost / Math.pow(10, 18)));
 
@@ -345,7 +363,7 @@ const Overview = () => {
           Earned Vintage
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          {vintageWineAccrued.toFixed(2)}
+          {vintageWineAccrued.toFixed(2)}/{maxStorage}
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
