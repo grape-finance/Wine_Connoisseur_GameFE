@@ -9,6 +9,7 @@ const tabsData = [
   { title: "Skills" },
   { title: "Cellar" },
   { title: "Enoteca" },
+  // { title: "Leaderboard" },
 ];
 type IProps = {
   tab: string;

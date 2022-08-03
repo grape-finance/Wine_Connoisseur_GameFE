@@ -10,6 +10,7 @@ import { Web3Provider } from "state/web3";
 import Updater from "state/Updaters";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./index.css";
+import FirebaseProvider from "contexts/FirebaseProvider";
 
 const client = new ApolloClient({
   uri: "https://api.thegraph.com/subgraphs/name/letteldream/winenftgame",
@@ -20,11 +21,13 @@ ReactDOM.render(
   <Provider store={store}>
     <ApolloProvider client={client}>
       <Web3Provider>
-        <Updater />
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
+        <FirebaseProvider>
+          <Updater />
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        </FirebaseProvider>
       </Web3Provider>
     </ApolloProvider>
   </Provider>,

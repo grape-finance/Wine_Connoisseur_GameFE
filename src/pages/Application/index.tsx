@@ -9,6 +9,7 @@ import Overview from "pages/Overview";
 import Skills from "pages/Skills";
 import Tools from "pages/Tools";
 import Cellar from "pages/Cellar";
+import Leaderboard from "pages/Leaderboard";
 import ReactPlayer from "react-player";
 import heroVideo from "assets/home.mp4";
 import winery_bg from "assets/image/winery_bg.png";
@@ -53,6 +54,8 @@ const Application = () => {
         return celler_bg;
       case "Enoteca":
         return fountain_bg;
+      case "Leaderboard":
+        return winery_bg;
     }
   };
 
@@ -102,7 +105,7 @@ const Application = () => {
           />
         </div>
       )}
-      
+
       <div
         style={{
           position: "fixed",
@@ -151,6 +154,7 @@ const Application = () => {
               {tab === "Skills" ? <Skills /> : null}
               {tab === "Cellar" ? <Cellar /> : null}
               {tab === "Enoteca" ? <Fountain /> : null}
+              {tab === "Leaderboard" ? <Leaderboard /> : null}
             </Grid>
           </Grid>
         </Box>

@@ -15,6 +15,8 @@
     "@mui/material": "^5.6.4",
     "@mui/styles": "^5.7.0",
     "@pancakeswap/sdk": "^2.4.5",
+    "@react-firebase/auth": "^0.2.10",
+    "@react-firebase/database": "^0.3.11",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -28,6 +30,7 @@
     "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "ethers": "^5.6.5",
+    "firebase": "^9.9.1",
     "from-exponential": "^1.1.1",
     "graphql": "^16.5.0",
     "lodash": "^4.17.21",
@@ -45,6 +48,9 @@
     "web-vitals": "^2.1.0",
     "web3": "^1.6.1",
     "web3modal": "^1.9.7"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -78,6 +84,7 @@
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1",
+    "react-error-overlay": "^6.0.9",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0"
