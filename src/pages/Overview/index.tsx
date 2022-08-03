@@ -17,7 +17,12 @@ import { setUserNFTState } from "state/user/actions";
 import { useNFTState } from "state/user/hooks";
 import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
+
 import useFirebase from "hooks/useFirebase";
+
+import ResetFatigueDialog from "./resetFatigueDialog";
+import ClaimDialog from "./claimDialog";
+
 
 const Overview = () => {
   const dispatch = useDispatch();
@@ -44,10 +49,18 @@ const Overview = () => {
 
   const [vpm, setvpm] = useState(0);
   const [ppm, setPPM] = useState(0);
+  const [maxStorage, setMaxStorage] = useState(500);
   const [grapeResetCost, setGrapeResetCost] = useState(0);
   const [fatiguePerMinuteWithModifier, setFatiguePerMinuteWithModifier] =
     useState(0);
+  const [claimBurn, setClaimBurn] = useState(10);
+  const [claimContribution, setClaimContribution] = useState(10);
+  const [claimBurnModifier, setClaimBurnModifier] = useState(0);
+  const [claimContributionModifier, setClaimContributionModifier] = useState(0);
+
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
+  const [openResetFatigueDialog, setOpenResetFatigueDialog] = useState(false);
+  const [openClaimDialog, setOpenClaimDialog] = useState(false);
 
   const [userStakedList, setUserStakedList] = useState([]);
   // Get staked NFT
@@ -81,6 +94,8 @@ const Overview = () => {
           _masterVintnerNumber,
           _fatiguePerMinuteWithModifier,
           _yieldPPS,
+          _CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE,
+          _CLAIM_VINTAGEWINE_BURN_PERCENTAGE,
         ] = await multicall(
           WINERY_ABI,
           [
@@ -92,7 +107,6 @@ const Overview = () => {
             {
               address: WINERY_ADDRESS[chainId],
               name: "grapeResetCost",
-              params: [],
             },
             {
               address: WINERY_ADDRESS[chainId],
@@ -128,12 +142,53 @@ const Overview = () => {
               address: WINERY_ADDRESS[chainId],
               name: "yieldPPS",
             },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE",
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "CLAIM_VINTAGEWINE_BURN_PERCENTAGE",
+            },
           ],
           web3Provider,
           chainId
         );
+
+        console.log('ppm === ' + ppm)
+
+        const [_maxStorage, _skillCellarModifier, _burnCellarModifier] =
+          await multicall(
+            WINERYPROGRESSION_ABI,
+            [
+              {
+                address: WINERYPROGRESSION_ADDRESS[chainId],
+                name: "getVintageWineStorage",
+                params: [account],
+              },
+              {
+                address: WINERYPROGRESSION_ADDRESS[chainId],
+                name: "getCellarSkillModifier",
+                params: [account],
+              },
+              {
+                address: WINERYPROGRESSION_ADDRESS[chainId],
+                name: "getBurnSkillModifier",
+                params: [account],
+              },
+            ],
+            web3Provider,
+            chainId
+          );
+
+        setClaimContribution(_CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE)
+        setClaimBurn(_CLAIM_VINTAGEWINE_BURN_PERCENTAGE)
+        setClaimContributionModifier(_skillCellarModifier)
+        setClaimBurnModifier(_burnCellarModifier)
+
         // setppm(Number(ppm));
         setFatiguePerMinuteWithModifier(_fatiguePerMinuteWithModifier);
+        setMaxStorage(Number(_maxStorage) / Math.pow(10, 18));
         setPPM(Number(ppm));
         setGrapeResetCost(Number(grapeResetCost / Math.pow(10, 18)));
 
@@ -314,12 +369,12 @@ const Overview = () => {
           {approveStatus !== ApprovalState.APPROVED ? (
             <StyledButton onClick={approve}>Approve Recharge</StyledButton>
           ) : (
-            <StyledButton onClick={() => resetFatigue()}>
+            <StyledButton onClick={() => setOpenResetFatigueDialog(true)}>
               Recharge Vintners
             </StyledButton>
           )}
 
-          <StyledButton onClick={() => claimVintageWine()}>
+          <StyledButton onClick={() => setOpenClaimDialog(true)}>
             Claim Vintage
           </StyledButton>
         </Stack>
@@ -353,10 +408,28 @@ const Overview = () => {
           Earned Vintage
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          {vintageWineAccrued.toFixed(2)}
+          {vintageWineAccrued.toFixed(2)}/{maxStorage}
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
+
+      <ResetFatigueDialog
+        open={openResetFatigueDialog}
+        setOpen={setOpenResetFatigueDialog}
+        grapeCost={ppm * grapeResetCost}
+        resetFatigue={resetFatigue}
+      />
+
+      <ClaimDialog
+        open={openClaimDialog}
+        setOpen={setOpenClaimDialog}
+        vintageToClaim={vintageWineAccrued!}
+        claimContribution={claimContribution}
+        claimBurn={claimBurn}
+        claimContributionModifier={claimContributionModifier}
+        claimBurnModifier={claimBurnModifier}
+        claim={claimVintageWine}
+      />
     </Container>
   );
 };

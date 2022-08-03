@@ -64,7 +64,7 @@ const Tools = () => {
   const _toolNFTLists: ILevel[] = [
     {
       name: "Wine Mag 93",
-      description: "It may be old but winemaking doesnt change much",
+      description: "It may be old but winemaking doesnt change much - Tier 1",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(2500),
       priceVintageWine: ethers.utils.parseUnits("300"),
@@ -74,7 +74,7 @@ const Tools = () => {
     },
     {
       name: "Pruning Shears",
-      description: "Prune those vines for maximum yield",
+      description: "Prune those vines for maximum yield - Tier 2",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(2200),
       priceVintageWine: ethers.utils.parseUnits("600"),
@@ -84,7 +84,7 @@ const Tools = () => {
     },
     {
       name: "Hydrometer",
-      description: "Ensure optimum density for the finest vintage",
+      description: "Ensure optimum density for the finest vintage - Tier 3",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(2000),
       priceVintageWine: ethers.utils.parseUnits("1000"),

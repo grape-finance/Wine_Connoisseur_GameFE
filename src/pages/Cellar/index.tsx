@@ -20,6 +20,8 @@ const Cellar = () => {
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
 
   // const [frozenVintageWine, setFrozenVintageWine] = useState(0);
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [vintageBalance, setVintageBalance] = useState(0);
   const [userUnlockAmounts, setUserUnlockAmounts] = useState(BigNumber.from(0));
   const [cellarVintageWineBal, setCellarVintageWineBal] = useState(
     BigNumber.from(0)
@@ -31,6 +33,8 @@ const Cellar = () => {
 
   const [openStakeModal, setOpenStakeModal] = React.useState(false);
   const [openUnstakeModal, setOpenUnstakeModal] = React.useState(false);
+
+  
 
   useEffect(() => {
     if (account && chainId && cellarContract) {
@@ -44,6 +48,8 @@ const Cellar = () => {
           // _frozenVintageWine,
           _userUnlockAmounts,
           _userUnlockTimestamps,
+          _totalSupply,
+          _vintageBalance,
         ] = await multicall(
           CELLAR_ABI,
           [
@@ -70,6 +76,14 @@ const Cellar = () => {
               name: "unlockTimestamps",
               params: [account],
             },
+            {
+              address: CELLAR_ADDRESS[chainId],
+              name: "totalSupply",
+            },
+            {
+              address: CELLAR_ADDRESS[chainId],
+              name: "vintageWineBalance",
+            },
           ],
           web3Provider,
           chainId
@@ -80,6 +94,8 @@ const Cellar = () => {
         // setFrozenVintageWine(_frozenVintageWine);
         setUserUnlockAmounts(_userUnlockAmounts[0]);
         setUserUnlockTimestamps(_userUnlockTimestamps[0]);
+        setTotalSupply(_totalSupply);
+        setVintageBalance(_vintageBalance);
       };
       getInfo();
       const interval = setInterval(getInfo, 10000);
@@ -240,6 +256,12 @@ const Cellar = () => {
           {+userUnlockTimestamps === 0
             ? "0m"
             : unixToDate(+userUnlockTimestamps - currentUnixTime)}
+        </Typography>
+        <Typography color="primary.light" variant="body2" component="p">
+          sVintage to Vintage
+        </Typography>
+        <Typography color="rgb(251 146 60)" variant="body2" component="p">
+          {(Number(vintageBalance)/Number(totalSupply)).toFixed(2)}
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
