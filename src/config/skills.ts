@@ -195,25 +195,25 @@ export const skills: ISkills = {
     {
       name: "Farm Hands",
       skillPoint: 1,
-      definition: "Increase Vintage store 1500",
+      definition: "Increase Vintage store 800",
       image: farm_hands,
     },
     {
       name: "Storage Shed",
       skillPoint: 2,
-      definition: "Increase Vintage store 3000",
+      definition: "Increase Vintage store 1200",
       image: storage_shed,
     },
     {
       name: "Hardy Varaities",
       skillPoint: 3,
-      definition: "Increase Vintage store 10000",
+      definition: "Increase Vintage store 2500",
       image: hardy_varaities,
     },
     {
       name: "Vine Mastery",
       skillPoint: 4,
-      definition: "Increase Vintage store 30000",
+      definition: "Increase Vintage store 5000",
       image: vine_mastery,
     },
     {
