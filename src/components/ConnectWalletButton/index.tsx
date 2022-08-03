@@ -73,6 +73,9 @@ const web3Modal = new Web3Modal({
     walletconnect: {
       package: WalletConnectProvider,
       options: {
+        rpc: {
+          43114: 'https://api.avax.network/ext/bc/C/rpc',
+        },
         infuraId: INFURA_ID,
       },
     },
