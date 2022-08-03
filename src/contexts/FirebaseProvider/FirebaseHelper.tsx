@@ -16,6 +16,12 @@ import {
 } from "firebase/firestore/lite";
 import { initializeApp } from "firebase/app";
 import { Contract } from "ethers";
+import multicall from "utils/multicall";
+import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
+import { WINERYPROGRESSION_ADDRESS } from "config/address";
+import { useWeb3 } from "state/web3";
+import NETWORKS from "config/network";
+import { useCallback, useEffect, useState } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAr43A6q9T4_PoXzsdXmmXOEFA3vExDev8",
@@ -43,18 +49,44 @@ export class FirebaseHelper {
   db: Firestore;
   wineryContract: Contract;
   wineryProgressionContract: Contract;
+  chainId: number;
 
-  constructor(wineryContract: Contract, wineryProgressionContract: Contract) {
+  constructor(
+    wineryContract: Contract,
+    wineryProgressionContract: Contract,
+    chainId: number
+  ) {
     this.db = getFirestore(initializeApp(firebaseConfig));
     this.wineryContract = wineryContract;
     this.wineryProgressionContract = wineryProgressionContract;
+    this.chainId = chainId;
+  }
+
+  async getUserLevel(wallet: string): Promise<number> {
+    const web3Provider: string = NETWORKS.filter(
+      (item) => item.chainId === this.chainId
+    )[0]?.defaultProvider[0];
+
+    const [_level] = await multicall(
+      WINERYPROGRESSION_ABI,
+      [
+        {
+          address: WINERYPROGRESSION_ADDRESS[this.chainId],
+          name: "getLevel",
+          params: [wallet],
+        },
+      ],
+      web3Provider,
+      this.chainId
+    );
+    return Number(_level[0]);
   }
 
   async getAllUsers(count: number): Promise<LeaderboardUser[]> {
     let leaderboardUsers: LeaderboardUser[] = [];
 
     const userRef = collection(this.db, "users");
-    const q = query(userRef, orderBy("maxVpm", 'desc'), limit(count))    
+    const q = query(userRef, orderBy("maxVpm", "desc"), limit(count));
     const users = await getDocs(q);
     users.forEach(async (user) => {
       const userData = user.data();
@@ -74,6 +106,9 @@ export class FirebaseHelper {
 
     await leaderboardUsers.reduce(async (referencePoint, user) => {
       await referencePoint;
+      if (!user.level) {
+        user.level = await this.getUserLevel(user.id);
+      }
       await this.getVintners(user);
       await this.getTools(user);
       await this.getSkills(user);
@@ -107,10 +142,6 @@ export class FirebaseHelper {
       doc = { level: Number(value), levelDate: Timestamp.fromDate(new Date()) };
     }
 
-    console.log(
-      `%c[addProgressOnBadge] Doc ${JSON.stringify(doc, null, 2)}`,
-      "color: blue"
-    );
     await setDoc(ref, doc, { merge: true });
   }
 
@@ -176,7 +207,6 @@ export class FirebaseHelper {
     user.skills.set("upgrades", Number(skills[4]));
     user.skills.set("vintners", Number(skills[5]));
     user.skills.set("storage", Number(skills[6]));
-    console.log("Skills = " + JSON.stringify(user.skills));
   }
 
   async fetchVintners(wallet: string): Promise<[{}]> {

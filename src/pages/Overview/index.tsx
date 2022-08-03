@@ -23,7 +23,6 @@ import useFirebase from "hooks/useFirebase";
 import ResetFatigueDialog from "./resetFatigueDialog";
 import ClaimDialog from "./claimDialog";
 
-
 const Overview = () => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
@@ -155,7 +154,7 @@ const Overview = () => {
           chainId
         );
 
-        const [_maxStorage, _skillCellarModifier, _burnCellarModifier] =
+        const [_maxStorage, _skillCellarModifier, _burnCellarModifier, _level] =
           await multicall(
             WINERYPROGRESSION_ABI,
             [
@@ -174,21 +173,28 @@ const Overview = () => {
                 name: "getBurnSkillModifier",
                 params: [account],
               },
+              {
+                address: WINERYPROGRESSION_ADDRESS[chainId],
+                name: "getLevel",
+                params: [account],
+              },
             ],
             web3Provider,
             chainId
           );
 
-        setClaimContribution(_CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE)
-        setClaimBurn(_CLAIM_VINTAGEWINE_BURN_PERCENTAGE)
-        setClaimContributionModifier(_skillCellarModifier)
-        setClaimBurnModifier(_burnCellarModifier)
+        setClaimContribution(_CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE);
+        setClaimBurn(_CLAIM_VINTAGEWINE_BURN_PERCENTAGE);
+        setClaimContributionModifier(_skillCellarModifier);
+        setClaimBurnModifier(_burnCellarModifier);
 
         // setppm(Number(ppm));
         setFatiguePerMinuteWithModifier(_fatiguePerMinuteWithModifier);
         setMaxStorage(Number(_maxStorage) / Math.pow(10, 18));
         setPPM(Number(ppm));
         setGrapeResetCost(Number(grapeResetCost / Math.pow(10, 18)));
+
+        firebase?.setField("level", _level[0], account!);
 
         await calcualteVintageWinePerMin(
           Number(ppm),
@@ -290,6 +296,7 @@ const Overview = () => {
         newVintageWineAmount / Math.pow(10, 18),
         account!
       );
+
       return newVintageWineAmount;
     }
   };

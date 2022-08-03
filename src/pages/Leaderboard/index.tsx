@@ -29,10 +29,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import "./style.css";
 import React from "react";
+import { useWeb3 } from "state/web3";
 
 function Row(props: { row: LeaderboardUser; index: number }) {
   const { row, index } = props;
   const [open, setOpen] = useState(false);
+  const { account } = useWeb3();
 
   return (
     <React.Fragment>
@@ -47,10 +49,18 @@ function Row(props: { row: LeaderboardUser; index: number }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          <Typography component="p">{index}</Typography>
+          <Typography
+            component="p"
+            style={{ color: account === row.id ? "green" : "black" }}
+          >
+            {index}
+          </Typography>
         </TableCell>
         <TableCell component="th" scope="row">
-          <Typography component="p">
+          <Typography
+            component="p"
+            style={{ color: account === row.id ? "green" : "black" }}
+          >
             {row.id.substring(0, 4) +
               "..." +
               row.id.substring(row.id.length - 4, row.id.length)}
@@ -58,13 +68,28 @@ function Row(props: { row: LeaderboardUser; index: number }) {
         </TableCell>
 
         <TableCell align="right">
-          <Typography component="p">{row.level}</Typography>
+          <Typography
+            component="p"
+            style={{ color: account === row.id ? "green" : "black" }}
+          >
+            {row.level}
+          </Typography>
         </TableCell>
         <TableCell align="right">
-          <Typography component="p">{row.maxVpm?.toFixed(2)}</Typography>
+          <Typography
+            component="p"
+            style={{ color: account === row.id ? "green" : "black" }}
+          >
+            {row.currentVpm?.toFixed(2)}
+          </Typography>
         </TableCell>
         <TableCell align="right">
-          <Typography component="p">{row.currentVpm?.toFixed(2)}</Typography>
+          <Typography
+            component="p"
+            style={{ color: account === row.id ? "green" : "black" }}
+          >
+            {row.maxVpm?.toFixed(2)}
+          </Typography>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -80,7 +105,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <TableCell component="th" scope="row">
                       <Typography component="p">Master Vintners</Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="right">
                       <Typography component="p">
                         {row.stakedVintnersMasters}
                       </Typography>
@@ -90,7 +115,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <TableCell component="th" scope="row">
                       <Typography component="p">Regular Vintners</Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="right">
                       <Typography component="p">
                         {row.stakedVintners}
                       </Typography>
@@ -109,7 +134,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <TableCell component="th" scope="row">
                       <Typography component="p">Master Vintners</Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="right">
                       <Typography component="p">
                         {row.restingVintnersMasters}
                       </Typography>
@@ -119,7 +144,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <TableCell component="th" scope="row">
                       <Typography component="p">Regular Vintners</Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="right">
                       <Typography component="p">
                         {row.restingVintners}
                       </Typography>
@@ -137,9 +162,11 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Wine Mag 93</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
-                      {row.tools.get("Wine Mag 93")}
+                      {row.tools.get("Wine Mag 93")
+                        ? row.tools.get("Wine Mag 93")
+                        : 0}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -147,9 +174,11 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Pruning Shears</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
-                      {row.tools.get("Pruning Shears")}
+                      {row.tools.get("Pruning Shears")
+                        ? row.tools.get("Pruning Shears")
+                        : 0}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -157,9 +186,11 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Hydrometer</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
-                      {row.tools.get("Hydrometer")}
+                      {row.tools.get("Hydrometer")
+                        ? row.tools.get("Hydrometer")
+                        : 0}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -174,7 +205,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Quality</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("quality")}
                     </Typography>
@@ -184,7 +215,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Fatigue</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("fatigue")}
                     </Typography>
@@ -194,7 +225,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Cellar</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("cellar")}
                     </Typography>
@@ -204,7 +235,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Mastery</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("mastery")}
                     </Typography>
@@ -214,7 +245,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Upgrades</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("upgrades")}
                     </Typography>
@@ -224,7 +255,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Vintners</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("vintners")}
                     </Typography>
@@ -234,7 +265,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                   <TableCell component="th" scope="row">
                     <Typography component="p">Storage</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <Typography component="p">
                       {row.skills.get("storage")}
                     </Typography>
@@ -267,68 +298,70 @@ const Leaderboard = () => {
         setUsers(users);
         setLoading(false);
       }
+      else {
+        setLoading(false);
+      }
     };
 
     fetchAllUsers().catch(console.error);
   }, [firebase, maxCount]);
 
   return (
-    <>
-      <Container
-        sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}
-      >
-        <Slider
-          aria-label="Temperature"
-          defaultValue={5}
-          valueLabelDisplay="auto"
-          onChange={handleChange}
-          step={10}
-          marks
-          min={5}
-          max={50}
-        />
-        <TableContainer component={Paper}>
-          <Table stickyHeader aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell className="table-header-1">
-                  <Typography variant="h6" component="div">
-                    #
-                  </Typography>
-                </TableCell>
-                <TableCell className="table-header-1">
-                  <Typography variant="h6" component="div">
-                    Wallet
-                  </Typography>
-                </TableCell>
-                <TableCell className="table-header-1" align="right">
-                  <Typography variant="h6" component="div">
-                    Level
-                  </Typography>
-                </TableCell>
-                <TableCell className="table-header-1" align="right">
-                  <Typography variant="h6" component="div">
-                    Max VPM
-                  </Typography>
-                </TableCell>
-                <TableCell className="table-header-1" align="right">
-                  <Typography variant="h6" component="div">
-                    Current VPM
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users?.map((user, index) => (
-                <Row key={user.id} row={user} index={index + 1} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Loading isLoading={isLoading} />
-      </Container>
-    </>
+    <Container
+      style={{ marginTop: "50px" }}
+      sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}
+    >
+      <Slider
+        aria-label="Top"
+        defaultValue={10}
+        valueLabelDisplay="on"
+        onChange={handleChange}
+        step={10}
+        marks
+        min={10}
+        max={50}
+      />
+      <TableContainer component={Paper}>
+        <Table stickyHeader aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell className="table-header-1">
+                <Typography variant="h6" component="div">
+                  #
+                </Typography>
+              </TableCell>
+              <TableCell className="table-header-1">
+                <Typography variant="h6" component="div">
+                  Wallet
+                </Typography>
+              </TableCell>
+              <TableCell className="table-header-1" align="right">
+                <Typography variant="h6" component="div">
+                  Level
+                </Typography>
+              </TableCell>
+              <TableCell className="table-header-1" align="right">
+                <Typography variant="h6" component="div">
+                  Current VPM
+                </Typography>
+              </TableCell>
+              <TableCell className="table-header-1" align="right">
+                <Typography variant="h6" component="div">
+                  Max VPM
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users?.map((user, index) => (
+              <Row key={user.id} row={user} index={index + 1} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Loading isLoading={isLoading} />
+    </Container>
   );
 };
 
