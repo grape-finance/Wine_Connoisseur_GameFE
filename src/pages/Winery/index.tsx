@@ -139,6 +139,11 @@ const Winery = () => {
       tabValue === 2
     ) {
       try {
+        if (selectedNFTs.length === 0) {
+          alert('Select at least 1 Vintner to Stake')
+          return;
+        }
+
         const selectedIDs: number[] = [];
         selectedNFTs.forEach((item: any) => selectedIDs.push(Number(item?.id)));
 
@@ -161,6 +166,12 @@ const Winery = () => {
 
   const UnstakeNFT = async () => {
     if (wineryContract && tabValue === 0) {
+
+      if (selectedNFTs.length === 0) {
+        alert('Select at least 1 Vintner to Unstake')
+        return;
+      }
+
       const selectedIDs: number[] = [];
 
       selectedNFTs.forEach((item: any) =>
@@ -190,6 +201,12 @@ const Winery = () => {
 
   const RestakeNFT = async () => {
     if (wineryContract && tabValue === 1) {
+
+      if (selectedNFTs.length === 0) {
+        alert('Select at least 1 Vintner to Restake')
+        return;
+      }
+      
       const selectedIDs: number[] = [];
       selectedNFTs.forEach((item: any) =>
         selectedIDs.push(Number(item?.vintnerId))
@@ -214,6 +231,10 @@ const Winery = () => {
 
   const withdrawNFT = async () => {
     if (wineryContract && tabValue === 1) {
+      if (selectedNFTs.length === 0) {
+        alert('Select at least 1 Vintner to Withdraw')
+        return;
+      }
       const selectedIDs: number[] = [];
 
       selectedNFTs.forEach((item: any) =>

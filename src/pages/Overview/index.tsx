@@ -149,8 +149,6 @@ const Overview = () => {
           chainId
         );
 
-        console.log('ppm === ' + ppm)
-
         const [_maxStorage, _skillCellarModifier, _burnCellarModifier] =
           await multicall(
             WINERYPROGRESSION_ABI,

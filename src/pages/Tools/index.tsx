@@ -145,6 +145,10 @@ const Tools = () => {
   const stakeNFT = async () => {
     if (wineryContract) {
       try {
+        if (selectedNFTs.length === 0) {
+          alert('Select at least 1 Tool to Stake')
+          return;
+        }
         const selectedIDs: number[] = [];
         selectedNFTs.forEach((item: any) => selectedIDs.push(Number(item?.id)));
         const tx = await wineryContract.stakeMany([], selectedIDs);
@@ -167,6 +171,10 @@ const Tools = () => {
   const unStakeNFT = async () => {
     if (wineryContract) {
       try {
+        if (selectedNFTs.length === 0) {
+          alert('Select at least 1 Tool to Unstake')
+          return;
+        }
         const selectedIDs: number[] = [];
         selectedNFTs.forEach((item: any) =>
           selectedIDs.push(Number(item?.toolId))
