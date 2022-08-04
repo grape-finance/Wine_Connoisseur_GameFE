@@ -80,7 +80,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
             component="p"
             style={{ color: account === row.id ? "green" : "black" }}
           >
-            {row.currentVpm?.toFixed(2)}
+            {row.fatiguePerDay?.toFixed(2)}%
           </Typography>
         </TableCell>
         <TableCell align="right">
@@ -343,7 +343,7 @@ const Leaderboard = () => {
               </TableCell>
               <TableCell className="table-header-1" align="right">
                 <Typography variant="h6" component="div">
-                  Current VPM
+                  Fatigue Per Day
                 </Typography>
               </TableCell>
               <TableCell className="table-header-1" align="right">

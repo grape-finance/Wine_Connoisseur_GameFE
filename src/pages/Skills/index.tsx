@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
+  Alert,
   Box,
   CardMedia,
   Container,
   Grid,
   LinearProgress,
+  Snackbar,
   Stack,
   Tooltip,
   Typography,
@@ -67,7 +69,14 @@ const Skills = () => {
   const [upgradeSkillType, setUpgradeSkillType] = useState(0);
   const [upgradeSkillPoint, setUpgradeSkillPoint] = useState(0);
   const [upgradeSkillDefinition, setUpgradeSkillDefinition] = useState("");
-  const firebase = useFirebase();
+
+  const [snack, setSnack] = useState({ open: false, message: "" });
+  const vertical = "top";
+  const horizontal = "right";
+
+  const handleClose = () => {
+    setSnack({ open: false, message: "" });
+  };
 
   useEffect(() => {
     const getInfo = async () => {
@@ -141,10 +150,22 @@ const Skills = () => {
   }, [account, chainId, wineryProgressionContract]);
 
   const depositGrape = async (amount: number) => {
-    if (+amount <= 0) alert("Grape token should be >0");
-    else if (maxGrapeAmount - grapeDeposited < +amount)
-      alert("You reached out the Max amount");
-    else if (account && chainId && grapeContract && wineryProgressionContract) {
+    if (+amount <= 0) {
+      setSnack({
+        open: true,
+        message: "Grape token should be >0",
+      });
+    } else if (maxGrapeAmount - grapeDeposited < +amount) {
+      setSnack({
+        open: true,
+        message: "You reached out the Max amount",
+      });
+    } else if (
+      account &&
+      chainId &&
+      grapeContract &&
+      wineryProgressionContract
+    ) {
       try {
         const tx = await wineryProgressionContract.depositGrape(
           BigNumber.from(+amount).mul(BigNumber.from(10).pow(18))
@@ -156,7 +177,10 @@ const Skills = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -173,12 +197,15 @@ const Skills = () => {
         setLoading(true);
         await tx.wait();
         setLoading(false);
-        localStorage.setItem("refreshMaxVpm", "true")
+        localStorage.setItem("refreshMaxVpm", "true");
         window.location.reload();
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -186,8 +213,6 @@ const Skills = () => {
   };
 
   const resetSkill = async () => {
-    // alert(upgradeSkillType);
-    // alert(upgradeSkillPoint);
     if (wineryProgressionContract) {
       try {
         let tx = await wineryProgressionContract.resetSkills();
@@ -198,7 +223,10 @@ const Skills = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -296,6 +324,17 @@ const Skills = () => {
 
   return (
     <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
+      <Snackbar
+        style={{ marginTop: "80px" }}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical, horizontal }}
+        open={snack.open}
+        onClose={handleClose}
+      >
+        <Alert severity="warning" sx={{ width: "100%" }}>
+          {snack.message}
+        </Alert>
+      </Snackbar>
       <Box
         sx={{
           width: "100%",

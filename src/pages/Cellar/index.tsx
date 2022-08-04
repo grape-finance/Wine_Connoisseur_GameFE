@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Alert, Container, Snackbar, Stack, Typography } from "@mui/material";
 import { useCellarContract } from "hooks/useContract";
 import React, { useEffect, useState } from "react";
 import { BigNumber, ethers } from "ethers";
@@ -33,6 +33,14 @@ const Cellar = () => {
 
   const [openStakeModal, setOpenStakeModal] = React.useState(false);
   const [openUnstakeModal, setOpenUnstakeModal] = React.useState(false);
+
+  const [snack, setSnack] = useState({ open: false, message: "" });
+  const vertical = "top";
+  const horizontal = "right";
+
+  const handleClose = () => {
+    setSnack({ open: false, message: "" });
+  };
 
   useEffect(() => {
     if (account && chainId && cellarContract) {
@@ -117,7 +125,10 @@ const Cellar = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -137,7 +148,10 @@ const Cellar = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -157,7 +171,10 @@ const Cellar = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -188,6 +205,17 @@ const Cellar = () => {
 
   return (
     <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
+      <Snackbar
+        style={{ marginTop: "80px" }}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical, horizontal }}
+        open={snack.open}
+        onClose={handleClose}
+      >
+        <Alert severity="warning" sx={{ width: "100%" }}>
+          {snack.message}
+        </Alert>
+      </Snackbar>
       <Stack
         flexDirection="column"
         spacing={2}

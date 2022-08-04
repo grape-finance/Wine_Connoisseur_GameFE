@@ -6,6 +6,8 @@ import {
   Typography,
   Stack,
   Tooltip,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import { useEffect, useMemo, useState } from "react";
@@ -60,6 +62,14 @@ const Tools = () => {
   // Mint NFT
   const [selectedNFTForMint, setSelectedNFTForMint] = useState(0);
   const [mintAmountInput, setMintAmountInput] = useState("1");
+
+  const [snack, setSnack] = useState({ open: false, message: "" });
+  const vertical = "top";
+  const horizontal = "right";
+
+  const handleClose = () => {
+    setSnack({ open: false, message: "" });
+  };
 
   const _toolNFTLists: ILevel[] = [
     {
@@ -146,7 +156,10 @@ const Tools = () => {
     if (wineryContract) {
       try {
         if (selectedNFTs.length === 0) {
-          alert('Select at least 1 Tool to Stake')
+          setSnack({
+            open: true,
+            message: "Select at least 1 Tool to Stake",
+          });
           return;
         }
         const selectedIDs: number[] = [];
@@ -156,13 +169,16 @@ const Tools = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true")
+          localStorage.setItem("refreshMaxVpm", "true");
           window.location.reload();
         }
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -173,7 +189,10 @@ const Tools = () => {
     if (wineryContract) {
       try {
         if (selectedNFTs.length === 0) {
-          alert('Select at least 1 Tool to Unstake')
+          setSnack({
+            open: true,
+            message: "Select at least 1 Tool to Unstake",
+          });
           return;
         }
         const selectedIDs: number[] = [];
@@ -188,13 +207,16 @@ const Tools = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true")
+          localStorage.setItem("refreshMaxVpm", "true");
           window.location.reload();
         }
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -203,8 +225,12 @@ const Tools = () => {
 
   const mintNFT = async () => {
     if (account && chainId && grapeContract && upgradeContract) {
-      if (+mintAmountInput <= 0) alert("You need to mint at least one");
-      else {
+      if (+mintAmountInput <= 0) {
+        setSnack({
+          open: true,
+          message: "You need to mint at least 1",
+        });
+      } else {
         try {
           const tx = await upgradeContract.mintUpgrade(
             selectedNFTForMint,
@@ -220,7 +246,10 @@ const Tools = () => {
         } catch (err: any) {
           const msg = err?.data?.message!;
           if (msg) {
-            alert(msg.replace("execution reverted: ", ""));
+            setSnack({
+              open: true,
+              message: msg.replace("execution reverted: ", ""),
+            });
           }
           setLoading(false);
         }
@@ -564,6 +593,17 @@ const Tools = () => {
       <Container
         sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}
       >
+        <Snackbar
+          style={{ marginTop: "80px" }}
+          autoHideDuration={4000}
+          anchorOrigin={{ vertical, horizontal }}
+          open={snack.open}
+          onClose={handleClose}
+        >
+          <Alert severity="warning" sx={{ width: "100%" }}>
+            {snack.message}
+          </Alert>
+        </Snackbar>
         <Box
           sx={{
             width: "100%",

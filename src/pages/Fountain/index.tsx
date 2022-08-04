@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Alert, Container, Snackbar, Stack, Typography } from "@mui/material";
 import ERC20 from "abi/types/ERC20";
 import Loading from "components/Loading";
 import StyledButton from "components/StyledButton";
@@ -41,6 +41,14 @@ const Fountain = () => {
   const [pendingReward, setPendingReward] = useState(0);
   const [rewardPerDay, setRewardPerDay] = useState(0);
   const [apr, setapr] = useState(0);
+
+  const [snack, setSnack] = useState({ open: false, message: "" });
+  const vertical = "top";
+  const horizontal = "right";
+
+  const handleClose = () => {
+    setSnack({ open: false, message: "" });
+  };
 
   useEffect(() => {
     if (account && fountainContract) {
@@ -104,7 +112,10 @@ const Fountain = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -124,7 +135,10 @@ const Fountain = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -142,7 +156,10 @@ const Fountain = () => {
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -151,6 +168,17 @@ const Fountain = () => {
 
   return (
     <Container sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}>
+      <Snackbar
+        style={{ marginTop: "80px" }}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical, horizontal }}
+        open={snack.open}
+        onClose={handleClose}
+      >
+        <Alert severity="warning" sx={{ width: "100%" }}>
+          {snack.message}
+        </Alert>
+      </Snackbar>
       <Stack
         flexDirection="column"
         spacing={2}

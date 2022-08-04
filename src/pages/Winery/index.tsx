@@ -5,6 +5,9 @@ import {
   Checkbox,
   Typography,
   Stack,
+  SnackbarOrigin,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
@@ -15,6 +18,11 @@ import Loading from "components/Loading";
 import NFTItem from "components/NFTItem";
 import { NFT_URI, WINERY_ADDRESS } from "config/address";
 import StyledButton from "components/StyledButton";
+
+export interface State extends SnackbarOrigin {
+  open: boolean;
+  message: string;
+}
 
 const Winery = () => {
   const [isloading, setLoading] = useState(false);
@@ -31,6 +39,14 @@ const Winery = () => {
   const [selectedNFTs, setSelectedNFTs] = useState<Number[]>([]);
 
   const [vintnerApproved, setVintnerApproved] = useState(0);
+
+  const [snack, setSnack] = useState({ open: false, message: "" });
+  const vertical = "top";
+  const horizontal = "right";
+
+  const handleClose = () => {
+    setSnack({ open: false, message: "" });
+  };
 
   // Get staked & resting NFT
   useEffect(() => {
@@ -140,7 +156,10 @@ const Winery = () => {
     ) {
       try {
         if (selectedNFTs.length === 0) {
-          alert('Select at least 1 Vintner to Stake')
+          setSnack({
+            open: true,
+            message: "Select at least 1 Vintner to Stake",
+          });
           return;
         }
 
@@ -152,13 +171,16 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true")
+          localStorage.setItem("refreshMaxVpm", "true");
           window.location.reload();
         }
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -167,9 +189,11 @@ const Winery = () => {
 
   const UnstakeNFT = async () => {
     if (wineryContract && tabValue === 0) {
-
       if (selectedNFTs.length === 0) {
-        alert('Select at least 1 Vintner to Unstake')
+        setSnack({
+          open: true,
+          message: "Select at least 1 Vintner to Unstake",
+        });
         return;
       }
 
@@ -188,13 +212,16 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true")
+          localStorage.setItem("refreshMaxVpm", "true");
           window.location.reload();
         }
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -203,12 +230,14 @@ const Winery = () => {
 
   const RestakeNFT = async () => {
     if (wineryContract && tabValue === 1) {
-
       if (selectedNFTs.length === 0) {
-        alert('Select at least 1 Vintner to Restake')
+        setSnack({
+          open: true,
+          message: "Select at least 1 Vintner to Restake",
+        });
         return;
       }
-      
+
       const selectedIDs: number[] = [];
       selectedNFTs.forEach((item: any) =>
         selectedIDs.push(Number(item?.vintnerId))
@@ -219,13 +248,16 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true")
+          localStorage.setItem("refreshMaxVpm", "true");
           window.location.reload();
         }
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: msg.replace("execution reverted: ", ""),
+          });
         }
         setLoading(false);
       }
@@ -235,7 +267,10 @@ const Winery = () => {
   const withdrawNFT = async () => {
     if (wineryContract && tabValue === 1) {
       if (selectedNFTs.length === 0) {
-        alert('Select at least 1 Vintner to Withdraw')
+        setSnack({
+          open: true,
+          message: "Select at least 1 Vintner to Withdraw",
+        });
         return;
       }
       const selectedIDs: number[] = [];
@@ -250,13 +285,16 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true")
+          localStorage.setItem("refreshMaxVpm", "true");
           window.location.reload();
         }
       } catch (err: any) {
         const msg = err?.data?.message!;
         if (msg) {
-          alert(msg.replace("execution reverted: ", ""));
+          setSnack({
+            open: true,
+            message: "Select at least 1 Vintner to Withdraw",
+          });
         }
         setLoading(false);
       }
@@ -291,7 +329,6 @@ const Winery = () => {
           </Box>
         );
       // Show staked NFTs
-      console.log("userStakedList", userStakedList);
       return (
         <Box
           style={{
@@ -424,6 +461,17 @@ const Winery = () => {
       <Container
         sx={{ my: 3, p: "0 !important", maxWidth: "unset !important" }}
       >
+        <Snackbar
+          style={{ marginTop: "80px" }}
+          autoHideDuration={4000}
+          anchorOrigin={{ vertical, horizontal }}
+          open={snack.open}
+          onClose={handleClose}
+        >
+          <Alert severity="warning" sx={{ width: "100%" }}>
+            {snack.message}
+          </Alert>
+        </Snackbar>
         <Box
           sx={{
             width: "100%",

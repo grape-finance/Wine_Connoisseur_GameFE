@@ -18,7 +18,8 @@ import { initializeApp } from "firebase/app";
 import { Contract } from "ethers";
 import multicall from "utils/multicall";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
-import { WINERYPROGRESSION_ADDRESS } from "config/address";
+import WINERY_ABI from "abi/winery.json";
+import { WINERYPROGRESSION_ADDRESS, WINERY_ADDRESS } from "config/address";
 import NETWORKS from "config/network";
 
 // const firebaseConfig = {
@@ -41,7 +42,7 @@ const firebaseConfig = {
 export type LeaderboardUser = {
   id: string;
   maxVpm: number;
-  currentVpm: number;
+  fatiguePerDay: number;
   level: number;
   stakedVintners: number;
   stakedVintnersMasters: number;
@@ -68,7 +69,7 @@ export class FirebaseHelper {
     this.chainId = chainId;
   }
 
-  async getUserLevel(wallet: string): Promise<number> {
+  async getWineryProgressData(wallet: string): Promise<[number, number]> {
     const web3Provider: string = NETWORKS.filter(
       (item) => item.chainId === this.chainId
     )[0]?.defaultProvider[0];
@@ -85,7 +86,27 @@ export class FirebaseHelper {
       web3Provider,
       this.chainId
     );
-    return Number(_level[0]);
+
+    const [_fatiguePerMinute, _MAX_FATIGUE] = await multicall(
+      WINERY_ABI,
+      [
+        {
+          address: WINERY_ADDRESS[this.chainId],
+          name: "getFatiguePerMinuteWithModifier",
+          params: [wallet],
+        },
+        {
+          address: WINERY_ADDRESS[this.chainId],
+          name: "MAX_FATIGUE",
+        },
+      ],
+      web3Provider,
+      this.chainId
+    );
+
+    const fatiguePerMinute =
+      ((_fatiguePerMinute * 60 * 24) / _MAX_FATIGUE) * 100;
+    return [Number(_level[0]), Number(fatiguePerMinute)];
   }
 
   async getAllUsers(count: number): Promise<LeaderboardUser[]> {
@@ -100,7 +121,7 @@ export class FirebaseHelper {
         id: user.id,
         level: userData.level,
         maxVpm: userData.maxVpm,
-        currentVpm: userData.currentVpm,
+        fatiguePerDay: 0,
         stakedVintners: 0,
         stakedVintnersMasters: 0,
         restingVintners: 0,
@@ -112,7 +133,9 @@ export class FirebaseHelper {
 
     await leaderboardUsers.reduce(async (referencePoint, user) => {
       await referencePoint;
-      user.level = await this.getUserLevel(user.id);
+      const [level, fatiguePerDay] = await this.getWineryProgressData(user.id);
+      user.level = level;
+      user.fatiguePerDay = fatiguePerDay;
       await this.getVintners(user);
       await this.getTools(user);
       await this.getSkills(user);
@@ -128,7 +151,7 @@ export class FirebaseHelper {
       localStorage.removeItem("refreshMaxVpm");
       this.setMaxVPM(maxVpm, account);
     }
-  };
+  }
 
   async setMaxVPM(value: string | number, account: string) {
     const userRef = doc(this.db, "users", account);
