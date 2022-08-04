@@ -135,12 +135,6 @@ const Skills = () => {
           +ethers.utils.formatEther(_getGrapeDeposited[0])
         );
         setMaxGrapeAmount(+ethers.utils.formatEther(_maxGrapeAmount[0]));
-
-        firebase?.setField(
-          "level",
-          _level[0],
-          account!
-        );
       }
     };
     getInfo();
@@ -179,6 +173,7 @@ const Skills = () => {
         setLoading(true);
         await tx.wait();
         setLoading(false);
+        localStorage.setItem("refreshMaxVpm", "true")
         window.location.reload();
       } catch (err: any) {
         const msg = err?.data?.message!;

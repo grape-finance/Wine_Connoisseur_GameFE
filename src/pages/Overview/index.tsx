@@ -154,7 +154,7 @@ const Overview = () => {
           chainId
         );
 
-        const [_maxStorage, _skillCellarModifier, _burnCellarModifier, _level] =
+        const [_maxStorage, _skillCellarModifier, _burnCellarModifier] =
           await multicall(
             WINERYPROGRESSION_ABI,
             [
@@ -172,12 +172,7 @@ const Overview = () => {
                 address: WINERYPROGRESSION_ADDRESS[chainId],
                 name: "getBurnSkillModifier",
                 params: [account],
-              },
-              {
-                address: WINERYPROGRESSION_ADDRESS[chainId],
-                name: "getLevel",
-                params: [account],
-              },
+              }
             ],
             web3Provider,
             chainId
@@ -193,8 +188,6 @@ const Overview = () => {
         setMaxStorage(Number(_maxStorage) / Math.pow(10, 18));
         setPPM(Number(ppm));
         setGrapeResetCost(Number(grapeResetCost / Math.pow(10, 18)));
-
-        firebase?.setField("level", _level[0], account!);
 
         await calcualteVintageWinePerMin(
           Number(ppm),
@@ -288,31 +281,26 @@ const Overview = () => {
         })
       );
 
+
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
+        firebase?.checkSetMaxVpm(maxVintageWine, account!)
         return maxVintageWine;
       }
-      firebase?.setField(
-        "currentVpm",
-        newVintageWineAmount / Math.pow(10, 18),
-        account!
-      );
-
+      firebase?.checkSetMaxVpm(newVintageWineAmount / Math.pow(10, 18), account!)
       return newVintageWineAmount;
     }
   };
 
+
+
   const resetFatigue = async () => {
     if (account && chainId && grapeContract && wineryContract) {
       try {
-        // let tx = await grapeContract.approve(
-        //   WINERY_ADDRESS[chainId],
-        //   ethers.utils.parseEther((0.1 * ppm).toString())
-        // );
-        // setLoading(true);
-        // await tx.wait();
+
         setLoading(true);
         let tx = await wineryContract.resetFatigue();
         await tx.wait();
+        localStorage.setItem("refreshMaxVpm", "true")
         window.location.reload();
       } catch (err: any) {
         const msg = err?.data?.message!;

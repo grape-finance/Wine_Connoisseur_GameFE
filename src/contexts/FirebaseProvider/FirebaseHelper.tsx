@@ -19,17 +19,23 @@ import { Contract } from "ethers";
 import multicall from "utils/multicall";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 import { WINERYPROGRESSION_ADDRESS } from "config/address";
-import { useWeb3 } from "state/web3";
 import NETWORKS from "config/network";
-import { useCallback, useEffect, useState } from "react";
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAr43A6q9T4_PoXzsdXmmXOEFA3vExDev8",
+//   authDomain: "winemaker-dd8a2.firebaseapp.com",
+//   projectId: "winemaker-dd8a2",
+//   storageBucket: "winemaker-dd8a2.appspot.com",
+//   messagingSenderId: "410209408516",
+//   appId: "1:410209408516:web:b92d310088f39e521c8751",
+// };
 const firebaseConfig = {
-  apiKey: "AIzaSyAr43A6q9T4_PoXzsdXmmXOEFA3vExDev8",
-  authDomain: "winemaker-dd8a2.firebaseapp.com",
-  projectId: "winemaker-dd8a2",
-  storageBucket: "winemaker-dd8a2.appspot.com",
-  messagingSenderId: "410209408516",
-  appId: "1:410209408516:web:b92d310088f39e521c8751",
+  apiKey: "AIzaSyDjjc6ldF65hzmTannsN7n3SCCLEuPChCk",
+  authDomain: "dev-wine-e32e4.firebaseapp.com",
+  projectId: "dev-wine-e32e4",
+  storageBucket: "dev-wine-e32e4.appspot.com",
+  messagingSenderId: "146488994345",
+  appId: "1:146488994345:web:2383c7c5b0fe432fd60a38",
 };
 
 export type LeaderboardUser = {
@@ -106,9 +112,7 @@ export class FirebaseHelper {
 
     await leaderboardUsers.reduce(async (referencePoint, user) => {
       await referencePoint;
-      if (!user.level) {
-        user.level = await this.getUserLevel(user.id);
-      }
+      user.level = await this.getUserLevel(user.id);
       await this.getVintners(user);
       await this.getTools(user);
       await this.getSkills(user);
@@ -119,29 +123,32 @@ export class FirebaseHelper {
     );
   }
 
-  async setField(field: string, value: string | number, account: string) {
+  checkSetMaxVpm(maxVpm: number, account: string) {
+    if (localStorage.getItem("refreshMaxVpm") === "true") {
+      localStorage.removeItem("refreshMaxVpm");
+      this.setMaxVPM(maxVpm, account);
+    }
+  };
+
+  async setMaxVPM(value: string | number, account: string) {
     const userRef = doc(this.db, "users", account);
-    this.dispatchFieldUpdate(userRef, field, value);
+    const user = await getDoc(userRef);
+    if (
+      !user.exists() ||
+      (user.exists() && user.data().maxVpm < Number(value))
+    ) {
+      this.dispatchMaxVPM(userRef, value);
+    }
   }
 
-  private async dispatchFieldUpdate(
+  private async dispatchMaxVPM(
     ref: DocumentReference<DocumentData>,
-    field: string,
     value: string | number
   ) {
-    let doc = {};
-    if (field === "currentVpm") {
-      const user = await getDoc(ref);
-      doc = {
-        currentVpm: Number(value),
-        currentVpmDate: Timestamp.fromDate(new Date()),
-        maxVpm: this.getMaxVPM(user, value),
-        maxVpmDate: this.getMaxVPMDate(user, value),
-      };
-    } else if (field === "level") {
-      doc = { level: Number(value), levelDate: Timestamp.fromDate(new Date()) };
-    }
-
+    let doc = {
+      maxVpm: Number(value),
+      maxVpmDate: Timestamp.fromDate(new Date()),
+    };
     await setDoc(ref, doc, { merge: true });
   }
 

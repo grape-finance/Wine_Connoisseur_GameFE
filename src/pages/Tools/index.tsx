@@ -156,6 +156,7 @@ const Tools = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
+          localStorage.setItem("refreshMaxVpm", "true")
           window.location.reload();
         }
       } catch (err: any) {
@@ -187,6 +188,7 @@ const Tools = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
+          localStorage.setItem("refreshMaxVpm", "true")
           window.location.reload();
         }
       } catch (err: any) {
