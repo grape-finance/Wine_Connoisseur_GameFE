@@ -40,7 +40,7 @@ export type LeaderboardUser = {
   stakedVintnersMasters: number;
   restingVintners: number;
   restingVintnersMasters: number;
-  tools: Map<string, number>;
+  tools: [number, number, number];
   skills: Map<string, number>;
 };
 
@@ -118,7 +118,7 @@ export class FirebaseHelper {
         stakedVintnersMasters: 0,
         restingVintners: 0,
         restingVintnersMasters: 0,
-        tools: new Map<string, number>(),
+        tools: [0, 0, 0],
         skills: new Map<string, number>(),
       });
     });
@@ -210,14 +210,25 @@ export class FirebaseHelper {
 
   async getTools(user: any) {
     const tools = await this.fetchTools(user.id);
+    let countMag = 0
+    let countShear = 0
+    let countHydro = 0
+
     tools.forEach((tool: any) => {
       const toolPPM = Number(tool.toolPPM);
-      const toolName = this.toolPPMToToolName(toolPPM);
-      user.tools.set(
-        toolName,
-        user.tools[toolName] ? user.tools[toolName] + 1 : 1
-      );
+      if (toolPPM === 1) {
+        countMag++
+      }
+      else if (toolPPM === 3) {
+        countShear++
+      }
+      else if (toolPPM === 5) {
+        countHydro++
+      }    
     });
+    user.tools[0] = countMag
+    user.tools[1] = countShear
+    user.tools[2] = countHydro
   }
 
   async getSkills(user: any) {
@@ -241,16 +252,5 @@ export class FirebaseHelper {
 
   async fetchSkills(wallet: string): Promise<Array<number>> {
     return await this.wineryProgressionContract.getSkillsLearned(wallet);
-  }
-
-  toolPPMToToolName(toolPPM: number): string {
-    if (toolPPM === 1) {
-      return "Wine Mag 93";
-    } else if (toolPPM === 3) {
-      return "Pruning Shears";
-    } else if (toolPPM === 5) {
-      return "Hydrometer";
-    }
-    return "";
   }
 }

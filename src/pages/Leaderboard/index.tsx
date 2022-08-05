@@ -163,11 +163,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <Typography component="p">Wine Mag 93</Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography component="p">
-                      {row.tools.get("Wine Mag 93")
-                        ? row.tools.get("Wine Mag 93")
-                        : 0}
-                    </Typography>
+                    <Typography component="p">{row.tools[0]}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow key={row.id}>
@@ -175,11 +171,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <Typography component="p">Pruning Shears</Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography component="p">
-                      {row.tools.get("Pruning Shears")
-                        ? row.tools.get("Pruning Shears")
-                        : 0}
-                    </Typography>
+                    <Typography component="p">{row.tools[1]}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow key={row.id}>
@@ -187,11 +179,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <Typography component="p">Hydrometer</Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography component="p">
-                      {row.tools.get("Hydrometer")
-                        ? row.tools.get("Hydrometer")
-                        : 0}
-                    </Typography>
+                    <Typography component="p">{row.tools[2]}</Typography>
                   </TableCell>
                 </TableRow>
               </Table>
@@ -297,8 +285,7 @@ const Leaderboard = () => {
         const users = await firebase.getAllUsers(maxCount);
         setUsers(users);
         setLoading(false);
-      }
-      else {
+      } else {
         setLoading(false);
       }
     };
