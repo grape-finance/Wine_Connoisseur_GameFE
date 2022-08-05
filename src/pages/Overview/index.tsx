@@ -281,7 +281,6 @@ const Overview = () => {
         })
       );
 
-
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
         firebase?.checkSetMaxVpm(maxVintageWine, account!)
         return maxVintageWine;

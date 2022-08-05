@@ -22,14 +22,6 @@ import WINERY_ABI from "abi/winery.json";
 import { WINERYPROGRESSION_ADDRESS, WINERY_ADDRESS } from "config/address";
 import NETWORKS from "config/network";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAr43A6q9T4_PoXzsdXmmXOEFA3vExDev8",
-//   authDomain: "winemaker-dd8a2.firebaseapp.com",
-//   projectId: "winemaker-dd8a2",
-//   storageBucket: "winemaker-dd8a2.appspot.com",
-//   messagingSenderId: "410209408516",
-//   appId: "1:410209408516:web:b92d310088f39e521c8751",
-// };
 const firebaseConfig = {
   apiKey: "AIzaSyDjjc6ldF65hzmTannsN7n3SCCLEuPChCk",
   authDomain: "dev-wine-e32e4.firebaseapp.com",
