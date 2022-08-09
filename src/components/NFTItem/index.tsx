@@ -21,10 +21,13 @@ const NFTItem = (props: IProps) => {
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
 
   function timeDiffCalc(dateFuture: number, dateNow: number) {
-    let diffInMilliSeconds = Math.abs(dateFuture - dateNow);
-    const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
-    const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
-    return `${hours}h ${minutes}m left`;
+    if (dateFuture > dateNow) {
+      let diffInMilliSeconds = Math.abs(dateFuture - dateNow);
+      const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+      const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
+      return `${hours}h ${minutes}m left`;  
+    }
+    return 'Rested'
   }
 
   return (
