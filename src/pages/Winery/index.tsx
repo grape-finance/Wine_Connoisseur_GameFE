@@ -345,6 +345,7 @@ const Winery = () => {
               key={index}
             >
               <NFTItem
+                ppm={Number(item?.vintnerPPM)}
                 image={`${NFT_URI}/${+item?.vintnerId!}.png`}
                 selected={selectedNFTs.includes(item)}
               />
@@ -395,6 +396,7 @@ const Winery = () => {
             >
               <NFTItem
                 isResting
+                ppm={Number(item?.vintnerPPM)}
                 endTime={Number(item?.endTimestamp)}
                 image={`${NFT_URI}/${item?.vintnerId}.png`}
                 selected={selectedNFTs.includes(item)}
@@ -445,6 +447,7 @@ const Winery = () => {
               key={index}
             >
               <NFTItem
+                ppm={Number(item?.vintnerPPM)}
                 image={`${NFT_URI}/${item?.id}.png`}
                 selected={selectedNFTs.includes(item)}
               />
