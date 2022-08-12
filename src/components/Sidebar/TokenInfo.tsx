@@ -72,7 +72,7 @@ const TokenInfo = () => {
               variant="h5"
               component="h5"
             >
-              $ {vintageWinePrice?.toFixed(2)}
+              $ {vintageWinePrice?.toFixed(3)}
             </Typography>
           </Box>
         </Stack>
