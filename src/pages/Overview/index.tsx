@@ -400,7 +400,7 @@ const Overview = () => {
           Earned Vintage
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          {vintageWineAccrued.toFixed(2)}/{maxStorage}
+          {vintageWineAccrued.toFixed(2)}/{Math.round(maxStorage)}
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
