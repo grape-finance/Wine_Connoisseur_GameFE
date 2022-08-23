@@ -2,6 +2,8 @@
 import cut_with_water from "assets/image/skills/Reduce_Distributor_Cut/01-cut-with-water.jpg";
 import sole_distributorship from "assets/image/skills/Reduce_Distributor_Cut/02-sole-distributorship.jpg";
 import onsite_distribution_manager from "assets/image/skills/Reduce_Distributor_Cut/03-onsite-distribution-manager.jpg";
+import energyShot from "assets/image/skills/Reduce_Distributor_Cut/Fagitue-4.jpg";
+import nightShifts from "assets/image/skills/Reduce_Distributor_Cut/Fatigue-5---Night-Shifts.jpg";
 
 // Cellar Reducer
 import blending from "assets/image/skills/Decrease_Loss_When_Unstaking/01-blending.jpg";
@@ -80,20 +82,19 @@ export const skills: ISkills = {
       definition: "Decrease the effects of fatigue by 5% (20% total)",
       image: onsite_distribution_manager,
     },
-    // {
-    //   name: "Survival Instincts",
+    {
+      name: "Energy Shot",
 
-    //   skillPoint: 4,
-    //   definition: "Decrease the effects of fatigue by 10% (total 30%)",
-    //   image: farm_hands,
-    // },
-    // {
-    //   name: "Ultimate Chef",
-
-    //   skillPoint: 5,
-    //   definition: "Decrease the effects of fatigue by 20% (total 50%)",
-    //   image: storage_shed,
-    // },
+       skillPoint: 4,
+       definition: "Decrease the effects of fatigue by 10% (total 30%)",
+       image: energyShot,
+    },
+     {
+       name: "Night Shifts",
+       skillPoint: 5,
+       definition: "Decrease the effects of fatigue by 20% (total 50%)",
+       image: nightShifts,
+     },
   ],
   cellar: [
     {
