@@ -293,7 +293,7 @@ const Winery = () => {
         if (msg) {
           setSnack({
             open: true,
-            message: "Select at least 1 Vintner to Withdraw",
+            message: msg.replace("execution reverted: ", ""),
           });
         }
         setLoading(false);
