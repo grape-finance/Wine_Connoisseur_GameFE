@@ -123,7 +123,7 @@ export const skills: ISkills = {
       name: "Wine Mixer",
       skillPoint: 2,
       definition:
-        "Increases the VPD by 17% of the Vintner if 5 or more Master Vintners are staked",
+        "Increases the VPD by 17% of the Vintner if 5 or more Master Vintners are staked (20% total)",
       image: wine_mixer,
     },
   ],
