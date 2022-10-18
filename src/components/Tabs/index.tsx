@@ -80,8 +80,8 @@ const Tabs: React.FC<IProps> = ({ tab }) => {
                   fontWeight: "fontWeightMedium",
                 }}
                 color="primary.light"
-                variant="h5"
-                component="h5"
+                variant="h6"
+                component="h6"
               >
                 {data.title}
               </Typography>

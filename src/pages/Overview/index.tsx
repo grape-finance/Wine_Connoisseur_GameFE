@@ -1,5 +1,16 @@
 import { Container, Stack, Tooltip, Typography } from "@mui/material";
-import { useGrapeContract, useWineryContract } from "hooks/useContract";
+import { BigNumber, ethers } from "ethers";
+
+import {
+  useGrapeContract,
+  useGrapeMIMSWContract,
+  useGrapeMIMTJContract,
+  useVintageMIMContract,
+  useWineryContract,
+  useXGrapeContract,
+  useRaisinContract,
+  useRaisinTokenContract
+} from "hooks/useContract";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useWeb3 } from "state/web3";
@@ -7,7 +18,11 @@ import multicall from "utils/multicall";
 import { unixToDate } from "utils/unixToDate";
 import WINERY_ABI from "abi/winery.json";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
-import { WINERY_ADDRESS, WINERYPROGRESSION_ADDRESS } from "config/address";
+import {
+  WINERY_ADDRESS,
+  WINERYPROGRESSION_ADDRESS,
+  RAISIN_ADDRESS,
+} from "config/address";
 import { NETWORKS } from "config/network";
 import _ from "lodash";
 import { vintageWineAccruedCalculation } from "utils/winery";
@@ -17,11 +32,12 @@ import { setUserNFTState } from "state/user/actions";
 import { useNFTState } from "state/user/hooks";
 import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
-
+import { useTokenBalance } from "state/user/hooks";
 import useFirebase from "hooks/useFirebase";
 
 import ResetFatigueDialog from "./resetFatigueDialog";
 import ClaimDialog from "./claimDialog";
+import MintRaisinDialog from "./mintDialog";
 
 const Overview = () => {
   const dispatch = useDispatch();
@@ -29,18 +45,69 @@ const Overview = () => {
   const { account, provider, chainId } = useWeb3();
   // Get Contract
   const grapeContract = useGrapeContract();
+  const raisinContract = useRaisinContract();
+  const raisinTokenContract = useRaisinTokenContract()
+  const grapeMIMTJContract = useGrapeMIMTJContract();
+  const grapeMIMSWContract = useGrapeMIMSWContract();
+  const xGrapeContract = useXGrapeContract();
+  const vintageMIMContract = useVintageMIMContract();
   const wineryContract = useWineryContract();
   const firebase = useFirebase();
 
-  const grapeToken = useMemo(() => {
-    if (provider && grapeContract) {
+  const raisinToken = useMemo(() => {
+    if (provider && raisinTokenContract) {
       const signer = provider.getSigner();
-      return new ERC20(grapeContract.address, signer, "Grape");
+      return new ERC20(raisinTokenContract.address, signer, "Grape");
     }
-  }, [provider, grapeContract]);
+  }, [provider, raisinTokenContract]);
+
   const [approveStatus, approve] = useApprove(
-    grapeToken!,
+    raisinToken!,
     WINERY_ADDRESS[chainId!]
+  );
+
+  const grapeMIMTJToken = useMemo(() => {
+    if (provider && grapeMIMTJContract) {
+      const signer = provider.getSigner();
+      return new ERC20(grapeMIMTJContract.address, signer, "JoePair");
+    }
+  }, [provider, grapeMIMTJContract]);
+  const [grapeMIMTJApproveStatus, grapeMIMTJApprove] = useApprove(
+    grapeMIMTJToken!,
+    RAISIN_ADDRESS[chainId!]
+  );
+
+  const grapeMIMSWToken = useMemo(() => {
+    if (provider && grapeMIMSWContract) {
+      const signer = provider.getSigner();
+      return new ERC20(grapeMIMSWContract.address, signer, "SiclePair");
+    }
+  }, [provider, grapeMIMSWContract]);
+  const [grapeMIMSWApproveStatus, grapeMIMSWApprove] = useApprove(
+    grapeMIMSWToken!,
+    RAISIN_ADDRESS[chainId!]
+  );
+
+  const xGrapeToken = useMemo(() => {
+    if (provider && xGrapeContract) {
+      const signer = provider.getSigner();
+      return new ERC20(xGrapeContract.address, signer, "xGRAPE");
+    }
+  }, [provider, xGrapeContract]);
+  const [xGrapeApproveStatus, xGrapeApprove] = useApprove(
+    xGrapeToken!,
+    RAISIN_ADDRESS[chainId!]
+  );
+
+  const vintageMIMToken = useMemo(() => {
+    if (provider && vintageMIMContract) {
+      const signer = provider.getSigner();
+      return new ERC20(vintageMIMContract.address, signer, "SiclePair");
+    }
+  }, [provider, vintageMIMContract]);
+  const [vintageMIMApproveStatus, vintageMIMApprove] = useApprove(
+    vintageMIMToken!,
+    RAISIN_ADDRESS[chainId!]
   );
 
   const { fatigueAccrued, timeUntilFatigues, vintageWineAccrued } =
@@ -49,7 +116,7 @@ const Overview = () => {
   const [vpm, setvpm] = useState(0);
   const [ppm, setPPM] = useState(0);
   const [maxStorage, setMaxStorage] = useState(500);
-  const [grapeResetCost, setGrapeResetCost] = useState(0);
+  const [raisinResetCost, setRaisinResetCost] = useState(0);
   const [fatiguePerMinuteWithModifier, setFatiguePerMinuteWithModifier] =
     useState(0);
   const [claimBurn, setClaimBurn] = useState(10);
@@ -60,8 +127,17 @@ const Overview = () => {
   const currentUnixTime = Math.round(new Date().getTime() / 1000);
   const [openResetFatigueDialog, setOpenResetFatigueDialog] = useState(false);
   const [openClaimDialog, setOpenClaimDialog] = useState(false);
+  const [openMintDialog, setOpenMintDialog] = useState(false);
 
   const [userStakedList, setUserStakedList] = useState([]);
+
+  const {
+    grapeMIMTJBalance,
+    grapeMIMSWBalance,
+    xGrapeBalance,
+    vintageMIMBalance,
+  } = useTokenBalance();
+
   // Get staked NFT
   useEffect(() => {
     if (account && wineryContract) {
@@ -85,7 +161,7 @@ const Overview = () => {
 
         const [
           ppm,
-          grapeResetCost,
+          raisinResetCost,
           _startTime,
           _timeUntilFatigues,
           _wineryFatigue,
@@ -172,7 +248,7 @@ const Overview = () => {
                 address: WINERYPROGRESSION_ADDRESS[chainId],
                 name: "getBurnSkillModifier",
                 params: [account],
-              }
+              },
             ],
             web3Provider,
             chainId
@@ -187,7 +263,7 @@ const Overview = () => {
         setFatiguePerMinuteWithModifier(_fatiguePerMinuteWithModifier);
         setMaxStorage(Number(_maxStorage) / Math.pow(10, 18));
         setPPM(Number(ppm));
-        setGrapeResetCost(Number(grapeResetCost / Math.pow(10, 18)));
+        setRaisinResetCost(Number(raisinResetCost / Math.pow(10, 18)));
 
         await calcualteVintageWinePerMin(
           Number(ppm),
@@ -219,14 +295,6 @@ const Overview = () => {
     yieldPPS: number
   ) => {
     if (chainId && wineryContract && !_.isEmpty(userStakedList)) {
-      // console.log("ppm", ppm);
-      // console.log("wineryFatigue", wineryFatigue);
-      // console.log("wineryVintageWine", wineryVintageWine);
-      // console.log("timeUntilFatigue", timeUntilFatigued);
-      // console.log("masterVinterNumber", masterVintnerNumber);
-      // console.log("startTimeStamp", startTimeStamp);
-      // console.log("fatiguePerMinuteWithModifier", fatiguePerMinuteWithModifier);
-      // console.log("yieldPPS", yieldPPS);
       const web3Provider = NETWORKS.filter(
         (item) => item.chainId === chainId
       )[0]?.defaultProvider[0];
@@ -282,24 +350,24 @@ const Overview = () => {
       );
 
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
-        firebase?.checkSetMaxVpm(maxVintageWine, account!)
+        firebase?.checkSetMaxVpm(maxVintageWine, account!);
         return maxVintageWine;
       }
-      firebase?.checkSetMaxVpm(newVintageWineAmount / Math.pow(10, 18), account!)
+      firebase?.checkSetMaxVpm(
+        newVintageWineAmount / Math.pow(10, 18),
+        account!
+      );
       return newVintageWineAmount;
     }
   };
 
-
-
   const resetFatigue = async () => {
     if (account && chainId && grapeContract && wineryContract) {
       try {
-
         setLoading(true);
         let tx = await wineryContract.resetFatigue();
         await tx.wait();
-        localStorage.setItem("refreshMaxVpm", "true")
+        localStorage.setItem("refreshMaxVpm", "true");
         window.location.reload();
       } catch (err: any) {
         const msg = err?.data?.message!;
@@ -307,6 +375,28 @@ const Overview = () => {
           alert(msg.replace("execution reverted: ", ""));
         }
       } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const mintRaisin = async (amount: number, mintToken: number) => {
+    if (account && chainId && raisinContract) {
+      try {
+        setLoading(true);
+        let tx = await raisinContract.mint(
+          ethers.utils.parseEther(amount.toString()),
+          mintToken
+        );
+        await tx.wait();
+        setLoading(false);
+        window.location.reload();
+      } catch (err: any) {
+        console.error(err);
+        const msg = err?.data?.message!;
+        if (msg) {
+          alert(msg.replace("execution reverted: ", ""));
+        }
         setLoading(false);
       }
     }
@@ -366,6 +456,10 @@ const Overview = () => {
             </StyledButton>
           )}
 
+          <StyledButton onClick={() => setOpenMintDialog(true)}>
+            Mint Raisin
+          </StyledButton>
+
           <StyledButton onClick={() => setOpenClaimDialog(true)}>
             Claim Vintage
           </StyledButton>
@@ -394,7 +488,7 @@ const Overview = () => {
           Cost to Recharge with Grape
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          {ppm * grapeResetCost} Grape
+          {ppm * raisinResetCost} Grape
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Earned Vintage
@@ -408,7 +502,7 @@ const Overview = () => {
       <ResetFatigueDialog
         open={openResetFatigueDialog}
         setOpen={setOpenResetFatigueDialog}
-        grapeCost={ppm * grapeResetCost}
+        raisinCost={ppm * raisinResetCost}
         resetFatigue={resetFatigue}
       />
 
@@ -421,6 +515,24 @@ const Overview = () => {
         claimContributionModifier={claimContributionModifier}
         claimBurnModifier={claimBurnModifier}
         claim={claimVintageWine}
+      />
+
+      <MintRaisinDialog
+        open={openMintDialog}
+        balanceGrapeMIMTJ={grapeMIMTJBalance}
+        balanceGrapeMIMSW={grapeMIMSWBalance}
+        balanceXGrape={xGrapeBalance}
+        balanceVintageMIM={vintageMIMBalance}
+        approvedGrapeMIMTJ={grapeMIMTJApproveStatus}
+        approvedGrapeMIMSW={grapeMIMSWApproveStatus}
+        approvedXGrape={xGrapeApproveStatus}
+        approvedVintageMIM={vintageMIMApproveStatus}
+        approveGrapeMIMTJ={grapeMIMTJApprove}
+        approveGrapeMIMSW={grapeMIMSWApprove}
+        approveXGrape={xGrapeApprove}
+        approveVintageMIM={vintageMIMApprove}
+        setOpen={setOpenMintDialog}
+        mint={mintRaisin}
       />
     </Container>
   );

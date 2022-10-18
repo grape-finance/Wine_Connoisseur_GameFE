@@ -3,11 +3,15 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   useGrapeContract,
+  useGrapeMIMSWContract,
+  useGrapeMIMTJContract,
   useUpgradeContract,
   useUSDCVintageWineLPContract,
+  useVintageMIMContract,
   useVintageWineContract,
   useVintnerContract,
   useWineryContract,
+  useXGrapeContract,
 } from "hooks/useContract";
 import { useWeb3 } from "state/web3";
 import { SupportedChainId, WINERY_ADDRESS } from "config/address";
@@ -23,6 +27,10 @@ export default function Updater(): null {
   const { account, chainId } = useWeb3();
   const grapeTokenContract = useGrapeContract();
   const vintageWineTokenContract = useVintageWineContract();
+  const grapeMimTJContract = useGrapeMIMTJContract()
+  const grapeMimSWContract = useGrapeMIMSWContract()
+  const xGrapeContract = useXGrapeContract()
+  const vintageMIMContract = useVintageMIMContract()
   const USDCVintageWineLPContract = useUSDCVintageWineLPContract();
   const vintnerContract = useVintnerContract();
   const upgradeContract = useUpgradeContract();
@@ -32,6 +40,10 @@ export default function Updater(): null {
     if (
       account &&
       grapeTokenContract &&
+      grapeMimTJContract && 
+      grapeMimSWContract && 
+      xGrapeContract && 
+      vintageMIMContract &&
       vintageWineTokenContract &&
       USDCVintageWineLPContract &&
       vintnerContract &&
@@ -51,6 +63,11 @@ export default function Updater(): null {
           const USDCVintageWineLPBalance =
             await USDCVintageWineLPContract.balanceOf(account);
 
+          const grapeMIMTJBalance = await grapeMimTJContract.balanceOf(account)
+          const grapeMIMSWBalance = await grapeMimSWContract.balanceOf(account)
+          const xGrapeBalance = await xGrapeContract.balanceOf(account)
+          const vintageMIMBalance = await vintageMIMContract.balanceOf(account)
+
           const vintnerBalance = await vintnerContract.balanceOf(account);
           const upgradeBalance = await upgradeContract.balanceOf(account);
           const vintnerStakedBalance =
@@ -62,6 +79,10 @@ export default function Updater(): null {
             dispatch(
               setUserTokenBalance({
                 grapeTokenBalance: +ethers.utils.formatEther(grapeTokenBalance),
+                grapeMIMTJTokenBalance: +ethers.utils.formatEther(grapeMIMTJBalance),
+                grapeMIMSWTokenBalance: +ethers.utils.formatEther(grapeMIMSWBalance),
+                xGrapeTokenBalance: +ethers.utils.formatEther(xGrapeBalance),
+                vintageMIMTokenBalance: +ethers.utils.formatEther(vintageMIMBalance),
                 vintageWineTokenBalance: +ethers.utils.formatEther(
                   vintageWineTokenBalance
                 ),
@@ -144,6 +165,10 @@ export default function Updater(): null {
     chainId,
     dispatch,
     grapeTokenContract,
+    grapeMimTJContract, 
+    grapeMimSWContract,
+    xGrapeContract, 
+    vintageMIMContract,
     vintageWineTokenContract,
     USDCVintageWineLPContract,
     vintnerContract,

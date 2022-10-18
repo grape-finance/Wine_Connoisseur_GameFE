@@ -17,7 +17,7 @@ const StyledButton = ({ children, ...rest }: IProps) => {
         borderRadius: "1px",
         transition: "0.3s",
         textTransform: "none",
-        fontSize: "20px",
+        fontSize: "16px",
         fontWeight: "fontWeightBold",
         border: "3px solid #000",
         color: "primary.light",

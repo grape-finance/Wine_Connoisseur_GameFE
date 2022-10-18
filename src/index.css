@@ -52,3 +52,26 @@ a {
 .icon-3:hover {
   color: #d3cfc9;
 }
+
+.mint-element {
+  font-size: 12px;
+  width: 100%;
+  cursor: pointer;
+  line-height: 50px;
+  border-radius: 1px;
+  transition: "0.3s";
+  border: 3px solid #000;
+  box-shadow: 5px 5px 5px #000;
+  background: #018e39;
+  text-align: center;
+}
+
+.mint-active {
+  background: #006636;
+  border: 3px solid #fff !important;
+}
+
+.mint-element:hover {
+  border: 3px solid #000;
+  background: #006636;
+}

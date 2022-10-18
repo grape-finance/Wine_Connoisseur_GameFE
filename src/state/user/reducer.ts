@@ -9,6 +9,10 @@ import {
 export interface TokenState {
   isLoading: boolean;
   grapeTokenBalance: number;
+  grapeMIMTJTokenBalance: number;
+  grapeMIMSWTokenBalance: number;
+  xGrapeTokenBalance: number;
+  vintageMIMTokenBalance: number;
   vintageWineTokenBalance: number;
   USDCVintageWineLPBalance: number;
   vintnerBalance: number;
@@ -26,6 +30,10 @@ export interface TokenState {
 const initialState: TokenState = {
   isLoading: false,
   grapeTokenBalance: 0,
+  grapeMIMTJTokenBalance: 0,
+  grapeMIMSWTokenBalance: 0,
+  xGrapeTokenBalance: 0,
+  vintageMIMTokenBalance: 0,
   vintageWineTokenBalance: 0,
   USDCVintageWineLPBalance: 0,
   vintnerBalance: 0,
@@ -49,6 +57,10 @@ export default createReducer(initialState, (builder) =>
     .addCase(setUserTokenBalance, (state, action) => {
       const {
         grapeTokenBalance,
+        grapeMIMTJTokenBalance,
+        grapeMIMSWTokenBalance,
+        xGrapeTokenBalance,
+        vintageMIMTokenBalance,
         vintageWineTokenBalance,
         USDCVintageWineLPBalance,
         vintnerBalance,
@@ -57,6 +69,10 @@ export default createReducer(initialState, (builder) =>
         upgradeStakedBalance,
       } = action.payload;
       if (grapeTokenBalance) state.grapeTokenBalance = grapeTokenBalance;
+      if (grapeMIMTJTokenBalance) state.grapeMIMTJTokenBalance = grapeMIMTJTokenBalance;
+      if (grapeMIMSWTokenBalance) state.grapeMIMSWTokenBalance = grapeMIMSWTokenBalance;
+      if (xGrapeTokenBalance) state.xGrapeTokenBalance = xGrapeTokenBalance;
+      if (vintageMIMTokenBalance) state.vintageMIMTokenBalance = vintageMIMTokenBalance;
       if (vintageWineTokenBalance)
         state.vintageWineTokenBalance = vintageWineTokenBalance;
       if (USDCVintageWineLPBalance)

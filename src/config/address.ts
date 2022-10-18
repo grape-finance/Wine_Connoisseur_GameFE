@@ -12,6 +12,37 @@ export const GRAPE_ADDRESS: AddressMap = {
   [SupportedChainId.TESTNET]: "0xD1328c498A7B2Befe61e33B3f4687935CA1f4b4c",
 };
 
+export const GRAPE_MIMTJ_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0xb382247667fe8ca5327ca1fa4835ae77a9907bc8",
+  [SupportedChainId.TESTNET]: "0xb382247667fe8CA5327cA1Fa4835AE77A9907Bc8",
+};
+
+export const GRAPE_MIMSW_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x9076C15D7b2297723ecEAC17419D506AE320CbF1",
+  [SupportedChainId.TESTNET]: "0x9076C15D7b2297723ecEAC17419D506AE320CbF1",
+};
+
+export const XGRAPE_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x95CED7c63eA990588F3fd01cdDe25247D04b8D98",
+  [SupportedChainId.TESTNET]: "0x95CED7c63eA990588F3fd01cdDe25247D04b8D98",
+};
+
+export const RAISIN_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x966426edcbcc70d3eba12a29898ae0e8aeff70ed",
+  [SupportedChainId.TESTNET]: "0x966426edcbcc70d3eba12a29898ae0e8aeff70ed",
+};
+
+export const RAISIN_TOKEN_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x4df22aac6a83c44bf4efa592e170e1a4d1dcf2c2",
+  [SupportedChainId.TESTNET]: "0x4df22aac6a83c44bf4efa592e170e1a4d1dcf2c2",
+};
+
+
+export const VINTAGE_MIM_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x1A3b20040dD5C890f247a5fb6C078B9943FfaA40",
+  [SupportedChainId.TESTNET]: "0x1A3b20040dD5C890f247a5fb6C078B9943FfaA40",
+};
+
 export const VINTAGEWINE_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "0x01Af64EF39AEB5612202AA07B3A3829f20c395fd",
   [SupportedChainId.TESTNET]: "0x063c8BC02bF3e22C7C12d6583203DB5C7fe868f6",

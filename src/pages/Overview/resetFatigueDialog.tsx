@@ -60,14 +60,14 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 interface IProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
-  grapeCost: number;
+  raisinCost: number;
   resetFatigue: () => void;
 }
 
 export default function resetFatigueDialog({
   open,
   setOpen,
-  grapeCost,
+  raisinCost,
   resetFatigue,
 }: IProps) {
   const handleClose = () => {
@@ -97,7 +97,7 @@ export default function resetFatigueDialog({
         </BootstrapDialogTitle>
         <DialogContent>
           <Typography color="primary.light" variant="h5" component="p">
-            The cost to recharge your Vintners is {grapeCost} Grape. This will bring the fatigue down to 0%. 
+            The cost to recharge your Vintners is {raisinCost} Raisin. This will bring the fatigue down to 0%. 
           </Typography>
         </DialogContent>
         <DialogActions>

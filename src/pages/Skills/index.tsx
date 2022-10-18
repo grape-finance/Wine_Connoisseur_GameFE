@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import {
   useGrapeContract,
+  useRaisinTokenContract,
   useWineryProgressionContract,
 } from "hooks/useContract";
 import Loading from "components/Loading";
@@ -42,15 +43,16 @@ const Skills = () => {
   const { grapeBalance } = useTokenBalance();
   // Getcontract
   const wineryProgressionContract = useWineryProgressionContract();
-  const grapeContract = useGrapeContract();
-  const grapeToken = useMemo(() => {
-    if (provider && grapeContract) {
+  const raisinTokenContract = useRaisinTokenContract();
+
+  const raisinToken = useMemo(() => {
+    if (provider && raisinTokenContract) {
       const signer = provider.getSigner();
-      return new ERC20(grapeContract.address, signer, "Grape");
+      return new ERC20(raisinTokenContract.address, signer, "Raisin");
     }
-  }, [provider, grapeContract]);
+  }, [provider, raisinTokenContract]);
   const [approveStatus, approve] = useApprove(
-    grapeToken!,
+    raisinToken!,
     WINERYPROGRESSION_ADDRESS[chainId!]
   );
   let a = "0";
@@ -163,7 +165,7 @@ const Skills = () => {
     } else if (
       account &&
       chainId &&
-      grapeContract &&
+      raisinTokenContract &&
       wineryProgressionContract
     ) {
       try {
@@ -432,7 +434,7 @@ const Skills = () => {
               component="h6"
               variant="h6"
             >
-              {(grapeToNextLevel - grapeDepositInCurrentLevel).toFixed(2)} Grape
+              {(grapeToNextLevel - grapeDepositInCurrentLevel).toFixed(2)} Raisin
               to Next Level
             </Typography>
           </Stack>

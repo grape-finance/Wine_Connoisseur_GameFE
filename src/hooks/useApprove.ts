@@ -27,25 +27,24 @@ function useApprove(
   const dispatch = useAppDispatch();
   const pendingApproval = useHasPendingApproval(token?.address, spender);
   const currentAllowance = useAllowance(token, spender, pendingApproval);
-
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN;
-
     // amountToApprove will be defined if currentAllowance is
-    return currentAllowance.lt(APPROVE_BASE_AMOUNT)
+
+    const result = currentAllowance.lt(APPROVE_BASE_AMOUNT)
       ? pendingApproval
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED;
+    return result;
   }, [currentAllowance, pendingApproval]);
 
   const addTransaction = useTransactionAdder();
 
   const approve = useCallback(async (): Promise<void> => {
     dispatch(setLoading({ isLoading: true }));
-
     if (approvalState !== ApprovalState.NOT_APPROVED) {
       console.error("approve was called unnecessarily");
       return;

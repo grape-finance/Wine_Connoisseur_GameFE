@@ -11,6 +11,10 @@ export const setNFTInfo = createAction<{
 
 export const setUserTokenBalance = createAction<{
   grapeTokenBalance: number;
+  grapeMIMTJTokenBalance: number;
+  grapeMIMSWTokenBalance: number;
+  xGrapeTokenBalance: number;
+  vintageMIMTokenBalance: number;
   vintageWineTokenBalance: number;
   USDCVintageWineLPBalance: number;
   vintnerBalance: number;

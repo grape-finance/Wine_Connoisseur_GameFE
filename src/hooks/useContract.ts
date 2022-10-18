@@ -1,6 +1,12 @@
 import { Contract } from "@ethersproject/contracts";
 import {
   GRAPE_ADDRESS,
+  GRAPE_MIMTJ_ADDRESS,
+  GRAPE_MIMSW_ADDRESS,
+  XGRAPE_ADDRESS,
+  RAISIN_ADDRESS,
+  RAISIN_TOKEN_ADDRESS,
+  VINTAGE_MIM_ADDRESS,
   VINTAGEWINE_ADDRESS,
   CELLAR_ADDRESS,
   UPGRADE_ADDRESS,
@@ -16,6 +22,12 @@ import { useMemo } from "react";
 import { useWeb3 } from "state/web3";
 import { getContract } from "utils";
 import GRAPE_TOKEN_ABI from "abi/grape.json";
+import MINT_RAISIN_ABI from "abi/mintRaisin.json";
+import RAISIN_TOKEN_ABI from "abi/raisin.json";
+import GRAPE_MIMTJ_ABI from "abi/grapeMIMTJ.json";
+import GRAPE_MIMSW_ABI from "abi/grapeMIMSW.json";
+import XGRAPE_ABI from "abi/xGrape.json";
+import VINTAGE_MIM_ABI from "abi/vintageMIM.json";
 import VINTAGEWINE_TOKEN_ABI from "abi/vintageWine.json";
 import USDC_VINTAGEWINE_LP_ABI from "abi/USDCVintageWineLP.json";
 import CELLAR_ABI from "abi/cellar.json";
@@ -26,6 +38,7 @@ import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 import VINTAGEWINE_FOUNTAIN_ABI from "abi/vintageWineFountain.json";
 import MULTICALL_ABI from "abi/multicall.json";
 import MIM_ABI from "abi/mim.json";
+
 // import { getProvider } from "utils/provider";
 
 export function useContract(
@@ -72,6 +85,30 @@ export function useMulticall2Contract() {
 
 export function useGrapeContract() {
   return useContract(GRAPE_ADDRESS, GRAPE_TOKEN_ABI);
+}
+
+export function useGrapeMIMTJContract() {
+  return useContract(GRAPE_MIMTJ_ADDRESS, GRAPE_MIMTJ_ABI);
+}
+
+export function useGrapeMIMSWContract() {
+  return useContract(GRAPE_MIMSW_ADDRESS, GRAPE_MIMSW_ABI);
+}
+
+export function useXGrapeContract() {
+  return useContract(XGRAPE_ADDRESS, XGRAPE_ABI);
+}
+
+export function useRaisinContract() {
+  return useContract(RAISIN_ADDRESS, MINT_RAISIN_ABI);
+}
+
+export function useRaisinTokenContract() {
+  return useContract(RAISIN_TOKEN_ADDRESS, RAISIN_TOKEN_ABI);
+}
+
+export function useVintageMIMContract() {
+  return useContract(VINTAGE_MIM_ADDRESS, VINTAGE_MIM_ABI);
 }
 
 export function useVintageWineContract() {

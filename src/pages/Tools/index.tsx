@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
   useGrapeContract,
+  useRaisinTokenContract,
   useUpgradeContract,
   useVintnerContract,
   useWineryContract,
@@ -42,15 +43,15 @@ const Tools = () => {
   const vintnerContract = useVintnerContract();
   const upgradeContract = useUpgradeContract();
   const wineryContract = useWineryContract();
-  const grapeContract = useGrapeContract();
-  const grapeToken = useMemo(() => {
-    if (provider && grapeContract) {
+  const raisinTokenContract = useRaisinTokenContract();
+  const raisinToken = useMemo(() => {
+    if (provider && raisinTokenContract) {
       const signer = provider.getSigner();
-      return new ERC20(grapeContract.address, signer, "Grape");
+      return new ERC20(raisinTokenContract.address, signer, "Raisin");
     }
-  }, [provider, grapeContract]);
+  }, [provider, raisinTokenContract]);
   const [approveStatus, approve] = useApprove(
-    grapeToken!,
+    raisinToken!,
     UPGRADE_ADDRESS[chainId!]
   );
   // Approve upgrade contract
@@ -224,7 +225,7 @@ const Tools = () => {
   };
 
   const mintNFT = async () => {
-    if (account && chainId && grapeContract && upgradeContract) {
+    if (account && chainId && raisinTokenContract && upgradeContract) {
       if (+mintAmountInput <= 0) {
         setSnack({
           open: true,

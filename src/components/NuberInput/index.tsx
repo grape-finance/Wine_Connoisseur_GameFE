@@ -39,6 +39,7 @@ const NumberInput = ({ value, setValue, max }: IProps) => {
   return (
     <>
       <StyledTextField
+
         onChange={(e) => {
           if (+e.target.value > 0) setValue(e.target.value);
         }}
