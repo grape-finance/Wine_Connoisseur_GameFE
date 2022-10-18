@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -10,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import NumberInput from "components/NuberInput";
 import { ApprovalState } from "hooks/useApprove";
+import { useRaisinContract } from "hooks/useContract";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -96,6 +98,15 @@ export default function MintDialog({
     setOpen(false);
   };
 
+  const raisinContract = useRaisinContract();
+  const [convertedAmount, setConvertedAmount] = React.useState(0);
+  const [mintToken, setMintToken] = React.useState("");
+  const [amount, setAmount] = React.useState("");
+
+  React.useEffect(() => {
+    mintConversionRate();
+  }, [amount, mintToken]);
+
   const approve = () => {
     if (mintToken === "Grape-MIM TJ") {
       approveGrapeMIMTJ();
@@ -136,17 +147,26 @@ export default function MintDialog({
     return "Approve";
   };
 
-  const mintResult = () => {
-    if (mintToken === "Grape-MIM TJ") {
-      return Number(amount) * 10;
-    } else if (mintToken === "Grape-MIM SW") {
-      return Number(amount) * 10;
-    } else if (mintToken === "xGrape") {
-      return Number(amount) * 100;
-    } else if (mintToken === "Vintage-MIM") {
-      return Number(amount) * 10;
+  const mintConversionRate = async () => {
+    let level = -1;
+    if (mintToken && raisinContract) {
+      if (mintToken === "Grape-MIM TJ") {
+        level = 1;
+      } else if (mintToken === "Grape-MIM SW") {
+        level = 0;
+      } else if (mintToken === "xGrape") {
+        level = 2;
+      } else if (mintToken === "Vintage-MIM") {
+        level = 3;
+      }
+
+      const conversionRate = await raisinContract.conversion(
+        Number(amount),
+        level
+      );
+      setConvertedAmount(Number(conversionRate));
     }
-    return 0;
+    return -1;
   };
 
   const mintTokenTolevel = () => {
@@ -177,9 +197,6 @@ export default function MintDialog({
     }
     approve();
   };
-
-  const [mintToken, setMintToken] = React.useState("");
-  const [amount, setAmount] = React.useState("");
 
   return (
     <div>
@@ -272,10 +289,21 @@ export default function MintDialog({
               Vintage-MIM
             </div>
           </Stack>
-          <Typography mt={2} color="primary.light" align="center" variant="h6" component="p">
+          <Typography
+            mt={2}
+            color="primary.light"
+            align="center"
+            variant="h6"
+            component="p"
+          >
             Your {mintToken} Wallet Balance
           </Typography>
-          <Typography color="primary.light" align="center"  variant="h6" component="p">
+          <Typography
+            color="primary.light"
+            align="center"
+            variant="h6"
+            component="p"
+          >
             {getWalletBalance()}
           </Typography>
           <Stack direction={"row"} spacing={2} justifyContent="center" mt={3}>
@@ -317,8 +345,14 @@ export default function MintDialog({
               {getButtonTitle()}
             </Button>
           </Stack>
-          <Typography color="primary.light" align="center" variant="h6" component="p" mt={2}>
-            {/* You get {mintResult()} RAISIN */}
+          <Typography
+            color="primary.light"
+            align="center"
+            variant="h6"
+            component="p"
+            mt={2}
+          >
+            You get {convertedAmount} RAISIN
           </Typography>
         </DialogContent>
       </BootstrapDialog>
