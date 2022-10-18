@@ -318,7 +318,7 @@ export default function MintDialog({
             </Button>
           </Stack>
           <Typography color="primary.light" align="center" variant="h6" component="p" mt={2}>
-            You get {mintResult()} RAISIN
+            {/* You get {mintResult()} RAISIN */}
           </Typography>
         </DialogContent>
       </BootstrapDialog>
