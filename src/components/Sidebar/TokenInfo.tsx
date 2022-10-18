@@ -37,8 +37,8 @@ const TokenInfo = () => {
                 fontWeight: "fontWeightLight",
               }}
               color="primary.light"
-              variant="h5"
-              component="h5"
+              variant="h6"
+              component="h6"
             >
               Grape:
             </Typography>
@@ -47,8 +47,8 @@ const TokenInfo = () => {
                 fontWeight: "fontWeightBold",
               }}
               color="primary.light"
-              variant="h5"
-              component="h5"
+              variant="h6"
+              component="h6"
             >
               $ {grapePrice?.toFixed(2)}
             </Typography>
@@ -59,8 +59,8 @@ const TokenInfo = () => {
                 fontWeight: "fontWeightLight",
               }}
               color="primary.light"
-              variant="h5"
-              component="h5"
+              variant="h6"
+              component="h6"
             >
               Vintage:
             </Typography>
@@ -69,8 +69,8 @@ const TokenInfo = () => {
                 fontWeight: "fontWeightBold",
               }}
               color="primary.light"
-              variant="h5"
-              component="h5"
+              variant="h6"
+              component="h6"
             >
               $ {vintageWinePrice?.toFixed(3)}
             </Typography>

@@ -5,6 +5,7 @@ import {
   useGrapeContract,
   useGrapeMIMSWContract,
   useGrapeMIMTJContract,
+  useRaisinTokenContract,
   useUpgradeContract,
   useUSDCVintageWineLPContract,
   useVintageMIMContract,
@@ -26,6 +27,7 @@ export default function Updater(): null {
 
   const { account, chainId } = useWeb3();
   const grapeTokenContract = useGrapeContract();
+  const raisinTokenContract = useRaisinTokenContract()
   const vintageWineTokenContract = useVintageWineContract();
   const grapeMimTJContract = useGrapeMIMTJContract()
   const grapeMimSWContract = useGrapeMIMSWContract()
@@ -40,6 +42,7 @@ export default function Updater(): null {
     if (
       account &&
       grapeTokenContract &&
+      raisinTokenContract &&
       grapeMimTJContract && 
       grapeMimSWContract && 
       xGrapeContract && 
@@ -58,6 +61,7 @@ export default function Updater(): null {
         const getBalance = async () => {
           // get User Info
           const grapeTokenBalance = await grapeTokenContract.balanceOf(account);
+          const raisinTokenBalance = await raisinTokenContract.balanceOf(account);
           const vintageWineTokenBalance =
             await vintageWineTokenContract.balanceOf(account);
           const USDCVintageWineLPBalance =
@@ -75,10 +79,11 @@ export default function Updater(): null {
           const upgradeStakedBalance =
             await wineryContract.ownedUpgradeStakesBalance(account);
 
-          if (grapeTokenBalance !== "" && vintageWineTokenBalance !== "")
+          if (grapeTokenBalance !== "" && raisinTokenBalance !== "" && vintageWineTokenBalance !== "")
             dispatch(
               setUserTokenBalance({
                 grapeTokenBalance: +ethers.utils.formatEther(grapeTokenBalance),
+                raisinTokenBalance: +ethers.utils.formatEther(raisinTokenBalance),
                 grapeMIMTJTokenBalance: +ethers.utils.formatEther(grapeMIMTJBalance),
                 grapeMIMSWTokenBalance: +ethers.utils.formatEther(grapeMIMSWBalance),
                 xGrapeTokenBalance: +ethers.utils.formatEther(xGrapeBalance),
@@ -165,6 +170,7 @@ export default function Updater(): null {
     chainId,
     dispatch,
     grapeTokenContract,
+    raisinTokenContract,
     grapeMimTJContract, 
     grapeMimSWContract,
     xGrapeContract, 

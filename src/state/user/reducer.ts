@@ -9,6 +9,7 @@ import {
 export interface TokenState {
   isLoading: boolean;
   grapeTokenBalance: number;
+  raisinTokenBalance: number;
   grapeMIMTJTokenBalance: number;
   grapeMIMSWTokenBalance: number;
   xGrapeTokenBalance: number;
@@ -30,6 +31,7 @@ export interface TokenState {
 const initialState: TokenState = {
   isLoading: false,
   grapeTokenBalance: 0,
+  raisinTokenBalance: 0,
   grapeMIMTJTokenBalance: 0,
   grapeMIMSWTokenBalance: 0,
   xGrapeTokenBalance: 0,
@@ -57,6 +59,7 @@ export default createReducer(initialState, (builder) =>
     .addCase(setUserTokenBalance, (state, action) => {
       const {
         grapeTokenBalance,
+        raisinTokenBalance,
         grapeMIMTJTokenBalance,
         grapeMIMSWTokenBalance,
         xGrapeTokenBalance,
@@ -69,6 +72,7 @@ export default createReducer(initialState, (builder) =>
         upgradeStakedBalance,
       } = action.payload;
       if (grapeTokenBalance) state.grapeTokenBalance = grapeTokenBalance;
+      if (raisinTokenBalance) state.raisinTokenBalance = raisinTokenBalance;
       if (grapeMIMTJTokenBalance) state.grapeMIMTJTokenBalance = grapeMIMTJTokenBalance;
       if (grapeMIMSWTokenBalance) state.grapeMIMSWTokenBalance = grapeMIMSWTokenBalance;
       if (xGrapeTokenBalance) state.xGrapeTokenBalance = xGrapeTokenBalance;

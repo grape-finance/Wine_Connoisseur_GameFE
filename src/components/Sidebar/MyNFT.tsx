@@ -74,8 +74,8 @@ const MyNFT = () => {
                   textAlign: "center",
                 }}
                 color="primary.light"
-                variant="h5"
-                component="h5"
+                variant="h6"
+                component="h6"
               >
                 {data.name}: {data.value}
               </Typography>

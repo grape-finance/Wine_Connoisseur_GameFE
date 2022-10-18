@@ -11,7 +11,11 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 // import { useState } from "react";
 import ConnectWalletButton from "components/ConnectWalletButton";
 import headerIcon from "assets/logo.png";
-import { buyGrapeAddress, buyVintageWineAddress, buyVintnerNFTAddress } from "config/address";
+import {
+  buyGrapeAddress,
+  buyVintageWineAddress,
+  buyVintnerNFTAddress,
+} from "config/address";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
@@ -107,7 +111,7 @@ const Header = () => {
                     borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
-                    fontSize: "16px",
+                    fontSize: "12px",
                     fontWeight: "fontWeightBold",
                     border: "3px solid #000",
                     boxShadow: "5px 5px 5px #000",
@@ -122,7 +126,32 @@ const Header = () => {
                   color="primary"
                   variant="contained"
                   target="_blank"
-                  href={'https://brewmaster.on.fleek.co/'}
+                  href={"https://app.chainbet.gg/"}
+                >
+                  Vintage Casino
+                </Button>
+                <Button
+                  sx={{
+                    p: 1.3,
+                    borderRadius: "1px",
+                    transition: "0.3s",
+                    textTransform: "none",
+                    fontSize: "12px",
+                    fontWeight: "fontWeightBold",
+                    border: "3px solid #000",
+                    boxShadow: "5px 5px 5px #000",
+                    // color: "white",
+                    display: { xs: "none", md: "none", lg: "block" },
+                    "&:hover": {
+                      border: "3px solid",
+                      background: "#006636",
+                      borderColor: "#000",
+                    },
+                  }}
+                  color="primary"
+                  variant="contained"
+                  target="_blank"
+                  href={"https://brewmaster.on.fleek.co/"}
                 >
                   Brew Master
                 </Button>
@@ -132,7 +161,7 @@ const Header = () => {
                     borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
-                    fontSize: "16px",
+                    fontSize: "12px",
                     fontWeight: "fontWeightBold",
                     border: "3px solid #000",
                     boxShadow: "5px 5px 5px #000",
@@ -157,7 +186,7 @@ const Header = () => {
                     borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
-                    fontSize: "16px",
+                    fontSize: "12px",
                     fontWeight: "fontWeightBold",
                     border: "3px solid #000",
                     boxShadow: "5px 5px 5px #000",
@@ -183,7 +212,7 @@ const Header = () => {
                     borderRadius: "1px",
                     transition: "0.3s",
                     textTransform: "none",
-                    fontSize: "16px",
+                    fontSize: "12px",
                     fontWeight: "fontWeightBold",
                     border: "3px solid #000",
                     boxShadow: "5px 5px 5px #000",

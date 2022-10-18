@@ -10,6 +10,10 @@ export function useTokenBalance() {
     (state: AppState) => state.user.grapeTokenBalance
   );
 
+  const raisinBalance = useSelector(
+    (state: AppState) => state.user.raisinTokenBalance
+  )
+
   const grapeMIMTJBalance = useSelector(
     (state: AppState) => state.user.grapeMIMTJTokenBalance
   );
@@ -43,6 +47,7 @@ export function useTokenBalance() {
   );
   return {
     grapeBalance,
+    raisinBalance,
     grapeMIMTJBalance, 
     grapeMIMSWBalance, 
     xGrapeBalance, 
