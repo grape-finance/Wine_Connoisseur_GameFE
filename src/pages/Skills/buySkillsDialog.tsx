@@ -98,10 +98,10 @@ export default function BuySkillsDialog({
         </BootstrapDialogTitle>
         <DialogContent>
           <Typography color="primary.light" variant="h4" component="p">
-            You can level up using Grape. Leveling up gets you a Skill point to
-            use in your Skill tree. Depositing more Grape than enough for 1
+            You can level up using Raisin. Leveling up gets you a Skill point to
+            use in your Skill tree. Depositing more Raisin than enough for 1
             level goes towards your next level. <br />
-            Resetting your Skill tree doesn't refund the spent Grape, only Skill
+            Resetting your Skill tree doesn't refund the spent Raisin, only Skill
             points.
           </Typography>
         </DialogContent>

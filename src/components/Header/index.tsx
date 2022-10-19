@@ -155,7 +155,7 @@ const Header = () => {
                 >
                   Brew Master
                 </Button>
-                <Button
+                {/*<Button
                   sx={{
                     p: 1.3,
                     borderRadius: "1px",
@@ -179,7 +179,7 @@ const Header = () => {
                   href={buyGrapeAddress}
                 >
                   Buy GRAPE
-                </Button>
+                </Button>*/}
                 <Button
                   sx={{
                     p: 1.3,

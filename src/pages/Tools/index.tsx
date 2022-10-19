@@ -394,7 +394,7 @@ const Tools = () => {
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceGrape
                       )}{" "}
-                      Grape <br />
+                      Raisin <br />
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceVintageWine
                       )}{" "}
@@ -492,7 +492,7 @@ const Tools = () => {
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceGrape
                       )}{" "}
-                      Grape <br />
+                      Raisin <br />
                       {ethers.utils.formatEther(
                         toolNFTLists[tokenURI].priceVintageWine
                       )}{" "}
@@ -559,7 +559,7 @@ const Tools = () => {
                     <br />
                     <Typography variant="body1">
                       Cost: <br /> {ethers.utils.formatEther(item.priceGrape)}{" "}
-                      Grape <br />
+                      Raisin <br />
                       {ethers.utils.formatEther(item.priceVintageWine)} Vintage
                     </Typography>
                     <br />

@@ -375,7 +375,7 @@ const Skills = () => {
                 component="h6"
                 variant="h6"
               >
-                Total Deposited Grape: {grapeDeposited}
+                Total Deposited Raisin: {grapeDeposited}
               </Typography>
             </Grid>
           </Grid>
