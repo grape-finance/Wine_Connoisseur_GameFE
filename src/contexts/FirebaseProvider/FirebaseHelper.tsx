@@ -216,7 +216,7 @@ export class FirebaseHelper {
 
     tools.forEach((tool: any) => {
       const toolPPM = Number(tool.toolPPM);
-      if (toolPPM === 1) {
+      if (toolPPM === 2) {
         countMag++
       }
       else if (toolPPM === 3) {
