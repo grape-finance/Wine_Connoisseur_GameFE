@@ -366,8 +366,10 @@ const Tools = () => {
           }}
         >
           {userStakedList.map((item: any, index) => {
-            const tokenURI = (Number(item.toolPPM) + 1) / 2 - 1;
-
+            let tokenURI = (Number(item.toolPPM) + 1) / 2 - 1;
+            if(tokenURI === 0.5){
+              tokenURI = 0;
+            }
             return (
               <Tooltip
                 title={
@@ -415,9 +417,7 @@ const Tools = () => {
                 >
                   <>
                     <NFTItem
-                      image={`${TOOL_URI}/${
-                        (Number(item.toolPPM) + 1) / 2
-                      }.jpg`}
+                      image={`${TOOL_URI}/${tokenURI + 1}.jpg`}
                       selected={selectedNFTs.includes(item)}
                     />
                   </>
@@ -464,8 +464,10 @@ const Tools = () => {
           }}
         >
           {userUnstakedList.map((item: any, index: number) => {
-            const tokenURI = Number(item.contentURI.slice(51, 52)) - 1;
-
+            let tokenURI = Number(item.contentURI.slice(51, 52)) - 1;
+            if(tokenURI === 0.5){
+              tokenURI = 0;
+            }
             return (
               <Tooltip
                 title={
@@ -534,12 +536,7 @@ const Tools = () => {
         >
           {Object.keys(toolNFTLists).map((i: any, index: number) => {
             const item = toolNFTLists[i];
-            // supply: 0,
-            // maxSupply: 2500,
-            // priceVintageWine: 3000,
-            // priceGrape: 50,
-            // yield: 1,
-            // image: toolImg1,
+
             return (
               <Tooltip
                 title={
