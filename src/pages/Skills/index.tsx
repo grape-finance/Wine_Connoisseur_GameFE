@@ -40,7 +40,7 @@ const Skills = () => {
   const { account, provider, chainId } = useWeb3();
   const [isLoading, setLoading] = useState(false);
   // Get user info
-  const { grapeBalance } = useTokenBalance();
+  const { raisinBalance } = useTokenBalance();
   // Getcontract
   const wineryProgressionContract = useWineryProgressionContract();
   const raisinTokenContract = useRaisinTokenContract();
@@ -362,7 +362,7 @@ const Skills = () => {
                 component="h6"
                 variant="h6"
               >
-                Grape in Wallet: {trim(grapeBalance, 2)}
+                RAISIN in Wallet: {trim(raisinBalance, 2)}
               </Typography>
             </Grid>
             <Grid item>
@@ -449,7 +449,7 @@ const Skills = () => {
       <BuySkillsDialog
         open={openBuySkillsModal}
         setOpen={setOpenBuySkillsModal}
-        grapeBalance={trim(grapeBalance, 2)}
+        raisinBalance={trim(raisinBalance, 2)}
         depositGrape={depositGrape}
       />
 

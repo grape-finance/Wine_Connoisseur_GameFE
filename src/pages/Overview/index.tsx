@@ -485,10 +485,10 @@ const Overview = () => {
             : unixToDate(timeUntilFatigues)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Cost to Recharge with Grape
+          Cost to Recharge with RAISIN
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
-          {ppm * raisinResetCost} Grape
+          {ppm * raisinResetCost} RAISIN
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
           Earned Vintage

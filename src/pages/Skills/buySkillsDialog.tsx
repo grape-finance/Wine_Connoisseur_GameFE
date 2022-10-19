@@ -60,20 +60,20 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 interface IProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
-  grapeBalance: string;
+  raisinBalance: string;
   depositGrape: (arg: number) => void;
 }
 
 export default function BuySkillsDialog({
   open,
   setOpen,
-  grapeBalance,
+  raisinBalance,
   depositGrape,
 }: IProps) {
   const handleClose = () => {
     setOpen(false);
   };
-  const [grapeAmount, setGrapeAmount] = React.useState("");
+  const [raisinAmount, setRaisinAmount] = React.useState("");
 
   return (
     <div>
@@ -108,14 +108,14 @@ export default function BuySkillsDialog({
         <DialogContent>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
             <NumberInput
-              value={grapeAmount}
-              setValue={setGrapeAmount}
-              max={Number(grapeBalance)}
+              value={raisinAmount}
+              setValue={setRaisinAmount}
+              max={Number(raisinBalance)}
             />
 
             <Button
               onClick={() => {
-                depositGrape(+grapeAmount);
+                depositGrape(+raisinAmount);
                 setOpen(false);
               }}
               sx={{
