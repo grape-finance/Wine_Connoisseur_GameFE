@@ -98,7 +98,7 @@ export const NFT_URI =
 
 
 export const TOOL_URI = "https://vintner-tools.s3.us-west-1.amazonaws.com/tool";
-export const buyGrapeAddress = `https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/`;
+export const buyGrapeAddress = `https://www.swapsicle.io/swap?inputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2&outputCurrency=0x95CED7c63eA990588F3fd01cdDe25247D04b8D98#/`;
 export const buyVintageWineAddress = `https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/`;
 export const buyVintnerNFTAddress = "https://nftrade.com/assets/avalanche/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4";
 export const buyToolsNFTAddress =
