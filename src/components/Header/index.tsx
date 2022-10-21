@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     padding: 0,
     width: "100%",
+    maxHeight: "90px",
     top: 0,
     background: "transparent",
     boxShadow:
