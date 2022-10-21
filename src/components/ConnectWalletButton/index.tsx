@@ -74,7 +74,7 @@ const web3Modal = new Web3Modal({
       package: WalletConnectProvider,
       options: {
         rpc: {
-          43114: 'https://api.avax.network/ext/bc/C/rpc',
+          43114: "https://api.avax.network/ext/bc/C/rpc",
         },
         infuraId: INFURA_ID,
       },
@@ -274,28 +274,11 @@ export default function ConnectWalletButton() {
   }, [instance, web3Dispatch]);
 
   return (
-    <Button
-      sx={{
-        p: 1.3,
-        borderRadius: "1px",
-        transition: "0.3s",
-        textTransform: "none",
-        fontSize: "16px",
-        fontWeight: "fontWeightBold",
-        border: "3px solid #000",
-        color: "info.light",
-        boxShadow: "5px 5px 5px #000",
-        "&:hover": {
-          border: "3px solid #000",
-          background: "rgb(253 186 116)",
-          // color: "info.main",
-        },
-      }}
-      color="info"
-      variant="contained"
+    <button
+      className="wallet-button"
       onClick={instance ? disconnect : toggleWalletModal}
     >
       {instance ? "Disconnect" : "Connect wallet"}
-    </Button>
+    </button>
   );
 }

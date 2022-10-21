@@ -13,19 +13,19 @@ const StyledButton = ({ children, ...rest }: IProps) => {
     <Button
       sx={{
         minWidth: { xs: "100%", sm: "100%", md: "100%", lg: "200px" },
-        height: "50px",
-        borderRadius: "1px",
-        transition: "0.3s",
-        textTransform: "none",
-        fontSize: "16px",
-        fontWeight: "fontWeightBold",
-        border: "3px solid #000",
-        color: "primary.light",
-        boxShadow: "5px 5px 5px #000",
-
+        height: "50px  !important",
+        borderRadius: "1px  !important",
+        transition: "0.3s  !important",
+        textTransform: "none  !important",
+        fontSize: "16px  !important",
+        fontWeight: "fontWeightBold  !important",
+        border: "3px solid #000  !important",
+        color: "#ffedd5 !important",
+        boxShadow: "5px 5px 5px #000  !important",
+        backgroundColor: '#018e39 !important',
         "&:hover": {
-          border: "3px solid #000",
-          background: "#006636",
+          border: "3px solid #000  !important",
+          background: "#006636  !important",
         },
       }}
       variant="contained"

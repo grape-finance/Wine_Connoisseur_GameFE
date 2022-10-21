@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 const Application = () => {
   const classes = useStyles();
   const { tab } = useParams();
-  const matches = useMediaQuery('(min-width:600px)');
+  const matches = useMediaQuery("(min-width:600px)");
 
   const background = () => {
     switch (tab) {
