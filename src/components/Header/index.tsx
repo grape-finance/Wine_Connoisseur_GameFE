@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileLogo: {
     width: 205,
-    marginLeft: "30px",
   },
   appBar: {
     padding: 0,
