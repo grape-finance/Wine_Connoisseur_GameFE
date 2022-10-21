@@ -3,7 +3,6 @@ import logo from "assets/logo.png";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
-import "../../index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDiscord,
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     padding: 0,
     width: "100%",
-    maxHeight: "90px",
+    maxHeight: "80px",
     top: 0,
     background: "transparent",
     boxShadow:
