@@ -97,7 +97,8 @@ export default function resetFatigueDialog({
         </BootstrapDialogTitle>
         <DialogContent>
           <Typography color="primary.light" variant="h5" component="p">
-            The cost to recharge your Vintners is {raisinCost} Raisin. This will bring the fatigue down to 0%. 
+            The cost to recharge your Vintners is {raisinCost} Raisin. This will
+            bring the fatigue down to 0%.
           </Typography>
         </DialogContent>
         <DialogActions>
@@ -107,23 +108,7 @@ export default function resetFatigueDialog({
                 resetFatigue();
                 setOpen(false);
               }}
-              sx={{
-                width: "100%",
-                borderRadius: "1px",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "3px solid #000",
-                color: "primary.light",
-                boxShadow: "5px 5px 5px #000",
-
-                "&:hover": {
-                  border: "3px solid #000",
-                  background: "#006636",
-                },
-              }}
-              variant="contained"
+              className="menu-button"
             >
               Recharge Vintners
             </Button>

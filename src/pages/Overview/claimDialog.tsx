@@ -114,9 +114,10 @@ export default function claimDialog({
         <DialogContent>
           <Typography mt={2} color="primary.light" variant="h6" component="p">
             When claiming VINTAGE:
-            <br />{claimContribution - claimContributionModifier}% goes to
-            the Cellar
-            <br />{claimBurn - claimBurnModifier}% is burned.
+            <br />
+            {claimContribution - claimContributionModifier}% goes to the Cellar
+            <br />
+            {claimBurn - claimBurnModifier}% is burned.
           </Typography>
           <Typography mt={2} color="primary.light" variant="h6" component="p">
             Accumulated VINTAGE: {vintageToClaim.toFixed(2)}
@@ -137,27 +138,11 @@ export default function claimDialog({
         <DialogActions>
           <Stack direction={"row"} spacing={2} justifyContent="space-between">
             <Button
+              className="menu-button"
               onClick={() => {
                 claim();
                 setOpen(false);
               }}
-              sx={{
-                width: "100%",
-                borderRadius: "1px",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "3px solid #000",
-                color: "primary.light",
-                boxShadow: "5px 5px 5px #000",
-
-                "&:hover": {
-                  border: "3px solid #000",
-                  background: "#006636",
-                },
-              }}
-              variant="contained"
             >
               Claim
             </Button>
