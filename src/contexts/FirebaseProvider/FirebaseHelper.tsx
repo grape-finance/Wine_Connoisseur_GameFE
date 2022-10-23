@@ -40,7 +40,7 @@ export type LeaderboardUser = {
   stakedVintnersMasters: number;
   restingVintners: number;
   restingVintnersMasters: number;
-  tools: [number, number, number];
+  tools: [number, number, number, number];
   skills: Map<string, number>;
 };
 
@@ -118,7 +118,7 @@ export class FirebaseHelper {
         stakedVintnersMasters: 0,
         restingVintners: 0,
         restingVintnersMasters: 0,
-        tools: [0, 0, 0],
+        tools: [0, 0, 0, 0],
         skills: new Map<string, number>(),
       });
     });
@@ -213,6 +213,7 @@ export class FirebaseHelper {
     let countMag = 0
     let countShear = 0
     let countHydro = 0
+    let countCorker = 0
 
     tools.forEach((tool: any) => {
       const toolPPM = Number(tool.toolPPM);
@@ -224,11 +225,15 @@ export class FirebaseHelper {
       }
       else if (toolPPM === 5) {
         countHydro++
+      } 
+      else if (toolPPM === 6) {
+        countCorker++
       }    
     });
     user.tools[0] = countMag
     user.tools[1] = countShear
     user.tools[2] = countHydro
+    user.tools[3] = countCorker
   }
 
   async getSkills(user: any) {
