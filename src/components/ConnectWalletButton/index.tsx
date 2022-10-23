@@ -278,7 +278,7 @@ export default function ConnectWalletButton() {
       className="wallet-button"
       onClick={instance ? disconnect : toggleWalletModal}
     >
-      {instance ? "Disconnect" : "Connect wallet"}
+      {instance ? "Disconnect" : "Connect"}
     </button>
   );
 }

@@ -45,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
       listStyle: "none",
     },
   },
-  mobileLogo: {
-    width: 205,
-  },
   appBar: {
     padding: 0,
     width: "100%",
@@ -78,8 +75,6 @@ const useStyles = makeStyles((theme) => ({
 
   toolbar: {
     width: "100%",
-    paddingLeft: "30px",
-    paddingRight: "50px",
   },
 
   closeDrawerIcon: {
@@ -93,7 +88,7 @@ const Header = () => {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const matches = useMediaQuery("(min-width:1400px)");
+  const matches = useMediaQuery("(min-width:1300px)");
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -191,22 +186,33 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Grid container alignItems="center" spacing={1}>
+              <Grid
+                container
+                justifyContent={"space-between"}
+                alignItems="stretch"
+              >
                 <Grid item>
-                  <IconButton
-                    style={{ color: "#ffedd5" }}
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    edge="start"
-                    className={clsx(open)}
-                  >
-                    <MenuIcon />
-                  </IconButton>
+                  <Grid container alignItems={"center"} spacing={1}>
+                    <Grid item>
+                      <IconButton
+                        style={{ color: "#ffedd5" }}
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        edge="start"
+                        className={clsx(open)}
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <Link to="/">
+                        <img alt="logo" width={120} src={logo} />
+                      </Link>
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
-                  <Link to="/">
-                    <img alt="logo" className={classes.mobileLogo} src={logo} />
-                  </Link>
+                  <ConnectWalletButton />
                 </Grid>
               </Grid>
 
@@ -289,9 +295,7 @@ const Header = () => {
                       <button className="menu-button">Buy VINTNERS</button>
                     </a>
                   </Grid>
-                  <Grid item>
-                    <ConnectWalletButton />
-                  </Grid>
+
                   <Grid item>
                     <Grid container spacing={4} style={{ marginTop: "20px" }}>
                       <Grid item>

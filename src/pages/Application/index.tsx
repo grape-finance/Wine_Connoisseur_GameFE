@@ -142,11 +142,11 @@ const Application = () => {
             mx: { xs: "30px", md: "100px" },
           }}
         >
-          <Grid item container spacing={6} sx={{ mt: 4 }}>
-            <Grid item xs={12} md={12} lg={3} sx={{ mt: 5 }}>
+          <Grid item container spacing={6}>
+            <Grid item xs={12} md={12} lg={3} sx={{ mt: { xs: 5, md: 3 } }}>
               <Sidebar />
             </Grid>
-            <Grid item xs={12} md={12} lg={9} sx={{ mt: 5 }}>
+            <Grid item xs={12} md={12} lg={9} sx={{ mt: 8 }}>
               <Tabs tab={tab!} />
               {tab === "Overview" ? <Overview /> : null}
               {tab === "Winery" ? <Winery /> : null}
