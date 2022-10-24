@@ -28,6 +28,7 @@ import StyledButton from "components/StyledButton";
 import toolImg1 from "assets/image/tools/1.jpg";
 import toolImg2 from "assets/image/tools/2.jpg";
 import toolImg3 from "assets/image/tools/3.jpg";
+import toolImg4 from "assets/image/tools/4.jpg";
 import ERC20 from "abi/types/ERC20";
 import useApprove, { ApprovalState } from "hooks/useApprove";
 import { ILevel } from "interface/ILevel";
@@ -102,7 +103,17 @@ const Tools = () => {
       priceGrape: ethers.utils.parseUnits("40"),
       yield: BigNumber.from(5),
       image: toolImg3,
-    },
+    },/*
+    {
+      name: "Floor Corker",
+      description: "Cork your Vintage at lightspeed with the sturdy antique floor corker - Tier 4",
+      supply: BigNumber.from(0),
+      maxSupply: BigNumber.from(75),
+      priceVintageWine: ethers.utils.parseUnits("4200"),
+      priceGrape: ethers.utils.parseUnits("40"),
+      yield: BigNumber.from(6),
+      image: toolImg4,
+    },*/
   ];
 
   const [toolNFTLists, setToolNFTLists] = useState<ILevel[]>(_toolNFTLists);
@@ -369,6 +380,8 @@ const Tools = () => {
             let tokenURI = (Number(item.toolPPM) + 1) / 2 - 1;
             if(tokenURI === 0.5){
               tokenURI = 0;
+            }else if (tokenURI === 2.5){
+              tokenURI = 2;
             }
             return (
               <Tooltip
@@ -467,6 +480,8 @@ const Tools = () => {
             let tokenURI = Number(item.contentURI.slice(51, 52)) - 1;
             if(tokenURI === 0.5){
               tokenURI = 0;
+            }else if(tokenURI === 2.5){
+              tokenURI = 2;
             }
             return (
               <Tooltip
