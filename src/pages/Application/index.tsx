@@ -110,7 +110,7 @@ const Application = () => {
         style={{
           position: "fixed",
           width: "100%",
-          height: "100vh",
+          height: "100%",
           backgroundImage: `url(${background()})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
