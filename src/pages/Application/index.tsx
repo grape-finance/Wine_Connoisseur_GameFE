@@ -74,7 +74,7 @@ const Application = () => {
           style={{
             position: "fixed",
             width: "100%",
-            height: "100vh",
+            height: "100%",
           }}
         >
           <ReactPlayer
@@ -83,7 +83,7 @@ const Application = () => {
             loop
             muted
             width="100%"
-            height="100%"
+            height="100vh"
           />
         </div>
       )}
@@ -92,7 +92,7 @@ const Application = () => {
           style={{
             position: "fixed",
             width: "100%",
-            height: "100vh",
+            height: "100%",
           }}
         >
           <ReactPlayer
@@ -101,7 +101,7 @@ const Application = () => {
             loop
             muted
             width="100%"
-            height="100%"
+            height="100vh"
           />
         </div>
       )}
@@ -121,7 +121,7 @@ const Application = () => {
         style={{
           position: "fixed",
           width: "100%",
-          height: "100vh",
+          height: "0",
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         }}
       ></div>
