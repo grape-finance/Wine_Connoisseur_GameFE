@@ -85,7 +85,7 @@ export default function StakeDialog({
         PaperProps={{
           style: {
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -104,9 +104,12 @@ export default function StakeDialog({
           <Divider sx={{ height: "1px", background: "white", my: 1 }} />
           <Typography color="primary.light" variant="h5" component="p">
             Stake your Vintage to sVintage in the Cellar to earn 10% of all
-            produced Vintage. However, unstaking from the Cellar will take
-            2 days if you want the smallest penalty, immediate unstakes come at a great penalty.<br />
-            Claiming sVintage gives your initial Vintage back + earned Vintage - claiming fees. 
+            produced Vintage. However, unstaking from the Cellar will take 2
+            days if you want the smallest penalty, immediate unstakes come at a
+            great penalty.
+            <br />
+            Claiming sVintage gives your initial Vintage back + earned Vintage -
+            claiming fees.
           </Typography>
         </DialogContent>
         <DialogContent>
@@ -122,23 +125,7 @@ export default function StakeDialog({
                 stakeVintageWine(+vintageWineInput);
                 setOpen(false);
               }}
-              sx={{
-                width: { xs: "100%", md: "25%" },
-                borderRadius: "1px",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "3px solid #000",
-                color: "primary.light",
-                boxShadow: '5px 5px 5px #000',
-
-                "&:hover": {
-                  border: "3px solid #000",
-                  background: '#006636'
-                },
-              }}
-              variant="contained"
+              className="menu-button"
             >
               Stake
             </Button>

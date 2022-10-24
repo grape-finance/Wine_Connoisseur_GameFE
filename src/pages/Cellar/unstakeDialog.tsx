@@ -228,23 +228,7 @@ export default function UnstakeDialog({
             />
             <Button
               onClick={() => unstake()}
-              sx={{
-                width: { xs: "100%", md: "25%" },
-                borderRadius: "1px",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "3px solid #000",
-                color: "primary.light",
-                boxShadow: '5px 5px 5px #000',
-
-                "&:hover": {
-                  border: "3px solid #000",
-                  background: '#006636'
-                },
-              }}
-              variant="contained"
+              className="menu-button"
             >
               Unstake
             </Button>
