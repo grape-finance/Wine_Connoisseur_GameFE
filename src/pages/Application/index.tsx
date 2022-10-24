@@ -105,18 +105,23 @@ const Application = () => {
           />
         </div>
       )}
-
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "100%",
+          }}
+        >
       <div
         style={{
-          position: "fixed",
           width: "100%",
-          height: "100%",
+          height: "100vh",
           backgroundImage: `url(${background()})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       />
-
+    </div>
       <div
         style={{
           position: "fixed",
