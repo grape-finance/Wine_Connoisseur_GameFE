@@ -12,6 +12,7 @@ import Cellar from "pages/Cellar";
 import Leaderboard from "pages/Leaderboard";
 import ReactPlayer from "react-player";
 import heroVideo from "assets/home.mp4";
+import overview_bg from "assets/image/overview_bg.jpg";
 import winery_bg from "assets/image/winery_bg.png";
 import skills_bg from "assets/image/wine.png";
 import celler_bg from "assets/image/celler_bg.png";
@@ -43,11 +44,14 @@ const Application = () => {
   const matches = useMediaQuery("(min-width:600px)");
 
   const background = () => {
+    console.log("tab = " + tab);
     switch (tab) {
+      case "Overview":
+        return overview_bg;
       case "Winery":
         return winery_bg;
       case "Tools":
-        return tool_bg;
+        return overview_bg;
       case "Skills":
         return skills_bg;
       case "Cellar":
@@ -56,6 +60,8 @@ const Application = () => {
         return fountain_bg;
       case "Leaderboard":
         return winery_bg;
+      default:
+        return tool_bg;
     }
   };
 
@@ -68,8 +74,18 @@ const Application = () => {
       }}
       className={classes.root}
     >
+      <div
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url(${background()})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      />
       {/* Background  Start */}
-      {tab === "Overview" && (
+      {/* {tab === "Overview" && (
         <div
           style={{
             position: "fixed",
@@ -108,25 +124,17 @@ const Application = () => {
 
       {tab !== "Tools" && tab !== "Overview" && (
         <>
-          <div
-            style={{
-              position: "fixed",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundImage: `url(${background()})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-              }}
-            />
-          </div>
+          
         </>
-      )}
+      )} */}
+      <div
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+        }}
+      ></div>
       {/* Background End */}
       <Header />
       <div
