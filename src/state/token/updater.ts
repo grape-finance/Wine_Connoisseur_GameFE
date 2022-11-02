@@ -2,6 +2,7 @@ import axios from "axios";
 import { GRAPE_ADDRESS, USDC_VINTAGEWINE_LP_ADDRESS } from "config/address";
 import {
   useMIMContract,
+  usePriceOracleContract,
   useUSDCVintageWineLPContract,
   useVintageWineContract,
 } from "hooks/useContract";
@@ -16,6 +17,7 @@ export default function Updater(): null {
   const vintageWineContract = useVintageWineContract();
   const mimContract = useMIMContract();
   const lpContract = useUSDCVintageWineLPContract();
+  const priceOracleContract = usePriceOracleContract();
   // deep-index.moralis.io/api/v2/erc20/0x5541D83EFaD1f281571B343977648B75d95cdAC2/price?chain=avalanche
 
   useEffect(() => {
@@ -24,14 +26,16 @@ export default function Updater(): null {
       url: `https://api.coingecko.com/api/v3/simple/price?ids=grape-finance&vs_currencies=usd`,
     };
     const getPrice = async () => {
-      if (chainId && vintageWineContract && mimContract && lpContract) {
+      if (
+        chainId &&
+        vintageWineContract &&
+        mimContract &&
+        lpContract &&
+        priceOracleContract
+      ) {
         try {
-          let grapePrice;
           let lpPrice = 0;
-          const response = await axios(
-            `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=grape-finance`
-          );
-          grapePrice = response.data[0].current_price;
+          const grapePrice = await priceOracleContract.latestGrapePrice();
           const MIMBalance = await mimContract.balanceOf(
             USDC_VINTAGEWINE_LP_ADDRESS[chainId]
           );
@@ -39,12 +43,21 @@ export default function Updater(): null {
             USDC_VINTAGEWINE_LP_ADDRESS[chainId]
           );
           const lpSupply = await lpContract.totalSupply();
-          lpPrice = (MIMBalance * 2)/lpSupply
+          lpPrice = (MIMBalance * 2) / lpSupply;
+
+          const grapeMIMTJPrice = await priceOracleContract.grapeTjLPVal();
+          const grapeMIMSWPrice = await priceOracleContract.grapeSwLPVal();
+          const xGrapePrice = await priceOracleContract.xGrapePrice();
+          const mimPrice = await priceOracleContract.latestMimPriceFormatted();
           dispatch(
             setTokenPrice({
-              grapePrice,
+              grapePrice: Number(grapePrice) / 1e18,
               vintageWinePrice: +MIMBalance / +vinatageBalance,
-              lpPrice
+              lpPrice: lpPrice,
+              grapeMIMTJPrice: Number(grapeMIMTJPrice) / 1e18,
+              grapeMIMSWPrice: Number(grapeMIMSWPrice) / 1e18,
+              xGrapePrice: Number(xGrapePrice) / 1e18,
+              MIMPrice: Number(mimPrice) / 1e18,
             })
           );
         } catch (err) {
@@ -53,7 +66,13 @@ export default function Updater(): null {
       }
     };
     getPrice();
-  }, [dispatch, chainId, vintageWineContract, mimContract]);
+  }, [
+    dispatch,
+    chainId,
+    vintageWineContract,
+    mimContract,
+    priceOracleContract,
+  ]);
 
   return null;
 }

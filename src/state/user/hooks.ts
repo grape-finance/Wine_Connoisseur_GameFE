@@ -12,7 +12,7 @@ export function useTokenBalance() {
 
   const raisinBalance = useSelector(
     (state: AppState) => state.user.raisinTokenBalance
-  )
+  );
 
   const grapeMIMTJBalance = useSelector(
     (state: AppState) => state.user.grapeMIMTJTokenBalance
@@ -25,6 +25,9 @@ export function useTokenBalance() {
   );
   const vintageMIMBalance = useSelector(
     (state: AppState) => state.user.vintageMIMTokenBalance
+  );
+  const MIMTokenBalance = useSelector(
+    (state: AppState) => state.user.MIMTokenBalance
   );
 
   const vintageWineBalance = useSelector(
@@ -48,9 +51,9 @@ export function useTokenBalance() {
   return {
     grapeBalance,
     raisinBalance,
-    grapeMIMTJBalance, 
-    grapeMIMSWBalance, 
-    xGrapeBalance, 
+    grapeMIMTJBalance,
+    grapeMIMSWBalance,
+    xGrapeBalance,
     vintageMIMBalance,
     vintageWineBalance,
     USDCVintageWineLPBalance,
@@ -58,6 +61,7 @@ export function useTokenBalance() {
     upgradeBalance,
     vintnerStakedBalance,
     upgradeStakedBalance,
+    MIMTokenBalance,
   };
 }
 

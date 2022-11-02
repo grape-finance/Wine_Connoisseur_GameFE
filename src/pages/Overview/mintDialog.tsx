@@ -12,6 +12,7 @@ import { Stack } from "@mui/material";
 import NumberInput from "components/NuberInput";
 import { ApprovalState } from "hooks/useApprove";
 import { useRaisinContract } from "hooks/useContract";
+import { useTokenPrice } from "state/token/hooks";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -65,14 +66,17 @@ interface IProps {
   balanceGrapeMIMSW: number;
   balanceXGrape: number;
   balanceVintageMIM: number;
+  balanceMIM: number;
   approvedGrapeMIMTJ: number;
   approvedGrapeMIMSW: number;
   approvedXGrape: number;
   approvedVintageMIM: number;
+  approvedMIM: number;
   approveGrapeMIMTJ: () => void;
   approveGrapeMIMSW: () => void;
   approveXGrape: () => void;
   approveVintageMIM: () => void;
+  approveMIM: () => void;
   setOpen: (arg: boolean) => void;
   mint: (amount: number, mintToken: number) => void;
 }
@@ -83,14 +87,17 @@ export default function MintDialog({
   balanceGrapeMIMSW,
   balanceXGrape,
   balanceVintageMIM,
+  balanceMIM,
   approvedGrapeMIMTJ,
   approvedGrapeMIMSW,
   approvedXGrape,
   approvedVintageMIM,
+  approvedMIM,
   approveGrapeMIMTJ,
   approveGrapeMIMSW,
   approveXGrape,
   approveVintageMIM,
+  approveMIM,
   setOpen,
   mint,
 }: IProps) {
@@ -100,8 +107,12 @@ export default function MintDialog({
 
   const raisinContract = useRaisinContract();
   const [convertedAmount, setConvertedAmount] = React.useState(0);
+  const [raisinCost, setRaisinCost] = React.useState("");
   const [mintToken, setMintToken] = React.useState("");
   const [amount, setAmount] = React.useState("");
+
+  const { lpPrice, grapeMIMTJPrice, grapeMIMSWPrice, xGrapePrice, mimPrice } =
+    useTokenPrice();
 
   React.useEffect(() => {
     mintConversionRate();
@@ -116,6 +127,8 @@ export default function MintDialog({
       approveXGrape();
     } else if (mintToken === "Vintage-MIM") {
       approveVintageMIM();
+    } else if (mintToken === "MIM") {
+      approveMIM();
     }
   };
 
@@ -128,6 +141,8 @@ export default function MintDialog({
       return balanceXGrape;
     } else if (mintToken === "Vintage-MIM") {
       return balanceVintageMIM;
+    } else if (mintToken === "MIM") {
+      return balanceMIM;
     }
     return 0;
   };
@@ -140,7 +155,8 @@ export default function MintDialog({
         approvedGrapeMIMSW === ApprovalState.APPROVED) ||
       (mintToken === "xGrape" && approvedXGrape === ApprovalState.APPROVED) ||
       (mintToken === "Vintage-MIM" &&
-        approvedVintageMIM === ApprovalState.APPROVED)
+        approvedVintageMIM === ApprovalState.APPROVED) ||
+      (mintToken === "MIM" && approvedMIM === ApprovalState.APPROVED)
     ) {
       return "Mint";
     }
@@ -149,22 +165,39 @@ export default function MintDialog({
 
   const mintConversionRate = async () => {
     let level = -1;
+    let costOfMintToken = -1;
     if (mintToken && raisinContract) {
       if (mintToken === "Grape-MIM TJ") {
         level = 1;
+        costOfMintToken = grapeMIMTJPrice;
       } else if (mintToken === "Grape-MIM SW") {
         level = 0;
+        costOfMintToken = grapeMIMSWPrice;
       } else if (mintToken === "xGrape") {
         level = 2;
+        costOfMintToken = xGrapePrice;
       } else if (mintToken === "Vintage-MIM") {
         level = 3;
+        costOfMintToken = lpPrice;
+      } else if (mintToken === "MIM") {
+        level = 4;
+        costOfMintToken = mimPrice;
       }
 
       const conversionRate = await raisinContract.conversion(
         Number(amount),
         level
       );
+      const priceOfOneRaisinUsingMintToken = Number(
+        (await raisinContract.mintPrices(level)) / 1e18
+      );
+
+      console.log("Price of token = " + costOfMintToken);
+      console.log("Price of one raisin = " + priceOfOneRaisinUsingMintToken);
       setConvertedAmount(Number(conversionRate));
+      setRaisinCost(
+        (priceOfOneRaisinUsingMintToken * costOfMintToken).toFixed(4)
+      );
     }
     return -1;
   };
@@ -178,6 +211,8 @@ export default function MintDialog({
       return 2;
     } else if (mintToken === "Vintage-MIM") {
       return 3;
+    } else if (mintToken === "MIM") {
+      return 4;
     }
     return -1;
   };
@@ -190,7 +225,8 @@ export default function MintDialog({
         approvedGrapeMIMSW === ApprovalState.APPROVED) ||
       (mintToken === "xGrape" && approvedXGrape === ApprovalState.APPROVED) ||
       (mintToken === "Vintage-MIM" &&
-        approvedVintageMIM === ApprovalState.APPROVED)
+        approvedVintageMIM === ApprovalState.APPROVED) ||
+      (mintToken === "MIM" && approvedMIM === ApprovalState.APPROVED)
     ) {
       mint(Number(amount), mintTokenTolevel());
       return;
@@ -250,7 +286,7 @@ export default function MintDialog({
                   : "mint-element"
               }
             >
-              Grape-MIM TJ
+              <div>Grape-MIM TJ</div>
             </div>
             <div
               onClick={() => {
@@ -262,7 +298,7 @@ export default function MintDialog({
                   : "mint-element"
               }
             >
-              Grape-MIM SW
+              <div>Grape-MIM SW</div>
             </div>
             <div
               onClick={() => {
@@ -274,7 +310,7 @@ export default function MintDialog({
                   : "mint-element"
               }
             >
-              xGrape
+              <div>xGRAPE</div>
             </div>
             <div
               onClick={() => {
@@ -286,7 +322,19 @@ export default function MintDialog({
                   : "mint-element"
               }
             >
-              Vintage-MIM
+              <div>Vintage-MIM</div>
+            </div>
+            <div
+              onClick={() => {
+                setMintToken("MIM");
+              }}
+              className={
+                mintToken === "MIM"
+                  ? "mint-element mint-active"
+                  : "mint-element"
+              }
+            >
+              <div>MIM</div>
             </div>
           </Stack>
           <Typography
@@ -323,7 +371,7 @@ export default function MintDialog({
               }
               className="menu-button"
             >
-              {getButtonTitle()}
+              {getButtonTitle()}{" "}
             </Button>
           </Stack>
           <Typography
@@ -333,7 +381,8 @@ export default function MintDialog({
             component="p"
             mt={2}
           >
-            You get {convertedAmount} RAISIN
+            You get {convertedAmount} RAISIN. 1 RAISIN COSTS $
+            {raisinCost.length ? raisinCost : "0.00"}
           </Typography>
         </DialogContent>
       </BootstrapDialog>

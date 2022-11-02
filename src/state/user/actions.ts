@@ -13,6 +13,7 @@ export const setUserTokenBalance = createAction<{
   grapeTokenBalance: number;
   raisinTokenBalance: number;
   grapeMIMTJTokenBalance: number;
+  MIMTokenBalance: number;
   grapeMIMSWTokenBalance: number;
   xGrapeTokenBalance: number;
   vintageMIMTokenBalance: number;

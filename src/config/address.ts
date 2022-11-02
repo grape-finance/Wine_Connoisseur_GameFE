@@ -63,6 +63,11 @@ export const UPGRADE_ADDRESS: AddressMap = {
   [SupportedChainId.TESTNET]: "0xBC2C298C2F55f7a6CEFA448460ab3Ca3d38Ca4C4",
 };
 
+export const PRICE_ORACLE_ADDRESS: AddressMap = {
+  [SupportedChainId.MAINNET]: "0x2cb6ecF54397b309cB3C1DAe80b302B63706B959",
+  [SupportedChainId.TESTNET]: "0x2cb6ecF54397b309cB3C1DAe80b302B63706B959",
+};
+
 export const CELLAR_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: "0xf016e69F2c08a0b743a7d815d1059318DCa8Fc0e",
   [SupportedChainId.TESTNET]: "0x52339089664AA68d3a924c9E2a9b3aDa0E3eE3Fd",

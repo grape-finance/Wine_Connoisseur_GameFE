@@ -5,6 +5,7 @@ import {
   useGrapeContract,
   useGrapeMIMSWContract,
   useGrapeMIMTJContract,
+  useMIMContract,
   useRaisinTokenContract,
   useUpgradeContract,
   useUSDCVintageWineLPContract,
@@ -27,12 +28,13 @@ export default function Updater(): null {
 
   const { account, chainId } = useWeb3();
   const grapeTokenContract = useGrapeContract();
-  const raisinTokenContract = useRaisinTokenContract()
+  const mimTokenContract = useMIMContract();
+  const raisinTokenContract = useRaisinTokenContract();
   const vintageWineTokenContract = useVintageWineContract();
-  const grapeMimTJContract = useGrapeMIMTJContract()
-  const grapeMimSWContract = useGrapeMIMSWContract()
-  const xGrapeContract = useXGrapeContract()
-  const vintageMIMContract = useVintageMIMContract()
+  const grapeMimTJContract = useGrapeMIMTJContract();
+  const grapeMimSWContract = useGrapeMIMSWContract();
+  const xGrapeContract = useXGrapeContract();
+  const vintageMIMContract = useVintageMIMContract();
   const USDCVintageWineLPContract = useUSDCVintageWineLPContract();
   const vintnerContract = useVintnerContract();
   const upgradeContract = useUpgradeContract();
@@ -42,35 +44,38 @@ export default function Updater(): null {
     if (
       account &&
       grapeTokenContract &&
+      mimTokenContract &&
       raisinTokenContract &&
-      grapeMimTJContract && 
-      grapeMimSWContract && 
-      xGrapeContract && 
+      grapeMimTJContract &&
+      grapeMimSWContract &&
+      xGrapeContract &&
       vintageMIMContract &&
       vintageWineTokenContract &&
       USDCVintageWineLPContract &&
       vintnerContract &&
       upgradeContract &&
       wineryContract &&
-      (chainId === SupportedChainId.MAINNET 
-        // || chainId === SupportedChainId.TESTNET
-        )
+      chainId === SupportedChainId.MAINNET
+      // || chainId === SupportedChainId.TESTNET
     ) {
       try {
         // Get user token balance of Grape and VintageWine and USDC-VintageWine LP
         const getBalance = async () => {
           // get User Info
           const grapeTokenBalance = await grapeTokenContract.balanceOf(account);
-          const raisinTokenBalance = await raisinTokenContract.balanceOf(account);
+          const MIMTokenBalance = await mimTokenContract.balanceOf(account);
+          const raisinTokenBalance = await raisinTokenContract.balanceOf(
+            account
+          );
           const vintageWineTokenBalance =
             await vintageWineTokenContract.balanceOf(account);
           const USDCVintageWineLPBalance =
             await USDCVintageWineLPContract.balanceOf(account);
 
-          const grapeMIMTJBalance = await grapeMimTJContract.balanceOf(account)
-          const grapeMIMSWBalance = await grapeMimSWContract.balanceOf(account)
-          const xGrapeBalance = await xGrapeContract.balanceOf(account)
-          const vintageMIMBalance = await vintageMIMContract.balanceOf(account)
+          const grapeMIMTJBalance = await grapeMimTJContract.balanceOf(account);
+          const grapeMIMSWBalance = await grapeMimSWContract.balanceOf(account);
+          const xGrapeBalance = await xGrapeContract.balanceOf(account);
+          const vintageMIMBalance = await vintageMIMContract.balanceOf(account);
 
           const vintnerBalance = await vintnerContract.balanceOf(account);
           const upgradeBalance = await upgradeContract.balanceOf(account);
@@ -79,22 +84,30 @@ export default function Updater(): null {
           const upgradeStakedBalance =
             await wineryContract.ownedUpgradeStakesBalance(account);
 
-          if (grapeTokenBalance !== "" && raisinTokenBalance !== "" && vintageWineTokenBalance !== "")
+          if (
+            grapeTokenBalance !== "" &&
+            raisinTokenBalance !== "" &&
+            vintageWineTokenBalance !== ""
+          )
             dispatch(
               setUserTokenBalance({
                 grapeTokenBalance: +ethers.utils.formatEther(grapeTokenBalance),
-                raisinTokenBalance: +ethers.utils.formatEther(raisinTokenBalance),
-                grapeMIMTJTokenBalance: +ethers.utils.formatEther(grapeMIMTJBalance),
-                grapeMIMSWTokenBalance: +ethers.utils.formatEther(grapeMIMSWBalance),
+                raisinTokenBalance:
+                  +ethers.utils.formatEther(raisinTokenBalance),
+                grapeMIMTJTokenBalance:
+                  +ethers.utils.formatEther(grapeMIMTJBalance),
+                grapeMIMSWTokenBalance:
+                  +ethers.utils.formatEther(grapeMIMSWBalance),
                 xGrapeTokenBalance: +ethers.utils.formatEther(xGrapeBalance),
-                vintageMIMTokenBalance: +ethers.utils.formatEther(vintageMIMBalance),
+                vintageMIMTokenBalance:
+                  +ethers.utils.formatEther(vintageMIMBalance),
                 vintageWineTokenBalance: +ethers.utils.formatEther(
                   vintageWineTokenBalance
                 ),
                 USDCVintageWineLPBalance: +ethers.utils.formatEther(
                   USDCVintageWineLPBalance
                 ),
-
+                MIMTokenBalance: +ethers.utils.formatEther(MIMTokenBalance),
                 vintnerBalance: +vintnerBalance,
                 upgradeBalance: +upgradeBalance,
                 vintnerStakedBalance: +vintnerStakedBalance,
@@ -170,10 +183,11 @@ export default function Updater(): null {
     chainId,
     dispatch,
     grapeTokenContract,
+    mimTokenContract,
     raisinTokenContract,
-    grapeMimTJContract, 
+    grapeMimTJContract,
     grapeMimSWContract,
-    xGrapeContract, 
+    xGrapeContract,
     vintageMIMContract,
     vintageWineTokenContract,
     USDCVintageWineLPContract,

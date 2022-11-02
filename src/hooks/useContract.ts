@@ -16,6 +16,7 @@ import {
   MULTICALL_ADDRESS,
   VINTAGEWINE_FOUNTAIN_ADDRESS,
   USDC_VINTAGEWINE_LP_ADDRESS,
+  PRICE_ORACLE_ADDRESS,
   MIM_ADDRESS,
 } from "config/address";
 import { useMemo } from "react";
@@ -38,6 +39,7 @@ import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
 import VINTAGEWINE_FOUNTAIN_ABI from "abi/vintageWineFountain.json";
 import MULTICALL_ABI from "abi/multicall.json";
 import MIM_ABI from "abi/mim.json";
+import PRICE_ORACLE_ABI from "abi/priceOracle.json";
 
 // import { getProvider } from "utils/provider";
 
@@ -117,6 +119,10 @@ export function useVintageWineContract() {
 
 export function useUSDCVintageWineLPContract() {
   return useContract(USDC_VINTAGEWINE_LP_ADDRESS, USDC_VINTAGEWINE_LP_ABI);
+}
+
+export function usePriceOracleContract() {
+  return useContract(PRICE_ORACLE_ADDRESS, PRICE_ORACLE_ABI);
 }
 
 export function useCellarContract() {

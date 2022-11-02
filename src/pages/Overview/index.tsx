@@ -9,7 +9,8 @@ import {
   useWineryContract,
   useXGrapeContract,
   useRaisinContract,
-  useRaisinTokenContract
+  useRaisinTokenContract,
+  useMIMContract,
 } from "hooks/useContract";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -46,11 +47,12 @@ const Overview = () => {
   // Get Contract
   const grapeContract = useGrapeContract();
   const raisinContract = useRaisinContract();
-  const raisinTokenContract = useRaisinTokenContract()
+  const raisinTokenContract = useRaisinTokenContract();
   const grapeMIMTJContract = useGrapeMIMTJContract();
   const grapeMIMSWContract = useGrapeMIMSWContract();
   const xGrapeContract = useXGrapeContract();
   const vintageMIMContract = useVintageMIMContract();
+  const MIMContract = useMIMContract();
   const wineryContract = useWineryContract();
   const firebase = useFirebase();
 
@@ -110,6 +112,17 @@ const Overview = () => {
     RAISIN_ADDRESS[chainId!]
   );
 
+  const MIMToken = useMemo(() => {
+    if (provider && MIMContract) {
+      const signer = provider.getSigner();
+      return new ERC20(MIMContract.address, signer, "SiclePair");
+    }
+  }, [provider, MIMContract]);
+  const [MIMApproveStatus, MIMApprove] = useApprove(
+    MIMToken!,
+    RAISIN_ADDRESS[chainId!]
+  );
+
   const { fatigueAccrued, timeUntilFatigues, vintageWineAccrued } =
     useNFTState();
 
@@ -136,6 +149,7 @@ const Overview = () => {
     grapeMIMSWBalance,
     xGrapeBalance,
     vintageMIMBalance,
+    MIMTokenBalance,
   } = useTokenBalance();
 
   // Get staked NFT
@@ -523,14 +537,17 @@ const Overview = () => {
         balanceGrapeMIMSW={grapeMIMSWBalance}
         balanceXGrape={xGrapeBalance}
         balanceVintageMIM={vintageMIMBalance}
+        balanceMIM={MIMTokenBalance}
         approvedGrapeMIMTJ={grapeMIMTJApproveStatus}
         approvedGrapeMIMSW={grapeMIMSWApproveStatus}
         approvedXGrape={xGrapeApproveStatus}
         approvedVintageMIM={vintageMIMApproveStatus}
+        approvedMIM={MIMApproveStatus}
         approveGrapeMIMTJ={grapeMIMTJApprove}
         approveGrapeMIMSW={grapeMIMSWApprove}
         approveXGrape={xGrapeApprove}
         approveVintageMIM={vintageMIMApprove}
+        approveMIM={MIMApprove}
         setOpen={setOpenMintDialog}
         mint={mintRaisin}
       />
