@@ -103,17 +103,17 @@ const Tools = () => {
       priceGrape: ethers.utils.parseUnits("40"),
       yield: BigNumber.from(5),
       image: toolImg3,
-    },/*
+    },
     {
       name: "Floor Corker",
       description: "Cork your Vintage at lightspeed with the sturdy antique floor corker - Tier 4",
       supply: BigNumber.from(0),
       maxSupply: BigNumber.from(75),
-      priceVintageWine: ethers.utils.parseUnits("4200"),
-      priceGrape: ethers.utils.parseUnits("40"),
+      priceVintageWine: ethers.utils.parseUnits("5500"),
+      priceGrape: ethers.utils.parseUnits("50"),
       yield: BigNumber.from(6),
       image: toolImg4,
-    },*/
+    },
   ];
 
   const [toolNFTLists, setToolNFTLists] = useState<ILevel[]>(_toolNFTLists);
@@ -123,7 +123,7 @@ const Tools = () => {
       const getLevelInfo = async () => {
         // const currentLevelindex = await upgradeContract.currentLevelIndex();
         let _toolNFTLists: ILevel[] = toolNFTLists;
-        for (let i = 0; i <= 2; i++) {
+        for (let i = 0; i <= 3; i++) {
           const level: ILevel = await upgradeContract.levels(i);
 
           _toolNFTLists[i].supply = level.supply;
@@ -381,7 +381,7 @@ const Tools = () => {
             if(tokenURI === 0.5){
               tokenURI = 0;
             }else if (tokenURI === 2.5){
-              tokenURI = 2;
+              tokenURI = 3;
             }
             return (
               <Tooltip
@@ -481,7 +481,7 @@ const Tools = () => {
             if(tokenURI === 0.5){
               tokenURI = 0;
             }else if(tokenURI === 2.5){
-              tokenURI = 2;
+              tokenURI = 3;
             }
             return (
               <Tooltip
