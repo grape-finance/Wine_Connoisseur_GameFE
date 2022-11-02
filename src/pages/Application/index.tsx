@@ -105,31 +105,36 @@ const Application = () => {
           />
         </div>
       )}
-      <div
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url(${background()})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        />
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "0",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-        }}
-      ></div>
+
+      {tab !== "Tools" && tab !== "Overview" && (
+        <>
+          <div
+            style={{
+              position: "fixed",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundImage: `url(${background()})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              position: "fixed",
+              width: "100%",
+              height: "0",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+            }}
+          ></div>
+        </>
+      )}
       {/* Background End */}
       <Header />
       <div

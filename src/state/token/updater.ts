@@ -35,7 +35,7 @@ export default function Updater(): null {
       ) {
         try {
           let lpPrice = 0;
-          const grapePrice = await priceOracleContract.latestGrapePrice();
+          const grapePrice = await priceOracleContract.latestGrapePriceFormatted();
           const MIMBalance = await mimContract.balanceOf(
             USDC_VINTAGEWINE_LP_ADDRESS[chainId]
           );
