@@ -125,14 +125,6 @@ const Application = () => {
               }}
             />
           </div>
-          <div
-            style={{
-              position: "fixed",
-              width: "100%",
-              height: "0",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-          ></div>
         </>
       )}
       {/* Background End */}
