@@ -66,14 +66,7 @@ const Application = () => {
   };
 
   return (
-    <section
-      style={{
-        width: "100%",
-        position: "relative",
-        objectFit: "cover",
-      }}
-      className={classes.root}
-    >
+    <div>
       <div
         style={{
           position: "fixed",
@@ -84,49 +77,7 @@ const Application = () => {
           backgroundSize: "cover",
         }}
       />
-      {/* Background  Start */}
-      {/* {tab === "Overview" && (
-        <div
-          style={{
-            position: "fixed",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <ReactPlayer
-            url={heroVideo}
-            playing={matches}
-            loop
-            muted
-            width="100%"
-            height="100%"
-          />
-        </div>
-      )}
-      {tab === "Tools" && (
-        <div
-          style={{
-            position: "fixed",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <ReactPlayer
-            url={tool_bg}
-            playing={matches}
-            loop
-            muted
-            width="100%"
-            height="100%"
-          />
-        </div>
-      )}
 
-      {tab !== "Tools" && tab !== "Overview" && (
-        <>
-          
-        </>
-      )} */}
       <div
         style={{
           position: "fixed",
@@ -135,6 +86,7 @@ const Application = () => {
           backgroundColor: "rgba(0, 0, 0, 0.3)",
         }}
       ></div>
+
       {/* Background End */}
       <Header />
       <div
@@ -169,7 +121,7 @@ const Application = () => {
           </Grid>
         </Box>
       </div>
-    </section>
+    </div>
   );
 };
 
