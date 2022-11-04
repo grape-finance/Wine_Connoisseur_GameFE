@@ -132,7 +132,7 @@ export default function claimDialog({
           </Typography>
 
           <Typography mt={5} color="primary.light" component="p">
-            Claiming also refreshes your fatigue % and VPM
+            Claiming also updates your fatigue % and VPM to current values
           </Typography>
         </DialogContent>
         <DialogActions>
