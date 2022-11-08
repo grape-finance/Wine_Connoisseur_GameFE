@@ -289,9 +289,19 @@ const Leaderboard = () => {
         setLoading(false);
       }
     };
-
     fetchAllUsers().catch(console.error);
-  }, [firebase, maxCount]);
+  }, [firebase]);
+
+  const reloadUsers = async () => {
+    if (firebase) {
+      setLoading(true);
+      const users = await firebase.getAllUsers(maxCount);
+      setUsers(users);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  };
 
   return (
     <Container
@@ -300,9 +310,12 @@ const Leaderboard = () => {
     >
       <Slider
         aria-label="Top"
+        onChange={handleChange}
+        onChangeCommitted={() => {
+          reloadUsers();
+        }}
         defaultValue={10}
         valueLabelDisplay="on"
-        onChange={handleChange}
         step={10}
         marks
         min={10}
