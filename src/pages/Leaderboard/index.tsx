@@ -306,7 +306,7 @@ const Leaderboard = () => {
         step={10}
         marks
         min={10}
-        max={50}
+        max={100}
       />
       <TableContainer component={Paper}>
         <Table stickyHeader aria-label="collapsible table">
