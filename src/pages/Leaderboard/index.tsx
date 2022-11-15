@@ -51,7 +51,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
         <TableCell component="th" scope="row">
           <Typography
             component="p"
-            style={{ color: account?.toUpperCase() === row.id ? "green" : "black" }}
+            style={{ color: account === row.id ? "green" : "black" }}
           >
             {index}
           </Typography>
@@ -59,7 +59,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
         <TableCell component="th" scope="row">
           <Typography
             component="p"
-            style={{ color: account?.toUpperCase() === row.id ? "green" : "black" }}
+            style={{ color: account === row.id ? "green" : "black" }}
           >
             {row.id.substring(0, 4) +
               "..." +
@@ -70,7 +70,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
         <TableCell align="right">
           <Typography
             component="p"
-            style={{ color: account?.toUpperCase() === row.id ? "green" : "black" }}
+            style={{ color: account === row.id ? "green" : "black" }}
           >
             {row.level}
           </Typography>
@@ -78,7 +78,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
         <TableCell align="right">
           <Typography
             component="p"
-            style={{ color: account?.toUpperCase() === row.id ? "green" : "black" }}
+            style={{ color: account === row.id ? "green" : "black" }}
           >
             {row.fatiguePerDay?.toFixed(2)}%
           </Typography>
@@ -86,7 +86,7 @@ function Row(props: { row: LeaderboardUser; index: number }) {
         <TableCell align="right">
           <Typography
             component="p"
-            style={{ color: account?.toUpperCase() === row.id ? "green" : "black" }}
+            style={{ color: account === row.id ? "green" : "black" }}
           >
             {row.maxVpm?.toFixed(2)}
           </Typography>

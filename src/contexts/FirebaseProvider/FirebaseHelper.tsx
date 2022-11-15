@@ -146,7 +146,7 @@ export class FirebaseHelper {
   }
 
   async setMaxVPM(value: string | number, account: string) {
-    const userRef = doc(this.db, "users", account.toUpperCase());
+    const userRef = doc(this.db, "users", account);
     const user = await getDoc(userRef);
     if (
       !user.exists() ||
@@ -210,30 +210,27 @@ export class FirebaseHelper {
 
   async getTools(user: any) {
     const tools = await this.fetchTools(user.id);
-    let countMag = 0
-    let countShear = 0
-    let countHydro = 0
-    let countCorker = 0
+    let countMag = 0;
+    let countShear = 0;
+    let countHydro = 0;
+    let countCorker = 0;
 
     tools.forEach((tool: any) => {
       const toolPPM = Number(tool.toolPPM);
       if (toolPPM === 2) {
-        countMag++
+        countMag++;
+      } else if (toolPPM === 3) {
+        countShear++;
+      } else if (toolPPM === 5) {
+        countHydro++;
+      } else if (toolPPM === 6) {
+        countCorker++;
       }
-      else if (toolPPM === 3) {
-        countShear++
-      }
-      else if (toolPPM === 5) {
-        countHydro++
-      } 
-      else if (toolPPM === 6) {
-        countCorker++
-      }    
     });
-    user.tools[0] = countMag
-    user.tools[1] = countShear
-    user.tools[2] = countHydro
-    user.tools[3] = countCorker
+    user.tools[0] = countMag;
+    user.tools[1] = countShear;
+    user.tools[2] = countHydro;
+    user.tools[3] = countCorker;
   }
 
   async getSkills(user: any) {
