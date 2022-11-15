@@ -146,7 +146,7 @@ export class FirebaseHelper {
   }
 
   async setMaxVPM(value: string | number, account: string) {
-    const userRef = doc(this.db, "users", account);
+    const userRef = doc(this.db, "users", account.toUpperCase());
     const user = await getDoc(userRef);
     if (
       !user.exists() ||
