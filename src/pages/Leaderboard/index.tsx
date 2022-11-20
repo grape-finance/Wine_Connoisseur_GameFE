@@ -182,6 +182,14 @@ function Row(props: { row: LeaderboardUser; index: number }) {
                     <Typography component="p">{row.tools[2]}</Typography>
                   </TableCell>
                 </TableRow>
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    <Typography component="p">Floor Corker</Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography component="p">{row.tools[3]}</Typography>
+                  </TableCell>
+                </TableRow>
               </Table>
             </Box>
             <Box sx={{ margin: 1, marginTop: 3 }}>
