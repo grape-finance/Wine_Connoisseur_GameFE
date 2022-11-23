@@ -82,7 +82,7 @@ export default function SkillDialog({
         PaperProps={{
           style: {
             background:
-            "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
+              "linear-gradient(to bottom,rgb(00 00 00/0.8),rgb(00 00 00/0.8),rgb(00 00 00/0.8))",
           },
         }}
       >
@@ -106,23 +106,7 @@ export default function SkillDialog({
                 upgradeSkillPoint();
                 setOpen(false);
               }}
-              sx={{
-                width: "100%",
-                borderRadius: "1px",
-                transition: "0.3s",
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: "fontWeightBold",
-                border: "3px solid #000",
-                color: "primary.light",
-                boxShadow: '5px 5px 5px #000',
-
-                "&:hover": {
-                  border: "3px solid #000",
-                  background: '#006636',
-                },
-              }}
-              variant="contained"
+              className="menu-button"
             >
               Upgrade
             </Button>
