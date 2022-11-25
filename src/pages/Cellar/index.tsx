@@ -291,7 +291,7 @@ const Cellar = () => {
           {(Number(vintageBalance) / Number(totalSupply)).toFixed(2)}
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p" style={{paddingTop:'40px'}}>
-          <a href="https://grapefinance.app/vineyard/vintageStaking" rel="noopener noreferrer" target='_blank'>Stake your sVintage in the Vineyard to earn WINE</a>
+          <a href="https://grapefinance.app/dashboard#farms" rel="noopener noreferrer" target='_blank'>Stake your sVintage in the Vineyard to earn WINE</a>
         </Typography>
       </Stack>
       <Loading isLoading={isLoading} />
