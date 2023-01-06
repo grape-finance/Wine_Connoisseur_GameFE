@@ -50,7 +50,7 @@ const TokenInfo = () => {
               variant="h6"
               component="h6"
             >
-              $ {grapePrice?.toFixed(2)}
+              $ {grapePrice?.toFixed(3)}
             </Typography>
           </Box>
           <Box sx={{ display: "flex", gap: 2 }}>
@@ -72,7 +72,7 @@ const TokenInfo = () => {
               variant="h6"
               component="h6"
             >
-              $ {vintageWinePrice?.toFixed(3)}
+              $ {vintageWinePrice?.toFixed(6)}
             </Typography>
           </Box>
         </Stack>
