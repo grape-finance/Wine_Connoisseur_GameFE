@@ -99,7 +99,7 @@ export default function LPStakeDialog({ open, setOpen, stakeLP }: IProps) {
           </Typography>
           <Divider sx={{ height: "1px", background: "white", my: 1 }} />
           <Typography color="primary.light" variant="h5" component="p">
-            Stake your LP tokens to earn Vintage emissions daily.
+            Stake your LP tokens to earn Raisin emissions daily.
           </Typography>
         </DialogContent>
         <DialogContent>

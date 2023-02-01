@@ -84,7 +84,7 @@ export const WINERY_ADDRESS: AddressMap = {
 };
 
 export const VINTAGEWINE_FOUNTAIN_ADDRESS: AddressMap = {
-  [SupportedChainId.MAINNET]: "0x329F8a3044E17d5691B64c6BD1b4dEd45775BB92",
+  [SupportedChainId.MAINNET]: "0x16b01aA80721ADF6209250d7F3b4575A65177Bda",
   [SupportedChainId.TESTNET]: "0x004FeC4da28E9137c9779C948A047C0c4fff92Ca",
 };
 

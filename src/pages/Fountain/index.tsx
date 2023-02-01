@@ -57,9 +57,9 @@ const Fountain = () => {
           const _userInfo: IUserInfoLP = await fountainContract.userInfo(
             account
           );
+          
           const stakedBalance = +ethers.utils.formatEther(_userInfo.amount);
-
-          setLPStakedBalance(stakedBalance);
+          setLPStakedBalance(stakedBalance-0.000000001);
           const _pendingReward = await fountainContract.pendingRewards(account);
           setPendingReward(+ethers.utils.formatEther(_pendingReward));
           const _getRewardPerSecond =
@@ -73,12 +73,12 @@ const Fountain = () => {
           const _tokenReward = BigNumber.from(3600 * 24).mul(
             _getRewardPerSecond
           );
-
-          const _rewardDayDollars = Number(_tokenReward) * vintageWinePrice;
+            
+          const _rewardDayDollars = Number(_tokenReward) * 0.035;
           const _TVL = lpPrice * Number(_LPSupply);
 
           setapr((_rewardDayDollars / _TVL) * 100 * 365);
-
+          console.log(apr)
           const _accRewardToken = _accRewardTokenPerShare.add(
             _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
           );
@@ -241,7 +241,7 @@ const Fountain = () => {
           {trim(LPStakedBalance, 2)}
         </Typography>
         <Typography color="primary.light" variant="body2" component="p">
-          Vintage Earned:
+          Raisin Earned:
         </Typography>
         <Typography color="rgb(251 146 60)" variant="body2" component="p">
           {trim(pendingReward, 2)}
