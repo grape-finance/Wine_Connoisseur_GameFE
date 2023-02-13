@@ -57,11 +57,11 @@ const Fountain = () => {
           const _userInfo: IUserInfoLP = await fountainContract.userInfo(
             account
           );
-          
           const stakedBalance = +ethers.utils.formatEther(_userInfo.amount);
           setLPStakedBalance(stakedBalance-0.000000001);
           const _pendingReward = await fountainContract.pendingRewards(account);
           setPendingReward(+ethers.utils.formatEther(_pendingReward));
+
           const _getRewardPerSecond =
             await fountainContract.getRewardPerSecond();
           const _accRewardTokenPerShare =
@@ -79,14 +79,17 @@ const Fountain = () => {
 
           setapr((_rewardDayDollars / _TVL) * 100 * 365);
           console.log(apr)
+
           const _accRewardToken = _accRewardTokenPerShare.add(
             _tokenReward.mul(BigNumber.from(10).pow(12)).div(_LPSupply)
           );
+          console.log('pending = ' + pendingReward)
+          console.log('_userInfo.rewardDebt = ' + _userInfo.rewardDebt)
           const _rewardPerDay = _userInfo.amount
             .mul(_accRewardToken)
             .div(BigNumber.from(10).pow(12))
             .sub(_userInfo.rewardDebt);
-          setRewardPerDay(+ethers.utils.formatEther(_rewardPerDay));
+          setRewardPerDay(+ethers.utils.formatEther(_rewardPerDay) - pendingReward);
         };
         getUserInfo();
       } catch (err) {
