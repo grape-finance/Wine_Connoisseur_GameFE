@@ -26,7 +26,7 @@ export interface State extends SnackbarOrigin {
 
 const Winery = () => {
   const [isloading, setLoading] = useState(false);
-  const {  chainId } = useWeb3();
+  const { account, chainId } = useWeb3();
   const [tabValue, setTab] = useState(0); // True - show stakedAmount NFT , False - show unstakedAmount NFT
   const [checked, setChecked] = useState(false);
 
@@ -48,7 +48,6 @@ const Winery = () => {
     setSnack({ open: false, message: "" });
   };
 
-  const account = "0x44e45C4Af784dA8Ac5455D4148aC870aB6FC72bB";
   // Get staked & resting NFT
   useEffect(() => {
     if (account && wineryContract) {
@@ -172,7 +171,7 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          console.log("5");
+          console.log('5')
 
           localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
@@ -215,7 +214,7 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          console.log("6");
+          console.log('6')
 
           localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
@@ -253,7 +252,7 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          console.log("7");
+          console.log('7')
 
           localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
@@ -292,7 +291,7 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          console.log("8");
+          console.log('8')
 
           localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
