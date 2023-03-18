@@ -182,6 +182,7 @@ const Overview = () => {
           _wineryVintageWine,
           _masterVintnerNumber,
           _fatiguePerMinuteWithModifier,
+          _maxFatigue,
           _yieldPPS,
           _CLAIM_VINTAGEWINE_CONTRIBUTION_PERCENTAGE,
           _CLAIM_VINTAGEWINE_BURN_PERCENTAGE,
@@ -226,6 +227,10 @@ const Overview = () => {
               address: WINERY_ADDRESS[chainId],
               name: "getFatiguePerMinuteWithModifier",
               params: [account],
+            },
+            {
+              address: WINERY_ADDRESS[chainId],
+              name: "MAX_FATIGUE",
             },
             {
               address: WINERY_ADDRESS[chainId],
@@ -287,9 +292,11 @@ const Overview = () => {
           Number(_masterVintnerNumber),
           Number(_startTime),
           Number(_fatiguePerMinuteWithModifier),
+          Number(_maxFatigue),
           Number(_yieldPPS)
         );
       };
+
       getInfo();
       const interval = setInterval(getInfo, 10000);
       return () => {
@@ -306,12 +313,14 @@ const Overview = () => {
     masterVintnerNumber: number,
     startTimeStamp: number,
     fatiguePerMinuteWithModifier: number,
+    maxFatigue: number,
     yieldPPS: number
   ) => {
     if (chainId && wineryContract && !_.isEmpty(userStakedList)) {
       const web3Provider = NETWORKS.filter(
         (item) => item.chainId === chainId
       )[0]?.defaultProvider[0];
+
       let [masterVintnerSkillModifier, maxVintageWine] = await multicall(
         WINERYPROGRESSION_ABI,
         [
@@ -357,20 +366,31 @@ const Overview = () => {
         yieldPPS
       );
       setvpm(newVintageWineAmount / Math.pow(10, 18));
+
+      const fatiguePerDay =
+        ((fatiguePerMinuteWithModifier * 60 * 24) / maxFatigue) * 100;
+
+      console.log(
+        "Check refresh for vpm = ",
+        newVintageWineAmount / Math.pow(10, 18)
+      );
+      console.log("Fatigue per Day " + Number(fatiguePerDay));
+      firebase?.checkRefreshStats(
+        newVintageWineAmount / Math.pow(10, 18),
+        Number(fatiguePerDay),
+        account!
+      );
+
       dispatch(
         setUserNFTState({
           vintageWinePerMinute: newVintageWineAmount / Math.pow(10, 18),
         })
       );
 
+      // If amount above storage value, return storage value
       if (newVintageWineAmount / Math.pow(10, 18) > maxVintageWine) {
-        firebase?.checkSetMaxVpm(maxVintageWine, account!);
         return maxVintageWine;
       }
-      firebase?.checkSetMaxVpm(
-        newVintageWineAmount / Math.pow(10, 18),
-        account!
-      );
       return newVintageWineAmount;
     }
   };
@@ -381,7 +401,8 @@ const Overview = () => {
         setLoading(true);
         let tx = await wineryContract.resetFatigue();
         await tx.wait();
-        localStorage.setItem("refreshMaxVpm", "true");
+        console.log('1')
+        localStorage.setItem("refreshFirecloudStats", "true");
         window.location.reload();
       } catch (err: any) {
         const msg = err?.data?.message!;

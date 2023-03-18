@@ -171,7 +171,9 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true");
+          console.log('5')
+
+          localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
         }
       } catch (err: any) {
@@ -212,7 +214,9 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true");
+          console.log('6')
+
+          localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
         }
       } catch (err: any) {
@@ -248,7 +252,9 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true");
+          console.log('7')
+
+          localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
         }
       } catch (err: any) {
@@ -285,7 +291,9 @@ const Winery = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true");
+          console.log('8')
+
+          localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
         }
       } catch (err: any) {
