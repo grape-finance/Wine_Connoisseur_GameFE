@@ -181,7 +181,9 @@ const Tools = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true");
+          console.log('3')
+
+          localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
         }
       } catch (err: any) {
@@ -219,7 +221,9 @@ const Tools = () => {
         const receipt = await tx.wait();
         if (receipt.status) {
           setLoading(false);
-          localStorage.setItem("refreshMaxVpm", "true");
+          console.log('4')
+
+          localStorage.setItem("refreshFirecloudStats", "true");
           window.location.reload();
         }
       } catch (err: any) {

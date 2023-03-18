@@ -10,7 +10,6 @@ import {
   collection,
   DocumentReference,
   DocumentData,
-  DocumentSnapshot,
   orderBy,
   limit,
 } from "firebase/firestore/lite";
@@ -18,8 +17,7 @@ import { initializeApp } from "firebase/app";
 import { Contract } from "ethers";
 import multicall from "utils/multicall";
 import WINERYPROGRESSION_ABI from "abi/wineryProgression.json";
-import WINERY_ABI from "abi/winery.json";
-import { WINERYPROGRESSION_ADDRESS, WINERY_ADDRESS } from "config/address";
+import { WINERYPROGRESSION_ADDRESS } from "config/address";
 import NETWORKS from "config/network";
 
 const firebaseConfig = {
@@ -61,7 +59,7 @@ export class FirebaseHelper {
     this.chainId = chainId;
   }
 
-  async getWineryProgressData(wallet: string): Promise<[number, number]> {
+  async getWineryProgressData(wallet: string): Promise<number> {
     const web3Provider: string = NETWORKS.filter(
       (item) => item.chainId === this.chainId
     )[0]?.defaultProvider[0];
@@ -79,33 +77,14 @@ export class FirebaseHelper {
       this.chainId
     );
 
-    const [_fatiguePerMinute, _MAX_FATIGUE] = await multicall(
-      WINERY_ABI,
-      [
-        {
-          address: WINERY_ADDRESS[this.chainId],
-          name: "getFatiguePerMinuteWithModifier",
-          params: [wallet],
-        },
-        {
-          address: WINERY_ADDRESS[this.chainId],
-          name: "MAX_FATIGUE",
-        },
-      ],
-      web3Provider,
-      this.chainId
-    );
-
-    const fatiguePerMinute =
-      ((_fatiguePerMinute * 60 * 24) / _MAX_FATIGUE) * 100;
-    return [Number(_level[0]), Number(fatiguePerMinute)];
+    return Number(_level[0]);
   }
 
   async getAllUsers(count: number): Promise<LeaderboardUser[]> {
     let leaderboardUsers: LeaderboardUser[] = [];
 
     const userRef = collection(this.db, "users");
-    const q = query(userRef, orderBy("maxVpm", "desc"), limit(count));
+    const q = query(userRef, orderBy("fatiguePerDay", "desc"), limit(count));
     const users = await getDocs(q);
     users.forEach(async (user) => {
       const userData = user.data();
@@ -113,7 +92,7 @@ export class FirebaseHelper {
         id: user.id,
         level: userData.level,
         maxVpm: userData.maxVpm,
-        fatiguePerDay: 0,
+        fatiguePerDay: userData.fatiguePerDay,
         stakedVintners: 0,
         stakedVintnersMasters: 0,
         restingVintners: 0,
@@ -125,73 +104,83 @@ export class FirebaseHelper {
 
     await leaderboardUsers.reduce(async (referencePoint, user) => {
       await referencePoint;
-      const [level, fatiguePerDay] = await this.getWineryProgressData(user.id);
-      user.level = level;
-      user.fatiguePerDay = fatiguePerDay;
+      user.level = await this.getWineryProgressData(user.id);
+      // user.fatiguePerDay = fatiguePerDay;
       await this.getVintners(user);
       await this.getTools(user);
       await this.getSkills(user);
     }, Promise.resolve());
 
     return leaderboardUsers.sort((a, b) =>
-      a.maxVpm > b.maxVpm ? -1 : a.maxVpm < b.maxVpm ? 1 : 0
+      a.fatiguePerDay > b.fatiguePerDay
+        ? -1
+        : a.fatiguePerDay < b.fatiguePerDay
+        ? 1
+        : 0
     );
   }
 
-  checkSetMaxVpm(maxVpm: number, account: string) {
-    if (localStorage.getItem("refreshMaxVpm") === "true") {
-      localStorage.removeItem("refreshMaxVpm");
-      this.setMaxVPM(maxVpm, account);
+  checkRefreshStats(maxVpm: number, fatiguePerDay: number, account: string) {
+    console.log(`[checkRefreshStats] maxVpm = ${maxVpm}, fatiguePerDay = ${fatiguePerDay}`)
+    if (localStorage.getItem("refreshFirecloudStats") === "true") {
+      localStorage.removeItem("refreshFirecloudStats");
+      this.setPlayerStats(maxVpm, fatiguePerDay, account);
     }
   }
 
-  async setMaxVPM(value: string | number, account: string) {
+  async setPlayerStats(
+    maxVpm: string | number,
+    fatiguePerDay: string | number,
+    account: string
+  ) {
     const userRef = doc(this.db, "users", account);
     const user = await getDoc(userRef);
     if (
       !user.exists() ||
-      (user.exists() && user.data().maxVpm < Number(value))
+      (user.exists() && user.data().fatiguePerDay < Number(fatiguePerDay))
     ) {
-      this.dispatchMaxVPM(userRef, value);
+      this.dispatchUpdate(userRef, maxVpm, fatiguePerDay);
     }
   }
 
-  private async dispatchMaxVPM(
+  private async dispatchUpdate(
     ref: DocumentReference<DocumentData>,
-    value: string | number
+    maxVpm: string | number,
+    fatiguePerDay: string | number
   ) {
     let doc = {
-      maxVpm: Number(value),
-      maxVpmDate: Timestamp.fromDate(new Date()),
+      maxVpm: Number(maxVpm),
+      fatiguePerDay: Number(fatiguePerDay),
+      lastUpdateDate: Timestamp.fromDate(new Date()),
     };
     await setDoc(ref, doc, { merge: true });
   }
 
-  getMaxVPMDate(user: DocumentSnapshot<DocumentData>, value: string | number) {
-    if (!user.exists()) {
-      return Timestamp.fromDate(new Date());
-    }
-    if (
-      user.exists() &&
-      (!user.data().maxVpm || user.data().maxVpm < Number(value))
-    ) {
-      return Timestamp.fromDate(new Date());
-    }
-    return user.data()!.maxVpmDate;
-  }
+  // getLastUpdateDate(user: DocumentSnapshot<DocumentData>, value: string | number) {
+  //   if (!user.exists()) {
+  //     return Timestamp.fromDate(new Date());
+  //   }
+  //   if (
+  //     user.exists() &&
+  //     (!user.data().maxVpm || user.data().maxVpm < Number(value))
+  //   ) {
+  //     return Timestamp.fromDate(new Date());
+  //   }
+  //   return user.data()!.lastUpdateDate;
+  // }
 
-  getMaxVPM(user: DocumentSnapshot<DocumentData>, value: string | number) {
-    if (!user.exists()) {
-      return Number(value);
-    }
-    if (
-      user.exists() &&
-      (!user.data().maxVpm || user.data().maxVpm < Number(value))
-    ) {
-      return Number(value);
-    }
-    return user.data()!.maxVpm;
-  }
+  // getMaxVPM(user: DocumentSnapshot<DocumentData>, value: string | number) {
+  //   if (!user.exists()) {
+  //     return Number(value);
+  //   }
+  //   if (
+  //     user.exists() &&
+  //     (!user.data().maxVpm || user.data().maxVpm < Number(value))
+  //   ) {
+  //     return Number(value);
+  //   }
+  //   return user.data()!.maxVpm;
+  // }
 
   async getVintners(user: any) {
     const vintners = await this.fetchVintners(user.id);

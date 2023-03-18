@@ -199,7 +199,9 @@ const Skills = () => {
         setLoading(true);
         await tx.wait();
         setLoading(false);
-        localStorage.setItem("refreshMaxVpm", "true");
+        console.log('2')
+
+        localStorage.setItem("refreshFirecloudStats", "true");
         window.location.reload();
       } catch (err: any) {
         const msg = err?.data?.message!;
