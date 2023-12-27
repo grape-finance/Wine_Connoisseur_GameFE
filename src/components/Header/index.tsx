@@ -152,14 +152,6 @@ const Header = () => {
                     <a
                       rel="noreferrer noopener"
                       target="_blank"
-                      href={"https://brewmaster.on.fleek.co/"}
-                    >
-                      <button className="menu-button">Brew Master</button>
-                    </a>
-
-                    <a
-                      rel="noreferrer noopener"
-                      target="_blank"
                       href={buyGrapeAddress}
                     >
                       <button className="menu-button">Buy xGRAPE</button>
@@ -256,16 +248,7 @@ const Header = () => {
                       <button className="menu-button">Vintage Casino</button>
                     </a>
                   </Grid>
-                  <Grid item>
-                    {" "}
-                    <a
-                      rel="noreferrer noopener"
-                      target="_blank"
-                      href={"https://brewmaster.on.fleek.co/"}
-                    >
-                      <button className="menu-button">Brew Master</button>
-                    </a>
-                  </Grid>
+                 
                   <Grid item>
                     <a
                       rel="noreferrer noopener"
